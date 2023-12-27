@@ -1,0 +1,26 @@
+.channel_logo{
+  width: 2.2rem;  
+  height: 2.2rem;
+  margin: auto;
+  border-radius: 100%;
+  background-color: rgb(224,227,214);
+  display: flex;
+}
+.fstChar_logo{
+  margin: auto;
+  color: black;
+  font-weight: bolder;
+  cursor: pointer;
+}
+.container_pages_app{
+ display: flex;
+}
+.container_pages{
+    width: calc(100vw - 5rem);
+    height: calc(100vh - 3.40rem);
+    overflow: auto;
+}
+body{
+ color: #f1f1f1;
+ background: #0f0f0f; 
+}
