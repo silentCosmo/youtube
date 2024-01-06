@@ -28,7 +28,8 @@ import './LeftSideBar.css'
 
 function LeftSideBar({toggleSidebar,sideBarToggler}) {
   return (
-    <div className='container_leftsidebar' id="lsb" style={sideBarToggler}>
+      <div className='container_leftsidebar' id="lsb" style={sideBarToggler}>
+        <div className="container_inside" onClick={()=>toggleSidebar()}>
         <Link to={'/'} className="icons_sidebar">
             <AiOutlineHome size={22} className="icon_sidebar"/>
             <div className="text_sidebar_icon">Home</div>
@@ -37,40 +38,40 @@ function LeftSideBar({toggleSidebar,sideBarToggler}) {
             <SlEnergy size={22} className="icon_sidebar"/>
             <div className="text_sidebar_icon">Shorts</div>
         </Link>
-        <div className="icons_sidebar">
+        <Link to={'/subscriptions'} className="icons_sidebar">
             <MdSubscriptions size={22} className="icon_sidebar"/>
             <div className="text_sidebar_icon">Subscriptions</div>
-        </div>
+        </Link>
 
         <div className="line_sidebar"/>
 {/* You */}
         <div className="icons_sidebar">
             <div className="you_text">You <span className="gt_text">&gt;</span></div>
         </div>
-        <div className="icons_sidebar">
+        <Link to={'/your-channel'} className="icons_sidebar">
             <MdOutlinePortrait size={22} className="icon_sidebar"/>
             <div className="text_sidebar_icon">Your channel</div>
-        </div>
-        <div className="icons_sidebar">
+        </Link>
+        <Link to={'/watch-history'} className="icons_sidebar">
             <MdHistory size={22} className="icon_sidebar"/>
             <div className="text_sidebar_icon">History</div>
-        </div>
-        <div className="icons_sidebar">
+        </Link>
+        <Link to={'/your-videos'} className="icons_sidebar">
             <RiVideoLine size={22} className="icon_sidebar"/>
             <div className="text_sidebar_icon">Videos</div>
-        </div>
-        <div className="icons_sidebar">
+        </Link>
+        <Link to={'/watch-later'} className="icons_sidebar">
             <MdOutlineWatchLater size={22} className="icon_sidebar"/>
             <div className="text_sidebar_icon">Watch Later</div>
-        </div>
-        <div className="icons_sidebar">
+        </Link>
+        <Link to={'/your-clips'} className="icons_sidebar">
             <RiScissorsLine size={22} className="icon_sidebar"/>
             <div className="text_sidebar_icon">Your clips</div>
-        </div>
-        <div className="icons_sidebar">
+        </Link>
+        <Link to={'/liked-videos'} className="icons_sidebar">
             <BiLike size={22} className="icon_sidebar"/>
             <div className="text_sidebar_icon">Liked videos</div>
-        </div>
+        </Link>
 
         <div className="line_sidebar"/>
 {/* Subscriptions */}
@@ -127,7 +128,7 @@ function LeftSideBar({toggleSidebar,sideBarToggler}) {
         </div>
         <div className="icons_sidebar">
             <SiYoutubegaming size={22} className="icon_sidebar"/>
-            <div className="text_sidebar_icon">Your clips</div>
+            <div className="text_sidebar_icon">Gaming</div>
         </div>
         <div className="icons_sidebar">
             <BiNews size={22} className="icon_sidebar"/>
@@ -181,8 +182,8 @@ function LeftSideBar({toggleSidebar,sideBarToggler}) {
            <br /><br />
         </div>
         
-        <div className="container_2_sidebar" onClick={()=>toggleSidebar()}>g</div>
-
+        </div>
+        <div className="container_trans" onClick={()=>toggleSidebar()}></div>
     </div>
   )
 }

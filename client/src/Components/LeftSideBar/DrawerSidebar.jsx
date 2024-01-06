@@ -6,9 +6,9 @@ import { AiOutlineHome } from 'react-icons/ai'
 import { SlEnergy } from "react-icons/sl"; 
 import { MdSubscriptions } from "react-icons/md"; 
 
-function DrawerSidebar() {
+function DrawerSidebar({toggleSidebar,sideBarToggler}) {
   return (
-    <div className="container_drawersidebar">
+    <div className="container_drawersidebar" style={{sideBarToggler}}>
         <Link to={'/'} className="icons_drawer">
             <AiOutlineHome size={22} className="icon_drawer"/>
             <div className="text_drawer">Home</div>
@@ -25,6 +25,7 @@ function DrawerSidebar() {
             <MdOutlineVideoLibrary size={22} className="icon_drawer"/>
             <div className="text_drawer">You</div>
         </Link>
+
     </div>
   )
 }

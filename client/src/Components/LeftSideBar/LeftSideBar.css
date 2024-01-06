@@ -1,12 +1,12 @@
 .container_leftsidebar{
-    background: #0f0f0f;
-    width: 17rem;
-    height: calc(100vh - 3.40rem);
-    overflow-y: auto;
-    position: absolute;
+    background: #0f0f0f;/* */
+    width: 17rem; 
+    height: calc(100vh - 4.50rem);
     padding-top: 1rem;
-    padding-inline: 0.5rem;
-    z-index: 100;
+    padding-inline: 0.5rem;/* 
+    z-index: 100; */
+    position: absolute;
+    overflow-y: auto;
 }
 .icons_sidebar{
     color: #f0f0f0;
@@ -99,12 +99,13 @@
     background-color: #0f0f0f;
     height: calc(100vh - 3.40rem);
     padding-top: 1rem;
-    padding-inline: 0.3rem;
     box-sizing: border-box;
     overflow-y: auto;
+    width: 5rem;/* 
+    padding-inline: 0.3rem;
     position: absolute;
-    width: 5rem;
     z-index: 10;
+    border: 1px solid blueviolet; */
 }
 .icons_drawer{
     color: #f0f0f0;
@@ -138,4 +139,13 @@
 .container_3_sidebar{
     flex-grow: 1;
     background-color: aquamarine;
+}
+
+.container_trans{ /*
+    background-color: goldenrod; */
+    top: 3.4rem;
+    position: fixed;
+    left: 18rem;
+    right: 0;
+    bottom: 0; 
 }
