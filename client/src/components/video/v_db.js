@@ -1,13 +1,7 @@
-import React from 'react'
-import './Home.css'
-import vid from '../../components/video/sample.mp4'
-import vid1 from '../../components/video/sample_1.mp4'
-import LeftSideBar from '../../components/Leftsidebar/LeftSideBar'
-import ShowVideoGrid from '../../components/Showvideogrid/ShowVideoGrid'
+import vid from './sample.mp4'
+import vid1 from './sample_1.mp4'
 
-function Home() {
-  const navList = ['All', 'Coding', 'Java', 'React', 'NodeJs', 'NovaFrame', 'Gaming', 'Science','Film', 'Animation', 'Marvel', 'Avengers']
-  const vids = [
+export const vids = [
     {
       _id: 1,
       src: vid,
@@ -19,6 +13,7 @@ function Home() {
     {
       _id: 2,
       views:87,
+      like:46,
       src: vid,
       title: 'Sunset at Wakanda Beach',
       uploader: 'explorer123',
@@ -95,24 +90,3 @@ function Home() {
       description: 'Join us as we hike through the scenic coastal trails of Wakanda.'
     }
 ];
-
-  return (
-    <div className="container_Pages_App">
-      <LeftSideBar/>
-      <div className="container2_Pages_App">
-        <div className="navigation_Home">
-          {
-            navList.map((navItem,index)=>{
-              return(
-                <p key={index} className="btn_nav_home">{navItem}</p>
-              )
-            })
-          }
-        </div>
-        <ShowVideoGrid vids={vids} />
-      </div>
-    </div>
-  )
-}
-
-export default Home
