@@ -24,7 +24,7 @@ function Auth({ user, setAuthBtn, setEditCreateChannelBtn }) {
                 user?.result.name?(
                     <>
                     {
-                        <Link to={'/'} className="btn_Auth">Your Channel</Link>
+                        <Link to={`/channel/${user?.result?._id}`} className="btn_Auth">Your Channel</Link>
                     }
                     </>
                 ):

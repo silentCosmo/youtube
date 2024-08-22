@@ -11,7 +11,7 @@ export const vids = [
       description: 'A peaceful walk along the whispering waters of Wakanda.'
     },
     {
-      _id: 2,
+      _id: 1,
       views:87,
       like:46,
       src: vid,

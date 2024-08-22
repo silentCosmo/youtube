@@ -4,11 +4,13 @@ import Navbar from "./components/Navbar/Navbar";
 import { useState } from "react";
 import AllRoutes from "./AllRoutes";
 import DrawerSliderBar from "./components/Leftsidebar/DrawerSliderBar";
+import CreateEditChannel from "./pages/Channel/CreateEditChannel";
+import VideoUpload from "./pages/Videoupload/VideoUpload";
 
 function App() {
   const [toggleDrawerSidebar, setDrawerSidebar] = useState({ display: "none" });
   const [editCreateChannelBtn, setEditCreateChannelBtn] = useState(false);
-  const [videoUploadPage, setVideoIUploadPage] = useState(false);
+  const [videoUploadPage, setVideoUploadPage] = useState(false);
 
   const toggleDrawer = () => {
     if (toggleDrawerSidebar.display === "none") {
@@ -20,9 +22,13 @@ function App() {
 
   return (
     <Router>
-        <Navbar editCreateChannelBtn={setEditCreateChannelBtn} toggleDrawer={toggleDrawer}/>
+      {
+        videoUploadPage && <VideoUpload setVideoUploadPage={setVideoUploadPage} />
+      }
+      {editCreateChannelBtn && (<CreateEditChannel setEditCreateChannelBtn={setEditCreateChannelBtn} />)}
+        <Navbar setEditCreateChannelBtn={setEditCreateChannelBtn} toggleDrawer={toggleDrawer}/>
         <DrawerSliderBar toggleDrawer={toggleDrawer} toggleDrawerSidebar={toggleDrawerSidebar} />
-        <AllRoutes/>
+        <AllRoutes setEditCreateChannelBtn={setEditCreateChannelBtn} setVideoUploadPage={setVideoUploadPage} />
     </Router>
   );
 }
