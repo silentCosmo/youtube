@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Navbar.css";
 import logo from "./logo.ico";
 import { Link } from "react-router-dom";
@@ -7,13 +7,74 @@ import { IoMdNotificationsOutline } from "react-icons/io";
 import { PiUserCircle } from "react-icons/pi";
 import SearchBar from "./Searchbar/SearchBar";
 import Auth from "../../pages/Auth/Auth";
+import { googleLogout, useGoogleLogin } from "@react-oauth/google";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../redux/action/auth";
+import { setCurrentUser } from "../../redux/action/currentuser";
+import { jwtDecode } from 'jwt-decode'
 
 function Navbar({ toggleDrawer, setEditCreateChannelBtn }) {
   const [authBtn, setAuthBtn] = useState(false);
-  //const currentUser = null;
-  const currentUser = {
+  const [user,setUser] = useState(null)
+  const [profile,setProfile] = useState([])
+  const dispatch = useDispatch()
+  
+  
+
+  const currentUser = useSelector(state=>state.currentUserReducer);
+  
+  
+  /* const currentUser = {
     result: { email: "wandamaximoff@marvel.com", joinedon: "222-07-13423" },
-  };
+  }; */
+
+  
+  const successSignIn = (userEmail)=>{
+    if(userEmail){
+      dispatch(login({email:userEmail}))
+    } 
+  }
+
+  const signIn = useGoogleLogin({
+    onSuccess: tokenResponse => setUser(tokenResponse),
+    onError: (error) => console.log('Login Failed', error)
+  })
+  
+
+  useEffect(() => {
+    if(user){
+      axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,{
+        headers:{
+          Authorization:`Bearer ${user.access_token}`,
+          Accept:'application/json'
+        }
+      }).then((res)=>{
+        setProfile(res.data)
+        successSignIn(res.data.email)
+      }).catch((error)=>console.log(error)
+      )
+    }
+    
+  }, [user])
+
+  const logOut = ()=>{
+    dispatch(setCurrentUser(null))
+    localStorage.clear()
+    googleLogout()
+  }
+  
+  useEffect(()=>{
+    const token = currentUser?.token;
+    if(token){
+      const decodeToken = jwtDecode(token)
+      if(decodeToken.exp * 1000 < new Date().getTime()){
+        logOut()
+      }
+    }
+    dispatch(setCurrentUser(JSON.parse(localStorage.getItem("Profile"))))
+  },[currentUser?.token,dispatch])
+  
 
   return (
     <>
@@ -53,15 +114,15 @@ function Navbar({ toggleDrawer, setEditCreateChannelBtn }) {
                 >
                   <p className="fstChar_logo_App">
                     {currentUser?.result.name ? (
-                      <>{currentUser?.result.name.charAt(0).toUpperCase()}</>
+                      <>{currentUser?.result.name?.charAt(0).toUpperCase()}</>
                     ) : (
-                      <>{currentUser?.result.email.charAt(0).toUpperCase()}</>
+                      <>{currentUser?.result.email?.charAt(0).toUpperCase()}</>
                     )}
                   </p>
                 </div>
               </>
             ) : (
-              <div className="Auth_Btn">
+              <div className="Auth_Btn" onClick={()=>signIn()}>
                 <PiUserCircle size={22} /> <b> &nbsp; Sign in</b>
               </div>
             )}

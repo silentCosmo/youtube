@@ -2,9 +2,10 @@ import React from 'react'
 import './WHL.css'
 import LeftSideBar from '../Leftsidebar/LeftSideBar'
 import WHLvideoList from './WHLvideoList'
-import { currentUser } from '../../assets/u_db'
+import { useSelector } from 'react-redux'
 
 function WHL({page,videoList}) {
+    const currentUser = useSelector(state=>state.currentUserReducer);
   return (
     <div className="container_Pages_App">
         <LeftSideBar/>

@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import "./Comment.css";
 import DisplayComment from "./DisplayComment";
+import { useSelector } from "react-redux";
 
 function Comment({ videoId }) {
   const [commentText, setCommentText] = useState("");
-  const currentUser = 1;
+  const currentUser = useSelector(state=>state.currentUserReducer);
   const commentList = [
     {
       _id: 1,

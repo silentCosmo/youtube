@@ -1,17 +1,25 @@
 import { BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AllRoutes from "./AllRoutes";
 import DrawerSliderBar from "./components/Leftsidebar/DrawerSliderBar";
 import CreateEditChannel from "./pages/Channel/CreateEditChannel";
 import VideoUpload from "./pages/Videoupload/VideoUpload";
+import { useDispatch } from "react-redux";
+import { fetchAllChannel } from "./redux/action/channeluser";
+import { getAllVideo } from "./redux/action/video";
 
 function App() {
   const [toggleDrawerSidebar, setDrawerSidebar] = useState({ display: "none" });
   const [editCreateChannelBtn, setEditCreateChannelBtn] = useState(false);
   const [videoUploadPage, setVideoUploadPage] = useState(false);
 
+  const dispatch = useDispatch()
+  useEffect(()=>{
+    dispatch(fetchAllChannel())
+    dispatch(getAllVideo())
+  },[dispatch])
   const toggleDrawer = () => {
     if (toggleDrawerSidebar.display === "none") {
       setDrawerSidebar({ display: "flex" });

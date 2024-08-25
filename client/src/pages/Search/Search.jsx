@@ -16,7 +16,7 @@ function Search() {
     <div className="container_Pages_App">
       <LeftSideBar />
       <div className="container2_Pages_App">
-        {res.length != 0 ? (
+        {res.length !== 0 ? (
           <ShowVideoGrid vids={res} />
         ) : (
           <h3

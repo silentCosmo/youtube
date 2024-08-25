@@ -1,12 +1,29 @@
 import React, { useState } from "react";
 import "./VideoUpload.css";
-import { currentUser } from "../../assets/u_db";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
+import { useDispatch, useSelector } from "react-redux";
+import { uploadVideo } from "../../redux/action/video";
 
 function VideoUpload({ setVideoUploadPage }) {
   const [title, setTitle] = useState("");
   const [videoFile, setVideoFile] = useState("");
   const [progress, setProgress] = useState(0);
+  const dispatch = useDispatch()
+  
+  const currentUser = useSelector(state=>state.currentUserReducer);
+
+  const fileOption = {
+    onUploadProgress:(ProgressEvent)=>{
+      const {loaded,total} = ProgressEvent;
+      const percentage = Math.floor(((loaded / 1000)*100)/ (total/1000))
+      setProgress(percentage)
+      if(percentage === 100){
+        setTimeout(function(){},3000)
+        setVideoUploadPage(false)
+      }
+    },
+  }
+
   const handleSetVideoFile = (e) => {
     setVideoFile(e.target.files[0]);
   };
@@ -15,14 +32,21 @@ function VideoUpload({ setVideoUploadPage }) {
       alert("Title could not be empty");
     } else if (!videoFile) {
       alert("Please select a video file");
-    } else if (videoFile.size > 1000000) {
+    } else if (videoFile.size > 10000000) {
       alert("Plese select a video file lessthan 10 mb");
     } else {
-      const fileData = new FormData();
-      fileData.append("file", videoFile);
-      fileData.append("title", title);
-      fileData.append("channel", currentUser?.result?._id);
-      fileData.append("uploader", currentUser?.result?.name);
+      const fileData = new FormData()
+      fileData.append("file", videoFile)
+      fileData.append("title", title)
+      fileData.append("channel", currentUser?.result?._id)
+      fileData.append("uploader", currentUser?.result?.name)
+      console.log(videoFile);
+      console.log(fileData);
+      // Log each key-value pair in FormData
+    for (let pair of fileData.entries()) {
+      console.log(`${pair[0]}: ${pair[1]}`);
+    }
+      dispatch(uploadVideo({fileData:fileData,fileOption:fileOption}))
     }
   };
   return (
@@ -39,6 +63,8 @@ function VideoUpload({ setVideoUploadPage }) {
           <input
             type="text"
             maxLength={30}
+            value={title}
+            onChange={(e)=>setTitle(e.target.value)}
             placeholder="Enter title for the video"
             className="ibox_vidupload"
           />

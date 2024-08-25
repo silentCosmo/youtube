@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
 import './CreateEditChannel.css'
-import { currentUser } from '../../assets/u_db'
+import { useDispatch, useSelector } from 'react-redux';
+import {updateChannelData} from '../../redux/action/channeluser'
+import { login } from '../../redux/action/auth';
 
 function CreateEditChannel({setEditCreateChannelBtn}) {
+    const dispatch = useDispatch()
+    const currentUser = useSelector(state=>state.currentUserReducer);
     const [name,setName] = useState(currentUser?.result.name)
     const [desc,setDesc] = useState(currentUser?.result.desc)
     const handleSubmit = ()=>{
@@ -12,7 +16,11 @@ function CreateEditChannel({setEditCreateChannelBtn}) {
         }else if(!desc){
             alert('Please enter Description')
         }else{
+            dispatch(updateChannelData(currentUser?.result._id,{name:name,desc:desc}))
             setEditCreateChannelBtn(false)
+            setTimeout(()=>{
+                dispatch(login({email:currentUser.result.email}))
+            },5000)
         }
     }
   return (

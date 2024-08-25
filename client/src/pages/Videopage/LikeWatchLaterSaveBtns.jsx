@@ -9,14 +9,13 @@ import {
   RiHeartFill,
 } from "react-icons/ri";
 import { BiLike, BiDislike, BiSolidLike, BiSolidDislike } from "react-icons/bi";
-import { currentUser as user } from "../../assets/u_db";
+import { useSelector } from "react-redux";
 
 function LikeWatchLaterSaveBtns({ vv, vid }) {
   const [saveVideo, setSaveVideo] = useState(false);
   const [likeVideo, setLikeVideo] = useState(false);
   const [dislikeVideo, setDislikeVideo] = useState(false);
-  const currentUser = user ? user : false
-  console.log(currentUser);
+  const currentUser = useSelector(state=>state.currentUserReducer);
 
   const toggleSaveVideo = () => {
     if (currentUser) {

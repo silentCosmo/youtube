@@ -3,9 +3,10 @@ import './YourVideo.css'
 import LeftSideBar from '../../components/Leftsidebar/LeftSideBar'
 import ShowVideoGrid from '../../components/Showvideogrid/ShowVideoGrid'
 import { vids as yourVideoList } from '../../components/video/v_db'
+import { useSelector } from 'react-redux'
 
 function YourVideo() {
-    const currentUser = 1
+    const currentUser = useSelector(state=>state.currentUserReducer);
   return (
     <div className="container_Pages_App">
         <LeftSideBar/>

@@ -1,6 +1,6 @@
 import moment from "moment";
 import React, { useState } from "react";
-import { currentUser } from "../../assets/u_db";
+import { useSelector } from "react-redux";
 
 function DisplayComment({
   cId,
@@ -12,6 +12,7 @@ function DisplayComment({
   const [edit, setEdit] = useState(false);
   const [cmtId, setCmtId] = useState("");
   const [cmtBody, setCmtBody] = useState("");
+  const currentUser = useSelector(state=>state.currentUserReducer);
   const handleEdit = (cId, cBody) => {
     setEdit(true);
     setCmtId(cId);

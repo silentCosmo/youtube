@@ -1,13 +1,16 @@
 import React from "react";
 import "./DescribeChannel.css";
-import { channel, currentUser } from "../../assets/u_db";
+import { channel} from "../../assets/u_db";
 import { FaEdit, FaUpload } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 function DescribeChannel({ cid, setVideoUploadPage, setEditCreateChannelBtn }) {
-  console.log(cid);
-  console.log(Number(cid));
-
-  const currentChannel = channel.filter((c) => c._id === Number(cid))[0];
+  const currentUser = useSelector(state=>state.currentUserReducer);
+  const channel = useSelector(state=>state.channelReducer)
+  
+  
+  const currentChannel = channel.filter((c) => c._id === cid)[0];
+  
   return (
     <div className="container3_chanel">
       <div className="chanel_logo_chanel">

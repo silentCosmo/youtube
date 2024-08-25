@@ -5,10 +5,11 @@ import { MdOutlineWatchLater } from 'react-icons/md'
 import { AiOutlineLike } from 'react-icons/ai'
 import LeftSideBar from '../../components/Leftsidebar/LeftSideBar'
 import WHLvideoList from '../../components/WHL/WHLvideoList'
-import { currentUser } from '../../assets/u_db'
 import { vids } from '../../components/video/v_db'
+import { useSelector } from 'react-redux'
 
 function Library() {
+    const currentUser = useSelector(state=>state.currentUserReducer);
   return (
     <div className="container_Pages_App">
         <LeftSideBar/>
