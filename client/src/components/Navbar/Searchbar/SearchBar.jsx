@@ -4,11 +4,16 @@ import { MdOutlineMic, MdSearch } from "react-icons/md";
 import { CiSearch } from "react-icons/ci";
 import SearchList from './SearchList';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 function SearchBar() {
     const [searchQuery,setSearchQuery] = useState("")
     const [searchList,setSearchList] = useState(false)
-    const TitleArray = ["video","marvel", "animation", "avengers", "iron man" ].filter(q=>q.toUpperCase().includes(searchQuery.toUpperCase()))
+    const Ta = useSelector(s=>s.videoReducer).data
+    console.log(Ta);
+    
+    const TitleArray = useSelector(state=>state.videoReducer)?.data?.filter(q=>q?.title?.toUpperCase().includes(searchQuery.toUpperCase())).map(m=>m?.title)
+    //const TitleArray = ["video","marvel", "animation", "avengers", "iron man" ].filter(q=>q.toUpperCase().includes(searchQuery.toUpperCase()))
   return (
     <>
     <div className="SearchBar_Container">

@@ -10,6 +10,6 @@ const routes = express.Router()
 routes.post("/upload",auth,upload.single("file"),uploadVideo)
 routes.get("/getvideos",getAllVideos)
 routes.patch("/like/:id",auth,likeController)
-routes.patch("/views",auth,viewsController)
+routes.patch("/views/:_id",auth,viewsController)
 
 export default routes

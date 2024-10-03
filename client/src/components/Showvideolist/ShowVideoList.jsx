@@ -1,8 +1,10 @@
 import React from 'react'
-import { vids } from '../video/v_db'
+//import { vids } from '../video/v_db'
 import ShowVideo from '../Showvideo/ShowVideo'
+import { useSelector } from 'react-redux'
 
 function ShowVideoList({videoId}) {
+    const vids = useSelector(state=>state.videoReducer)
   return (
     <div className="Container_ShowVideoGrid">
         {

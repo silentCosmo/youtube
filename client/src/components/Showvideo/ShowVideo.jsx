@@ -4,10 +4,12 @@ import moment from "moment";
 import { Link } from "react-router-dom";
 
 function ShowVideo({ vid }) {
+  console.log(vid);
+  
   return (
     <>
       <Link to={`/watch/${vid._id}`}>
-        <video src={vid.src} className="video_ShowVideo"></video>
+        <video src={vid.path} className="video_ShowVideo"></video>
       </Link>
       <div className="video_description">
         <div className="Chanel_logo_App">
@@ -17,7 +19,7 @@ function ShowVideo({ vid }) {
         </div>
         <div className="video_details">
           <p className="title_vid_ShowVideo">{vid?.title}</p>
-          <p className="vid_views_UploadTime">{vid?.uploader}</p>
+          <p className="vid_views_UploadTime">{vid?.channel}</p>
           <p className="vid_views_UploadTime">
             {vid?.views ? vid.views : 0} views <div className="dot"></div>
             {moment(vid?.createdat).fromNow()}

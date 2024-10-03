@@ -6,10 +6,10 @@ export const uploadVideo = async(req,res)=>{
         try {
             const file = new VideoFile({
                 title:req.body.title,
-                name:req.body.originalname,
-                path:req.body.path,
-                type:req.body.mimetype,
-                size:req.body.size,
+                name:req.file.originalname,
+                path:req.file.path,
+                type:req.file.mimetype,
+                size:req.file.size,
                 channel:req.body.channel,
                 uploader:req.body.uploader,
             })

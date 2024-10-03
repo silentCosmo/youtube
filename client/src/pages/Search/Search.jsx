@@ -3,13 +3,15 @@ import LeftSideBar from "../../components/Leftsidebar/LeftSideBar";
 import ShowVideoGrid from "../../components/Showvideogrid/ShowVideoGrid";
 import { useParams } from "react-router-dom";
 import { vids } from "../../components/video/v_db";
+import { useSelector } from "react-redux";
 
 function Search() {
   const { searchquery } = useParams();
+  const res = useSelector(state=>state.videoReducer)?.data?.filter(q=>q?.title?.toUpperCase().includes(searchquery.toUpperCase()))
 
-  const res = vids?.filter((q) =>
+  /* const res = vids?.filter((q) =>
     q.title.toLowerCase().includes(searchquery.toLowerCase())
-  );
+  ); */
   console.log(res);
 
   return (

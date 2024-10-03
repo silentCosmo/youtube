@@ -9,13 +9,16 @@ import {
   RiHeartFill,
 } from "react-icons/ri";
 import { BiLike, BiDislike, BiSolidLike, BiSolidDislike } from "react-icons/bi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { likeVideo as likeVideoAction } from "../../redux/action/video";
 
-function LikeWatchLaterSaveBtns({ vv, vid }) {
+
+function LikeWatchLaterSaveBtns({ vmd, vid }) {
   const [saveVideo, setSaveVideo] = useState(false);
   const [likeVideo, setLikeVideo] = useState(false);
   const [dislikeVideo, setDislikeVideo] = useState(false);
   const currentUser = useSelector(state=>state.currentUserReducer);
+  const dispatch = useDispatch()
 
   const toggleSaveVideo = () => {
     if (currentUser) {
@@ -28,24 +31,29 @@ function LikeWatchLaterSaveBtns({ vv, vid }) {
       alert("Please login to Save the video");
     }
   };
-  const toggleLike = () => {
+  const toggleLike = (e,lk) => {
     if (currentUser) {
       if (likeVideo) {
         setLikeVideo(false);
+        dispatch(likeVideoAction({id:vid,like:lk-1}))
       } else {
         setLikeVideo(true);
+        dispatch(likeVideoAction({id:vid,like:lk-1}))
         setDislikeVideo(false);
       }
     } else {
       alert("Please login to Like the video");
     }
   };
-  const toggleDislike = () => {
+  const toggleDislike = (e,lk) => {
     if (currentUser) {
       if (dislikeVideo) {
         setDislikeVideo(false);
       } else {
         setDislikeVideo(true);
+        if(likeVideo){
+          dispatch(likeVideoAction({id:vid,like:lk-1}))
+        }
         setLikeVideo(false);
       }
     } else {
@@ -58,7 +66,7 @@ function LikeWatchLaterSaveBtns({ vv, vid }) {
       <div className="btn_videoPage">
         <BsThreeDots size={22} />
       </div>
-      <div className="btn_videoPage" onClick={(e) => toggleSaveVideo()}>
+      <div className="btn_videoPage" onClick={(e) => toggleSaveVideo(e)}>
         {saveVideo ? (
           <>
             <RiBookmarkFill size={22} />
@@ -80,12 +88,12 @@ function LikeWatchLaterSaveBtns({ vv, vid }) {
         <b className="tooltip_videoPage">Share</b>
       </div>
       <div className="like_container">
-        <div className="like_btn" onClick={(e) => toggleLike()}>
+        <div className="like_btn" onClick={(e) => toggleLike(e,vmd.like)}>
           {likeVideo ? <BiSolidLike size={22} /> : <BiLike size={22} />}
-          <b className="like_count">&nbsp;{vv?.like}&nbsp;</b>
+          <b className="like_count">&nbsp;{vmd?.like}&nbsp;</b>
         </div>
         <div className="lvr"></div>
-        <div className="dislike_btn" onClick={(e) => toggleDislike()}>
+        <div className="dislike_btn" onClick={(e) => toggleDislike(vmd.like)}>
           {dislikeVideo ? (
             <BiSolidDislike size={22} />
           ) : (
