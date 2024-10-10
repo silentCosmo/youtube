@@ -1,11 +1,14 @@
 import videoFile from "../Models/VideoFile.js";
 import mongoose from "mongoose";
 
-export const likeController = async(req,res)=>{
-    const {id,_id} = req.params;
+export const  likeController = async(req,res)=>{
+    console.log(req.params);
+    console.log(req.body);
+    
+    const {id:_id} = req.params;
     const {like} = req.body;
 
-    if(mongoose.Types.ObjectId.isValid(_id)){
+    if(!mongoose.Types.ObjectId.isValid(_id)){
         return res.status(404).send("Video unavailable..")
     }
     try {

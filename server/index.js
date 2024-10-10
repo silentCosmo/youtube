@@ -5,6 +5,7 @@ import cors from 'cors'
 import bodyParser from 'body-parser'
 import videoRoutes from './Routes/Video.js'
 import userRoutes from './Routes/User.js'
+import commentRoutes from './Routes/Comment.js'
 import path from 'path'
 
 dotenv.config()
@@ -22,6 +23,7 @@ app.get('/',(req,res)=>{
 app.use(bodyParser.json())
 app.use('/user',userRoutes)
 app.use('/video',videoRoutes)
+app.use('/comment',commentRoutes)
 
 const PORT = process.env.PORT || 5000
 

@@ -11,12 +11,12 @@ import { viewVideo } from "../../redux/action/video";
 function VideoPage() {
   const { vid } = useParams();
   const dispatch = useDispatch();
-  console.log(vid);
+  //console.log(vid);
   
   /* const vids = useSelector(state=>state.videoreducer) */
   const vids = useSelector((state)=>state.videoReducer)
   
-  const vmd = vids?.data.filter((q) => q._id === vid)[0]; 
+  const vmd = vids?.data?.filter((q) => q._id === vid)[0]; 
   const handleViews = ()=> {
     dispatch(viewVideo({id:vid}))
   }
@@ -30,7 +30,7 @@ function VideoPage() {
         <div className="container2_videoPage">
           <div className="video_display_screen_videoPage">
             <video
-              src={`http://localhost:5000/${vmd.path}`}
+              src={`http://localhost:5000/${vmd?.path}`}
               className="video_ShowVideo_videoPage"
               controls
             ></video>
@@ -56,8 +56,8 @@ function VideoPage() {
               <div className="description_videoPage">
               <div className="views_date_btns_VideoPage">
                   <div className="views_videoPage">
-                    {vmd.views>0 ? vmd.views : 1} views <div className="dot"></div>{" "}
-                    {moment(vmd?.createdat).fromNow()}
+                    {vmd?.views>0 ? vmd?.views : 1} views <div className="dot"></div>{" "}
+                    {moment(vmd?.createdAt).fromNow()}
                   </div>
                 </div>
                 {vmd?.description}
@@ -66,7 +66,7 @@ function VideoPage() {
                 <h2>
                   <u>Comments</u>
                 </h2>
-                <Comment videoId={vmd._id}/>
+                <Comment videoId={vmd?._id}/>
               </div>
             </div>
           </div>

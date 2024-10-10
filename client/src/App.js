@@ -9,6 +9,7 @@ import VideoUpload from "./pages/Videoupload/VideoUpload";
 import { useDispatch } from "react-redux";
 import { fetchAllChannel } from "./redux/action/channeluser";
 import { getAllVideo } from "./redux/action/video";
+import { getAllComments } from "./redux/action/comment";
 
 function App() {
   const [toggleDrawerSidebar, setDrawerSidebar] = useState({ display: "none" });
@@ -19,6 +20,7 @@ function App() {
   useEffect(()=>{
     dispatch(fetchAllChannel())
     dispatch(getAllVideo())
+    dispatch(getAllComments())
   },[dispatch])
   const toggleDrawer = () => {
     if (toggleDrawerSidebar.display === "none") {

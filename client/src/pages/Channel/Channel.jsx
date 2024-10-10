@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux'
 
 function Channel({setEditCreateChannelBtn,setVideoUploadPage}) {
   const {cid} = useParams()
-  const vids = useSelector(state=>state.videoReducer)?.data.filter(q=>q?.channel===cid)
+  const vids = useSelector(state=>state.videoReducer)?.data?.filter(q=>q?.channel===cid)
   return (
     <div className="container_Pages_App">
       <LeftSideBar/>

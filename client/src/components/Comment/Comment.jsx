@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import "./Comment.css";
 import DisplayComment from "./DisplayComment";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { postComment } from "../../redux/action/comment";
 
 function Comment({ videoId }) {
   const [commentText, setCommentText] = useState("");
+  const dispatch = useDispatch()
   const currentUser = useSelector(state=>state.currentUserReducer);
-  const commentList = [
+  const commentList =useSelector(state=>state.commentReducer);
+  /* const commentList = [
     {
       _id: 1,
       commentbody: "Hi there",
@@ -22,13 +25,20 @@ function Comment({ videoId }) {
       commentbody: "Where is Loki",
       usercommented: "Dr.Strange",
     },
-  ];
+  ]; */
+  
   const handleOnSubmit = (e)=>{
     e.preventDefault();
     if(currentUser){
         if(!commentText){
             alert('Please enter your comment!')
         }else{
+          dispatch(postComment({
+            vid:videoId,
+            uid:currentUser?.result._id,
+            commentBody:commentText,
+            commentedUser:currentUser.result.name? currentUser.result.name : currentUser.result.email.split('@')[0]
+          }))
             setCommentText("")
         }
     }else{
@@ -54,8 +64,8 @@ function Comment({ videoId }) {
         />
       </form>
       <div className="display_comment_container">
-        {commentList?.filter((q) => videoId === q._id).reverse().map((m)=>{
-            return(<DisplayComment cId={m._id} userId={m.userId} commentBody={m.commentbody} commentOn={m.commenton} userCommented={m.usercommented} />)
+        {commentList?.data?.filter((q) => videoId === q?.vid).reverse().map((m)=>{
+            return(<DisplayComment key={m._id} cId={m._id} userId={m.uid} commentBody={m.commentBody} commentOn={m.commentedOn} userCommented={m.commentedUser} />)
         })}
       </div>
     </>

@@ -23,6 +23,7 @@ export const getAllVideo = ()=> async(dispatch)=>{
 }
 
 export const likeVideo = (likeData)=> async (dispatch)=>{
+    
     try {
         const {id,like} = likeData;
         const {data} = await api.videoLikes(id,like)
@@ -36,7 +37,6 @@ export const likeVideo = (likeData)=> async (dispatch)=>{
 export const viewVideo = (viewData)=> async(dispatch)=>{
     try {
         const {id} = viewData;
-        console.log(id);
         const {data} = await api.videoViews(id)
         dispatch({type:"POST_VIEWS",data})
         dispatch(getAllVideo())

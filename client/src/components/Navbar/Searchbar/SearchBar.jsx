@@ -10,7 +10,7 @@ function SearchBar() {
     const [searchQuery,setSearchQuery] = useState("")
     const [searchList,setSearchList] = useState(false)
     const Ta = useSelector(s=>s.videoReducer).data
-    console.log(Ta);
+    //console.log(Ta);
     
     const TitleArray = useSelector(state=>state.videoReducer)?.data?.filter(q=>q?.title?.toUpperCase().includes(searchQuery.toUpperCase())).map(m=>m?.title)
     //const TitleArray = ["video","marvel", "animation", "avengers", "iron man" ].filter(q=>q.toUpperCase().includes(searchQuery.toUpperCase()))

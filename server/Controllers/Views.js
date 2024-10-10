@@ -3,10 +3,10 @@ import mongoose from "mongoose";
 
 export const viewsController = async (req, res) => {
     const { _id } = req.params;
-    console.log(req.params);
-    console.log(_id);
+    /* console.log(req.params);
+    console.log(_id); */
     
-    console.log(mongoose.Types.ObjectId.isValid(_id));
+    //console.log(mongoose.Types.ObjectId.isValid(_id));
     
     // Correct the check for a valid ObjectId
     if (!mongoose.Types.ObjectId.isValid(_id)) {

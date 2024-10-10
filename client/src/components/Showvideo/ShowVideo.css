@@ -4,8 +4,8 @@
     margin-bottom: 0;
     /* width: calc(100% - 0.8rem);
     height: 70%; */
-    width: 19rem;
-    height: 11rem;
+    width: 24rem;
+    height: 14rem;
     border: 1px solid rgba(128,128,128,0.532);
     object-fit: cover;
 }

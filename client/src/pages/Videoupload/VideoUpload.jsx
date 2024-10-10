@@ -32,8 +32,8 @@ function VideoUpload({ setVideoUploadPage }) {
       alert("Title could not be empty");
     } else if (!videoFile) {
       alert("Please select a video file");
-    } else if (videoFile.size > 10000000) {
-      alert("Plese select a video file lessthan 10 mb");
+    } else if (videoFile.size > 20000000) {
+      alert("Plese select a video file lessthan 20 mb");
     } else {
       const fileData = new FormData()
       fileData.append("file", videoFile)

@@ -3,11 +3,11 @@ import users from "../Models/Auth.js";
 
 export const login = async (req, res) => {
   const { email } = req.body;
-  console.log(email);
+  //console.log(email);
   
   try {
     const existingUser = await users.findOne({ email });
-    console.log(existingUser);
+    //console.log(existingUser);
     
     if (!existingUser) {
       try {
@@ -29,7 +29,7 @@ export const login = async (req, res) => {
         return;
       }
     } else {
-        console.log(existingUser.email);
+        //console.log(existingUser.email);
         const token = jwt.sign(
             {
               email: existingUser.email,

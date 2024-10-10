@@ -38,7 +38,7 @@ function LikeWatchLaterSaveBtns({ vmd, vid }) {
         dispatch(likeVideoAction({id:vid,like:lk-1}))
       } else {
         setLikeVideo(true);
-        dispatch(likeVideoAction({id:vid,like:lk-1}))
+        dispatch(likeVideoAction({id:vid,like:lk+1}))
         setDislikeVideo(false);
       }
     } else {
