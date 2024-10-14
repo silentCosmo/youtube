@@ -2,7 +2,6 @@ import React from "react";
 import "./LeftSideBar.css";
 import { AiFillPlaySquare, AiOutlineHome, AiFillLike } from "react-icons/ai";
 import {
-  MdOutlineExplore,
   MdOutlineVideoLibrary,
   MdSubscriptions,
   MdOutlineWatchLater,
@@ -30,6 +29,7 @@ function DrawerSliderBar({ toggleDrawer, toggleDrawerSidebar }) {
               width={22}
               className="icon_sidebar"
               style={{ margin: "auto 0.7rem" }}
+              alt="Icon of youtube shorts"
             />
             <div className="text_sidebar_icon">Shorts</div>
           </NavLink>
@@ -44,54 +44,54 @@ function DrawerSliderBar({ toggleDrawer, toggleDrawerSidebar }) {
         </div>
         <div className="libraryBtn_Drawerleftsidebar">
           <NavLink to={"/feed/you"} className="icon_sidebar_div">
-            <p>
+            <div>
               <MdOutlineVideoLibrary
                 size={22}
                 className="icon_sidebar"
                 style={{ margin: "auto 0.7rem" }}
               />
               <div className="text_sidebar_icon">Library</div>
-            </p>
+            </div>
           </NavLink>
           <NavLink to={"/feed/history"} className="icon_sidebar_div">
-            <p>
+            <div>
               <FaHistory
                 size={22}
                 className="icon_sidebar"
                 style={{ margin: "auto 0.7rem" }}
               />
               <div className="text_sidebar_icon">History</div>
-            </p>
+            </div>
           </NavLink>
           <NavLink to={"/Yourvideo"} className="icon_sidebar_div">
-            <p>
+            <div>
               <AiFillPlaySquare
                 size={22}
                 className="icon_sidebar"
                 style={{ margin: "auto 0.7rem" }}
               />
               <div className="text_sidebar_icon">Your Videos</div>
-            </p>
+            </div>
           </NavLink>
           <NavLink to={"/Watchlater"} className="icon_sidebar_div">
-            <p>
+            <div>
               <MdOutlineWatchLater
                 size={22}
                 className={"icon_sidebar"}
                 style={{ margin: "auto 0.7rem" }}
               />
               <div className="text_sidebar_icon">Watch Later</div>
-            </p>
+            </div>
           </NavLink>
           <NavLink to={"/liked"} className="icon_sidebar_div">
-            <p>
+            <div>
               <AiFillLike
                 size={22}
                 className="icon_sidebar"
                 style={{ margin: "auto 0.7rem" }}
               />
               <div className="text_sidebar_icon">Liked Videos</div>
-            </p>
+            </div>
           </NavLink>
         </div>
         <div className="subScriptions_lsdbar">

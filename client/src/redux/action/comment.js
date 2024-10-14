@@ -39,11 +39,9 @@ export const deleteComment = (id) => async(dispatch)=>{
 }
 
 export const getAllComments = ()=> async(dispatch)=>{
-    console.log('comt');
     
     try {
         const {data} = await api.getAllComment()
-        console.log(data);
         
         dispatch({type:"FETCH_ALL_COMMENTS",payload:data})
 

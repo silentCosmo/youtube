@@ -7,21 +7,31 @@ import moment from "moment";
 import Comment from "../../components/Comment/Comment";
 import { useDispatch, useSelector } from "react-redux";
 import { viewVideo } from "../../redux/action/video";
+import { addHistory } from "../../redux/action/history";
 
 function VideoPage() {
   const { vid } = useParams();
   const dispatch = useDispatch();
-  //console.log(vid);
   
-  /* const vids = useSelector(state=>state.videoreducer) */
   const vids = useSelector((state)=>state.videoReducer)
+  const currentUser = useSelector((state)=>state.currentUserReducer)
   
   const vmd = vids?.data?.filter((q) => q._id === vid)[0]; 
   const handleViews = ()=> {
     dispatch(viewVideo({id:vid}))
   }
+  const handleHistory = ()=>{
+    dispatch(addHistory({
+      vid:vid,
+      viewer:currentUser?.result?._id,
+    }))
+  }
   useEffect(()=>{
+    if(currentUser){
+      handleHistory()
+    }
     handleViews()
+    //eslint-disable-next-line
   },[])
 
   return (

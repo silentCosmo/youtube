@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { applyMiddleware } from 'redux';
 
 const API = axios.create({baseURL:'http://localhost:5000'})
 
@@ -25,3 +24,7 @@ export const postComment = (commentData)=>API.post('/comment/post',commentData)
 export const deleteComment = (id)=>API.delete(`/comment/delete/${id}`)
 export const editComment = (id,commentBody)=>API.patch(`/comment/edit/${id}`,{commentBody})
 export const getAllComment = ()=> API.get('/comment/get')
+
+export const addHistory = (historyData)=> API.post("video/history/push",historyData)
+export const getHistory = ()=> API.get("video/history/get")
+export const delHistory = (uId)=> API.delete(`video/history/delete/${uId}`)

@@ -8,18 +8,16 @@ function WHLvideoList({page,currentUser,videoList}) {
         currentUser?(
             <>
                 {
-                    videoList.filter(q=>q?._id===currentUser).reverse().map(m=>{
+                    videoList?.data?.filter(q=>q?.viewer===currentUser).reverse().map(m=>{
                         return(
-                            <>
-                                <ShowVideoList videoId={m?._id} key={m?._id} />
-                            </>
+                                <ShowVideoList videoId={m?.vid} key={m?._id} />
                         )
                     })
                 }
             </>
         ):(
             <>
-                <h2 style={{color:'whitesmoke'}}> Please Log in to see your ${page}</h2>
+                <h2 style={{color:'whitesmoke'}}> Please Log in to see your {page}</h2>
             </>
         )
     }

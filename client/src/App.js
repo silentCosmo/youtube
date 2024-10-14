@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { fetchAllChannel } from "./redux/action/channeluser";
 import { getAllVideo } from "./redux/action/video";
 import { getAllComments } from "./redux/action/comment";
+import { getAllHistory } from "./redux/action/history";
 
 function App() {
   const [toggleDrawerSidebar, setDrawerSidebar] = useState({ display: "none" });
@@ -21,6 +22,7 @@ function App() {
     dispatch(fetchAllChannel())
     dispatch(getAllVideo())
     dispatch(getAllComments())
+    dispatch(getAllHistory())
   },[dispatch])
   const toggleDrawer = () => {
     if (toggleDrawerSidebar.display === "none") {
