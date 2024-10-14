@@ -2,10 +2,10 @@
     border: 1px solid;
     display: flex;
     height: calc(3.5rem - 2px);
-    background-color: rgb(33, 33, 33);
-    /* background-color: rgb(33, 33, 33); */
+    background-color: #0F0F0F;
     justify-content: space-between;
     align-items: center;
+    padding-left: 0.7rem;
 }
 .Burger_Logo_Navbar{
     display: flex;

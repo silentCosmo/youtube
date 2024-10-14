@@ -14,7 +14,7 @@ import { login } from "../../redux/action/auth";
 import { setCurrentUser } from "../../redux/action/currentuser";
 import { jwtDecode } from 'jwt-decode'
 
-function Navbar({ toggleDrawer, setEditCreateChannelBtn }) {
+function Navbar({ toggleDrawer, setEditCreateChannelBtn, setVideoUploadPage }) {
   const [authBtn, setAuthBtn] = useState(false);
   const [user,setUser] = useState(null)
   const [profile,setProfile] = useState([])
@@ -92,7 +92,7 @@ function Navbar({ toggleDrawer, setEditCreateChannelBtn }) {
         </div>
         <SearchBar />
         <div className="vid_bell_Navbar_Container">
-          <MdOutlineFileUpload size={22} className={"vid_bell_Navbar"} />
+          <MdOutlineFileUpload size={22} className={"vid_bell_Navbar"} onClick={()=>setVideoUploadPage(true)} />
           <div className="apps_Box">
             <p className="appBox"></p>
             <p className="appBox"></p>

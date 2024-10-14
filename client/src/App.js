@@ -36,7 +36,7 @@ function App() {
         videoUploadPage && <VideoUpload setVideoUploadPage={setVideoUploadPage} />
       }
       {editCreateChannelBtn && (<CreateEditChannel setEditCreateChannelBtn={setEditCreateChannelBtn} />)}
-        <Navbar setEditCreateChannelBtn={setEditCreateChannelBtn} toggleDrawer={toggleDrawer}/>
+        <Navbar setEditCreateChannelBtn={setEditCreateChannelBtn} toggleDrawer={toggleDrawer} setVideoUploadPage={setVideoUploadPage}/>
         <DrawerSliderBar toggleDrawer={toggleDrawer} toggleDrawerSidebar={toggleDrawerSidebar} />
         <AllRoutes setEditCreateChannelBtn={setEditCreateChannelBtn} setVideoUploadPage={setVideoUploadPage} />
     </Router>

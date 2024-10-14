@@ -7,12 +7,13 @@
     display: flex;
   }
   .container2_VidUpload {
-    box-shadow: 2px 2px rgba(142, 142, 142, 0.681),
-      -2px -2px rgba(142, 142, 142, 0.681);
+    /* box-shadow: 2px 2px rgba(142, 142, 142, 0.681),
+      -2px -2px rgba(142, 142, 142, 0.681); */
+    border: 1px solid rgb(26, 26, 26);
     padding: 1rem;
-    width: fit-content;
-    height: fit-content;
-    background-color: black;
+    width: 30vw;
+    height: 52vh;
+    background-color: #282828;
     color: rgb(136, 133, 129);
     position: relative;
     margin: auto;
@@ -21,15 +22,22 @@
     border-radius: 1rem;
   }
   .ibox_vidupload {
-    margin: 0.5rem;
-    font-size: larger;
-    border-radius: 5px;
-    background-color: transparent;
-    padding: 0.2rem;
-    color: aliceblue;
-    width: calc(100% - 2rem);
-  }
+    margin: 1rem 0;
+    font-size: 1rem;
+    border-radius: 8px;
+    background-color: #242424; /* Lighter dark background */
+    padding: 0.5rem;
+    color: #fff;
+    width: 100%;
+    border: 1px solid #444; /* Subtle border for input */
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
+}
+.ibox_vidupload:focus-visible{
+  outline:none;
+  border-color: rgba(65, 131, 253, 0.603);
+}
   .ibox_div_vidupload {
+    margin-top: 1rem;
     display: flex;
     align-items: center;
     background-color: transparent;
@@ -37,15 +45,20 @@
     width: 100%;
   }
   .btn_vidUpload {
-      background-color: black;
-      color: white;
-      font-weight: bolder;
-      border: 2px solid;
-      
+    background-color: rgb(65, 131, 253);
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 1rem;
+    width: 100%; /* Full width button */
   }
   
   .btn_vidUpload:hover {
-      color: orange;
+      background-color: rgb(11, 117, 255);
   }
   
   .loader{
@@ -54,3 +67,67 @@
       padding: 2rem 0;
       margin: auto;
   }
+
+  .drop_zone {
+    width: 100%;
+    height: 30vh;
+    background-color: #242424;
+    border: 2px dashed #ffffff2f;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+  }
+  
+  .drop_zone p {
+    color: #ffffffb2;
+    font-size: 1rem;
+    text-align: center;
+  }
+  
+  .drop_zone.dragging {
+    border-color: #008cff; /* Highlight color on drag over */
+    background-color: #008cff11; /* Subtle background change */
+  }
+  
+
+  #ibtn_x{
+    border: 0;
+    padding: 0;
+    color: rgba(245, 245, 245, 0.651);
+    background-color: transparent;
+    font-size: 1.5rem;
+    
+    margin-top: -0.5rem;
+    position: absolute; /* Change to absolute */
+    right: 1rem;
+    width: fit-content;
+    font-weight: 500;
+
+    transition: .2s color;
+    cursor: pointer;/* 
+    position: absolute; */
+}
+
+#ibtn_x:hover{
+    color: rgb(165, 42, 42);
+}
+
+.ibtn_label{
+    margin-top: -0.5rem;
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: -1px;
+    color: aliceblue;
+}
+.hr{
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.158);
+    position: absolute;
+    left: 0;
+    top: 2.7rem;
+}

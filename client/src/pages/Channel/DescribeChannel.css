@@ -1,17 +1,31 @@
 .container3_chanel{
-    border-bottom: 3px solid rgba(1,26,96,0.692);
+    border-bottom: 3px solid rgba(25, 75, 41, 0.199);
     padding: 0.5rem;
     color: whitesmoke;
     position: relative;
+    margin-bottom: 2rem;
+    
+    background-color: #181818;
+    background-image: 
+      radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+      linear-gradient(45deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.1) 75%, transparent 75%, transparent),
+      linear-gradient(135deg, rgba(0, 255, 85, 0.1) 10%, transparent 10%, transparent 40%, rgba(0, 255, 85, 0.1) 40%);
+    background-size: 
+      100px 100px, 
+      100px 100px, 
+      50px 50px; 
+    background-blend-mode: overlay;
 }
 .chanel_logo_chanel{
-    border: 10px solid rgba(49,7,219,0.66);
+    /* border: 10px solid rgba(49,7,219,0.66); */
+    border: 10px solid rgba(245, 245, 245, 0.87);
     width: 5rem;
     height: 5rem;
     border-radius: 100%;
     display: flex;
     margin: 0 auto;
-    background-color: rgba(92,135,4,0.769);
+    /* background-color: rgba(92,135,4,0.769); */
+    background-color: rgba(255, 0, 0, 0.637);
 }
 .chanel_logo_chanel b{
     margin: auto;
@@ -30,18 +44,18 @@
     position: absolute;
     right: 1rem;
     top: 0.5rem;
-    background-color: blue;
+    background-color: rgba(65, 131, 253, 0.603);
     padding: 0.5rem;
-    border: 2px solid transparent;
+    border: 1px solid transparent;
     border-radius: 0.5rem;
-    color: white;
-    transition: all 1s;
+    color: whitesmoke;
+    transition: all .3s;
     cursor: pointer;
 }
 .uploadbtn_chanel{
     top: 4rem;
 }
 .uploadbtn_chanel:hover,.editbtn_chanel:hover{
-border: 2px solid;
-color: rgb(231,140,14);
+border: 1px solid rgba(245, 245, 245, 0.493);
+color: white;
 }

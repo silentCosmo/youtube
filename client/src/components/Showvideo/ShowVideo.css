@@ -4,9 +4,10 @@
     margin-bottom: 0;
     /* width: calc(100% - 0.8rem);
     height: 70%; */
-    width: 24rem;
-    height: 14rem;
-    border: 1px solid rgba(128,128,128,0.532);
+    border-radius: 5px;
+    width: 21rem;
+    height: 12rem;
+    border: 1px solid rgba(128, 128, 128, 0.253);
     object-fit: cover;
 }
 .video_description{

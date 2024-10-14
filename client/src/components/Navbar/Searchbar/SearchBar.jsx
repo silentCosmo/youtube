@@ -19,7 +19,7 @@ function SearchBar() {
     <div className="SearchBar_Container">
         <div className="SearchBar_Container2">
             <div className="search_div">
-                <input type="text" className='iBox_SearchBar' placeholder='Search something..' onChange={e=>setSearchQuery(e.target.value)} value={searchQuery} onClick={e=>setSearchList(true)} />
+                <input type="text" className='iBox_SearchBar' placeholder='Search' onChange={e=>setSearchQuery(e.target.value)} value={searchQuery} onClick={e=>setSearchList(true)} />
                 <Link to={`search/${searchQuery}`}><CiSearch size={22} className='searchIcon_SearchBar'/></Link>
                 <MdOutlineMic size={24} className='Mic_SearchBar'/>
                 {searchQuery && searchList && <SearchList setSearchQuery={setSearchQuery} TitleArray={TitleArray} setSearchList={setSearchList} />}

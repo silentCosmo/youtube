@@ -25,12 +25,13 @@ function CreateEditChannel({setEditCreateChannelBtn}) {
     }
   return (
     <div className="container_CreateEditChanel">
-        <input type="submit" name='text' value={'X'} className="ibtn_x" onClick={()=>setEditCreateChannelBtn(false)} />
         <div className="container2_CreateEditChanel">
             <h1>{currentUser?.result?.name?<>Edit</>:<>Create</>} Your Channel</h1>
+            <input type="submit" name='text' value='X' id="ibtn_x" onClick={()=>setEditCreateChannelBtn(false)} />
+            <hr className="hr" />
             <input type="text" placeholder='Enter Your/Channel name' name='text' value={name} onChange={(e)=>setName(e.target.value)} className='ibox' />
-            <textarea rows={15} placeholder='Enter channel description' value={desc} onChange={(e)=>setDesc(e.target.value)} className='ibox'></textarea>
-            <input type="submit" value="Create" onClick={handleSubmit} className='ibtn' />
+            <textarea rows={10} placeholder='Enter channel description' value={desc} onChange={(e)=>setDesc(e.target.value)} className='ibox'></textarea>
+            <input type="submit" value="Create" onClick={handleSubmit} id='ibtn' />
         </div>
     </div>
   )
