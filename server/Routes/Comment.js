@@ -1,5 +1,5 @@
 import express from "express"
-import { postComment,getComment,editComment,deleteComment } from "../Controllers/comment.js"
+import { postComment,getComment,editComment,deleteComment } from "../Controllers/Comment.js"
 import Auth from "../Models/Auth.js"
 
 const router = express.Router()
