@@ -5,6 +5,7 @@
     top: 2.7rem;
     height: fit-content;
     z-index: 91;
+    border-radius: 10px;
 }
 .titleItem{
     margin: 0;
@@ -14,4 +15,5 @@
 }
 .titleItem:hover{
     background-color: #383838;
+    border-radius: 10px;
 }

@@ -2,7 +2,6 @@ import React from "react";
 import LeftSideBar from "../../components/Leftsidebar/LeftSideBar";
 import ShowVideoGrid from "../../components/Showvideogrid/ShowVideoGrid";
 import { useParams } from "react-router-dom";
-import { vids } from "../../components/video/v_db";
 import { useSelector } from "react-redux";
 
 function Search() {
@@ -12,13 +11,12 @@ function Search() {
   /* const res = vids?.filter((q) =>
     q.title.toLowerCase().includes(searchquery.toLowerCase())
   ); */
-  console.log(res);
 
   return (
     <div className="container_Pages_App">
       <LeftSideBar />
       <div className="container2_Pages_App">
-        {res.length !== 0 ? (
+        {res?.length !== 0 ? (
           <ShowVideoGrid vids={res} />
         ) : (
           <h3
@@ -30,7 +28,7 @@ function Search() {
               marginTop: "20%",
             }}
           >
-            No result found!
+            Sorry, No results found!
           </h3>
         )}
       </div>

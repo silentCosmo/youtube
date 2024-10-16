@@ -15,14 +15,16 @@ function AllRoutes({setEditCreateChannelBtn,setVideoUploadPage}) {
   return (
     <Routes>
       <Route path='/' element={<Home/>} />
-      <Route path='/search/:searchquery' element={<Search/>} />
-      <Route path='/watch/:vid' element={<VideoPage/>} />
-      <Route path='/feed/you' element={<Library/>} />
       <Route path='/liked' element={<LikedVideo/>} />
-      <Route path='/watchlater' element={<WhatchLater/>} />
+      <Route path='/shorts' element={<Home/>} />
+      <Route path='/feed/you' element={<Library/>} />
       <Route path='/yourvideo' element={<YourVideo/>} />
+      <Route path='/watchlater' element={<WhatchLater/>} />
+      <Route path='/watch/:vid' element={<VideoPage/>} />
       <Route path='/feed/history' element={<WatchHistory/>} />
       <Route path='/channel/:cid' element={<Channel setEditCreateChannelBtn={setEditCreateChannelBtn} setVideoUploadPage={setVideoUploadPage} />} />
+      <Route path='/feed/subscriptions' element={<Home/>} />
+      <Route path='/search/:searchquery' element={<Search/>} />
     </Routes>
   )
 }

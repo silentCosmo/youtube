@@ -10,12 +10,14 @@
     background: rgba(128, 128, 128, 0.300);
     padding: 0.5rem;
     border-radius: 50px;
+    cursor: pointer;
 }
 .btn_videoPage:hover,.like_btn:hover,.dislike_btn:hover{
     background: rgba(128, 128, 128, 0.600);
 }
 .like_container{
     display: flex;
+    cursor: pointer;
 }
 .like_btn{
     margin:  auto 0;

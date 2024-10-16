@@ -5,6 +5,8 @@ import channelReducer from './chanel'
 import videoReducer from './video'
 import commentReducer from './comment'
 import historyReducer from './history'
+import likedvideoReducer from './likedvideo'
+import watchlaterReducer from './watchlater'
 
 export default combineReducers({
     authReducer,
@@ -12,5 +14,7 @@ export default combineReducers({
     channelReducer,
     videoReducer,
     commentReducer,
-    historyReducer
+    historyReducer,
+    likedvideoReducer,
+    watchlaterReducer
 })

@@ -49,6 +49,13 @@ function Comment({ videoId }) {
   return (
     <>
       <form className="comments_sub_form_comments">
+      <div>
+            <div className="Chanel_logo_App" id="comment_channel_logo">
+              <p className="fstChar_logo_App">
+                <>{currentUser ? (currentUser?.result?.name ? currentUser?.result?.name.charAt(0).toUpperCase():currentUser?.result?.email.charAt(0).toUpperCase()) : "X" }</>
+              </p>
+            </div>
+          </div>
         <input
           type="text"
           onChange={(e) => setCommentText(e.target.value)}

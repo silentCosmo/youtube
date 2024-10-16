@@ -12,20 +12,20 @@
       padding: 0.5rem;
     display: flex;
     position: absolute;
-    right: 2.5rem;
-    background-color: rgb(16, 16, 16);
-    top: 1rem;
+    right: 1rem;
+    background-color: rgb(34, 34, 34);
+    top: 3.5rem;
     text-align: center;
     flex-direction: column;
-    border: px solid rgba(102, 102, 102, 0.6);
-    color: aliceblue;
+    color: rgba(220, 220, 220, 0.9);
     z-index: 500;
+    border-radius: 10px;
   }
   .User_Details {
     margin: 0 auto;
     padding: 0.7rem;
     display: flex;
-    border-bottom: 2px solid grey;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.719);
     padding-inline-start: 1.2rem 0.9rem;
   }
   .email_Auth {
@@ -35,19 +35,21 @@
     margin: auto;
   }
   .btn_Auth {
-    color: aliceblue;
-    font-weight: bolder;
+    color: rgba(220, 220, 220, 0.9);
+    font-weight: 700;
     font-size: larger;
     padding: 0.5rem 0.5rem;
     border: 0;
     margin: 0.2rem 0;
     background-color: transparent;
+    text-decoration: none;
   }
   .btn_Auth:hover {
-    background-color: rgb(47, 47, 47);
+    background-color: rgb(54, 54, 54);
+    border-radius: 5px;
   }
   .btns_Auth {
-    padding: 1.5rem 0;
+    padding: 1rem 0;
     display: flex;
     flex-direction: column;
     cursor: pointer;

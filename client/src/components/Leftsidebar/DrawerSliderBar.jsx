@@ -44,7 +44,7 @@ function DrawerSliderBar({ toggleDrawer, toggleDrawerSidebar }) {
         </div>
         <div className="libraryBtn_Drawerleftsidebar">
           <NavLink to={"/feed/you"} className="icon_sidebar_div">
-            <div>
+            <div className="option_container">
               <MdOutlineVideoLibrary
                 size={22}
                 className="icon_sidebar"
@@ -54,7 +54,7 @@ function DrawerSliderBar({ toggleDrawer, toggleDrawerSidebar }) {
             </div>
           </NavLink>
           <NavLink to={"/feed/history"} className="icon_sidebar_div">
-            <div>
+            <div className="option_container">
               <FaHistory
                 size={22}
                 className="icon_sidebar"
@@ -64,7 +64,7 @@ function DrawerSliderBar({ toggleDrawer, toggleDrawerSidebar }) {
             </div>
           </NavLink>
           <NavLink to={"/Yourvideo"} className="icon_sidebar_div">
-            <div>
+            <div className="option_container">
               <AiFillPlaySquare
                 size={22}
                 className="icon_sidebar"
@@ -73,8 +73,8 @@ function DrawerSliderBar({ toggleDrawer, toggleDrawerSidebar }) {
               <div className="text_sidebar_icon">Your Videos</div>
             </div>
           </NavLink>
-          <NavLink to={"/Watchlater"} className="icon_sidebar_div">
-            <div>
+          <NavLink to={"/watchlater"} className="icon_sidebar_div">
+            <div className="option_container">
               <MdOutlineWatchLater
                 size={22}
                 className={"icon_sidebar"}
@@ -84,7 +84,7 @@ function DrawerSliderBar({ toggleDrawer, toggleDrawerSidebar }) {
             </div>
           </NavLink>
           <NavLink to={"/liked"} className="icon_sidebar_div">
-            <div>
+            <div className="option_container">
               <AiFillLike
                 size={22}
                 className="icon_sidebar"

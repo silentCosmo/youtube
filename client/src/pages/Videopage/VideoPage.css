@@ -64,14 +64,26 @@
   width: 2rem;
   height: 2rem;
   margin: 0.5rem;
-  background-color: rgba(255, 255, 255, 0.667);
   border-radius: 100%;
+  border: 2px solid rgba(0, 255, 200, 0.3);
+
+  background-color: #2a2a2a; /* Lighter base color */
+  background-image: 
+  radial-gradient(circle, rgba(255, 255, 255, 0.4) 1px, transparent 1px), /* Brighter white dots */
+  linear-gradient(45deg, rgba(255, 255, 255, 0.4) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0.4) 75%, transparent 75%, transparent), /* Brighter white diagonal stripes */
+  linear-gradient(135deg, rgba(0, 255, 200, 0.5) 10%, transparent 10%, transparent 40%, rgba(0, 255, 200, 0.5) 40%); /* More vibrant green diagonal stripes */
+  background-size: 
+  100px 100px, 
+  100px 100px, 
+  50px 50px; 
+  background-blend-mode: overlay;
 }
 
 .chanel_logo_videoPage p {
-  color: black;
+  color: rgba(0, 255, 200, 0.4);
   margin: auto;
   font-size: x-large;
+  font-family: Arial, Helvetica, sans-serif;
 }
 .chanel_name_videoPage {
   margin: auto 1rem;
@@ -87,6 +99,13 @@
 .comments_VideoPage {
   width: 100%;
   padding-inline-start: 0.5rem;
+}
+.comments_VideoPage>h2>u{
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: -1px;
+  font-size: 1.4rem;
+  font-family: Arial, Helvetica, sans-serif;
 }
 .moreVideoBar {
   width: calc(100vw - 4.5rem - 70vw);

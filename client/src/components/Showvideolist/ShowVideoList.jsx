@@ -9,7 +9,7 @@ function ShowVideoList({videoId}) {
   return (
     <div className="Container_ShowVideoGrid">
         {
-            vids?.data.filter(q=>q._id===videoId).map(vi=>{
+            vids?.data?.filter(q=>q._id===videoId).map(vi=>{
                 return(
                     <div className="video_box app" key={vi._id}>
                         <ShowVideo vid={vi} />

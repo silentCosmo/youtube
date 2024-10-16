@@ -15,8 +15,11 @@ function VideoPage() {
   
   const vids = useSelector((state)=>state.videoReducer)
   const currentUser = useSelector((state)=>state.currentUserReducer)
+  const commentList = useSelector(state=>state.commentReducer)
   
   const vmd = vids?.data?.filter((q) => q._id === vid)[0]; 
+  const totalComments = commentList?.data?.filter((q) => vid === q?.vid).length
+
   const handleViews = ()=> {
     dispatch(viewVideo({id:vid}))
   }
@@ -33,6 +36,8 @@ function VideoPage() {
     handleViews()
     //eslint-disable-next-line
   },[])
+
+  
 
   return (
     <>
@@ -72,9 +77,9 @@ function VideoPage() {
                 </div>
                 {vmd?.description}
               </div>
-              <div className="comments_videoPage">
+              <div className="comments_VideoPage">
                 <h2>
-                  <u>Comments</u>
+                  <u>{totalComments} Comments</u>
                 </h2>
                 <Comment videoId={vmd?._id}/>
               </div>

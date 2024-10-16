@@ -59,7 +59,7 @@ function WHL({ page, videoList }) {
       <div className="container2_Pages_App">
         <div className="container_whl">
           <div className="box_WHL leftside_whl">
-            <b>{noHistory?`You dont have any ${page}`:`Your Watch ${page} Shown Here`} </b>
+            <b>{noHistory?`You dont have any ${page}`:`Your ${page} Shown Here`} </b>
             {page === "History" && currentUser &&(
               <div
                 className="clear_History_btn"

@@ -1,11 +1,14 @@
 import React from 'react'
 import './SearchList.css'
 import { CiSearch } from "react-icons/ci";
+import { useNavigate } from 'react-router-dom';
 
 function SearchList({setSearchQuery,TitleArray,setSearchList}) {
+  const navigate = useNavigate()
   const handleClick = (title)=>{
     setSearchQuery(title)
     setSearchList(false)
+    navigate(`search/${title}`)
   }
   return (
     <>

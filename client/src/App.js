@@ -11,6 +11,8 @@ import { fetchAllChannel } from "./redux/action/channeluser";
 import { getAllVideo } from "./redux/action/video";
 import { getAllComments } from "./redux/action/comment";
 import { getAllHistory } from "./redux/action/history";
+import { getLikedVideo } from "./redux/action/likedvideo";
+import { getWatchLater } from "./redux/action/watchlater";
 
 function App() {
   const [toggleDrawerSidebar, setDrawerSidebar] = useState({ display: "none" });
@@ -20,9 +22,11 @@ function App() {
   const dispatch = useDispatch()
   useEffect(()=>{
     dispatch(fetchAllChannel())
-    dispatch(getAllVideo())
     dispatch(getAllComments())
     dispatch(getAllHistory())
+    dispatch(getLikedVideo())
+    dispatch(getWatchLater())
+    dispatch(getAllVideo())
   },[dispatch])
   const toggleDrawer = () => {
     if (toggleDrawerSidebar.display === "none") {

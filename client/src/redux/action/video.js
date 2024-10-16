@@ -1,7 +1,6 @@
 import * as api from "../../api"
 
 export const uploadVideo = (videoData)=> async(dispatch)=>{
-    console.log(videoData);
     
     try {
         const {fileData, fileOption} = videoData;

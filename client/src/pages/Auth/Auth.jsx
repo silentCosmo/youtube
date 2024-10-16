@@ -17,7 +17,7 @@ function Auth({ user, setAuthBtn, setEditCreateChannelBtn }) {
     <div className="Auth_container" onClick={() => setAuthBtn(false)}>
       <div className="Auth_container2">
         <p className="User_Details">
-          <div className="chanel_logo_App">
+          {/* <div className="chanel_logo_App">
             <p className="fstChar_logo_App">
               {user?.result.name ? (
                 <>{user?.result.name.charAt(0).toUpperCase()}</>
@@ -25,7 +25,7 @@ function Auth({ user, setAuthBtn, setEditCreateChannelBtn }) {
                 <>{user?.result.email.charAt(0).toUpperCase()}</>
               )}
             </p>
-          </div>
+          </div> */}
           <div className="email_auth">{user?.result.email}</div>
         </p>
         <div className="btns_Auth">
