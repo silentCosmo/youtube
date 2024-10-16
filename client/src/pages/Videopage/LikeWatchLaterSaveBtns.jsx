@@ -24,8 +24,12 @@ function LikeWatchLaterSaveBtns({ vmd, vid }) {
   const dispatch = useDispatch()
   
   useEffect(()=>{
+    if (Array.isArray(likedvideoList?.data)) {
     likedvideoList?.data?.filter((q)=>q.vid===vid && q.viewer===currentUser?.result?._id).map((m)=>setLikeVideo(true))
+    }
+    if (Array.isArray(watchlaterList?.data)) {
     watchlaterList?.data?.filter((q)=>q.vid===vid && q.viewer===currentUser?.result?._id).map((m)=>setSaveVideo(true))
+    }
     // eslint-disable-next-line
   },[likedvideoList,watchlaterList])
 
@@ -46,7 +50,7 @@ function LikeWatchLaterSaveBtns({ vmd, vid }) {
     if (currentUser) {
       if (likeVideo) {
         setLikeVideo(false);
-        dispatch(likeVideoAction({id:vid,like:lk-1}))
+        dispatch(likeVideoAction({id:vid,like:lk>0?lk-1:0}))
         dispatch(deleteLikedVideo({vid:vid,viewer:currentUser?.result._id}))
       } else {
         setLikeVideo(true);
@@ -65,7 +69,7 @@ function LikeWatchLaterSaveBtns({ vmd, vid }) {
       } else {
         setDislikeVideo(true);
         if(likeVideo){
-          //dispatch(likeVideoAction({id:vid,like:lk-0}))
+          dispatch(likeVideoAction({id:vid,like:lk>1&&lk-1}))
           dispatch(deleteLikedVideo({vid:vid,viewer:currentUser?.result._id}))
         }
         setLikeVideo(false);
@@ -110,9 +114,7 @@ function LikeWatchLaterSaveBtns({ vmd, vid }) {
       alert('Video URL is not available.');
     }
   };
-  console.log(vmd);
   
-
   return (
     <div className="btns_cont_videoPage">
       <div className="btn_videoPage">
@@ -145,7 +147,7 @@ function LikeWatchLaterSaveBtns({ vmd, vid }) {
           <b className="like_count">&nbsp;{vmd?.like}&nbsp;</b>
         </div>
         <div className="lvr"></div>
-        <div className="dislike_btn" onClick={(e) => toggleDislike(vmd.like)}>
+        <div className="dislike_btn" onClick={(e) => toggleDislike(e,vmd.like)}>
           {dislikeVideo ? (
             <BiSolidDislike size={22} />
           ) : (

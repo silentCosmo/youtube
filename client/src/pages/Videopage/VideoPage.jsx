@@ -2,12 +2,12 @@ import React, { useEffect } from "react";
 import "./VideoPage.css";
 import LikeWatchLaterSaveBtns from "./LikeWatchLaterSaveBtns";
 import { Link, useParams } from "react-router-dom";
-//import { vids } from "../../components/video/v_db";
 import moment from "moment";
 import Comment from "../../components/Comment/Comment";
 import { useDispatch, useSelector } from "react-redux";
 import { viewVideo } from "../../redux/action/video";
 import { addHistory } from "../../redux/action/history";
+import MoreVideoList from "./MoreVideoList";
 
 function VideoPage() {
   const { vid } = useParams();
@@ -16,6 +16,9 @@ function VideoPage() {
   const vids = useSelector((state)=>state.videoReducer)
   const currentUser = useSelector((state)=>state.currentUserReducer)
   const commentList = useSelector(state=>state.commentReducer)
+  const morevids = useSelector(state=>state.videoReducer);
+  
+  const randomMoreVids = morevids?.data?.filter(vi=> vi._id !== vid).sort(()=>Math.random()-0.5)
   
   const vmd = vids?.data?.filter((q) => q._id === vid)[0]; 
   const totalComments = commentList?.data?.filter((q) => vid === q?.vid).length
@@ -35,10 +38,8 @@ function VideoPage() {
     }
     handleViews()
     //eslint-disable-next-line
-  },[])
-
+  },[vid])
   
-
   return (
     <>
       <div className="container_videoPage">
@@ -48,6 +49,7 @@ function VideoPage() {
               src={`http://localhost:5000/${vmd?.path}`}
               className="video_ShowVideo_videoPage"
               controls
+              controlsList="nodownload play"
             ></video>
             <div className="video_details_videoPage">
               <div className="video_btns_title_VideoPage_cont">
@@ -85,7 +87,11 @@ function VideoPage() {
               </div>
             </div>
           </div>
-          <div className="moreVideoBar">More videos..</div>
+          <div className="moreVideoBar">
+            {
+              randomMoreVids?.map((m)=>{ return <MoreVideoList video={m} key={m?._id} />})
+            }
+          </div>
         </div>
       </div>
     </>

@@ -1,14 +1,12 @@
 import React from 'react'
 import './Home.css'
-import vid from '../../components/video/sample.mp4'
-import vid1 from '../../components/video/sample_1.mp4'
 import LeftSideBar from '../../components/Leftsidebar/LeftSideBar'
 import ShowVideoGrid from '../../components/Showvideogrid/ShowVideoGrid'
 import { useSelector } from 'react-redux'
 
 function Home() {
   const navList = ['All', 'Coding', 'Java', 'React', 'NodeJs', 'NovaFrame', 'Gaming', 'Science','Film', 'Animation', 'Marvel', 'Avengers']
-  const vids = useSelector(state=>state.videoReducer)?.data?.filter(q=>q).reverse();
+  const vids = useSelector(state=>state.videoReducer)?.data?.filter(q=>q).sort(()=>Math.random()-0.5);
   /* const vids = [
     {
       _id: 1,

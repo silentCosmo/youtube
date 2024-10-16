@@ -5,6 +5,8 @@ export const  likeController = async(req,res)=>{
     
     const {id:_id} = req.params;
     const {like} = req.body;
+    console.log(like);
+    
 
     if(!mongoose.Types.ObjectId.isValid(_id)){
         return res.status(404).send("Video unavailable..")

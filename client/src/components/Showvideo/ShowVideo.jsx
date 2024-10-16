@@ -1,13 +1,30 @@
-import React from "react";
+import React, { useRef } from "react";
 import "./ShowVideo.css";
 import moment from "moment";
 import { Link } from "react-router-dom";
 
 function ShowVideo({ vid }) {
+  const videoRef = useRef(null); 
+
+  const handleMouseEnter = () => {
+    if (videoRef.current) {
+      videoRef.current.play(); 
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (videoRef.current) {
+      videoRef.current.pause(); 
+      videoRef.current.currentTime = 0; 
+    }
+  };
   return (
     <>
       <Link to={`/watch/${vid._id}`}>
-        <video src={`http://localhost:5000/`+vid.path} className="video_ShowVideo"></video>
+        <video src={`http://localhost:5000/`+vid.path} className="video_ShowVideo" 
+          ref={videoRef} muted
+          onMouseEnter={handleMouseEnter} 
+          onMouseLeave={handleMouseLeave} ></video>
       </Link>
       <div className="video_description">
         <div className="Chanel_logo_App">

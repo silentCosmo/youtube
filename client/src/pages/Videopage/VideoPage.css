@@ -1,16 +1,16 @@
 .container_videoPage {
   height: calc(100vh - 3.5rem);
   overflow-y: auto;
-  background-color: rgb(11, 11, 11);
+  background-color: #0F0F0F;
   color: #f1f1f1de;
 }
 .container2_videoPage {
-  margin: 1.5rem 4.5rem;
+  margin: 1rem 4.5rem;
   display: flex;
 }
 .video_display_screen_videoPage {
-  width: calc(100vw - 4.5rem - 25vw);
-  padding: 1rem;
+  width: calc(100vw - 4.5rem - 12vw);
+  padding: 0.7rem;
 }
 
 .video_ShowVideo_videoPage {
@@ -110,4 +110,5 @@
 .moreVideoBar {
   width: calc(100vw - 4.5rem - 70vw);
   padding: 0 1rem;
+  margin-top: 1.5rem;
 }

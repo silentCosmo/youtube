@@ -1,0 +1,53 @@
+.moreVideo_item {
+    display: flex;
+    margin-bottom: 12px;
+    text-decoration: none;
+    color: black;
+    opacity: 95%;
+    position: relative;
+  }
+  
+  .moreVideo_thumbnail {
+    width: 70%;
+    max-width: 30rem;
+  }
+  
+  .moreVideo_thumbnail video {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+  
+  .moreVideo_details {
+    width: 60%;
+    padding-left: 10px;
+  }
+  
+  .moreVideo_title {
+    font-size: x-larger;
+    font-weight: 600;
+    color: rgba(220, 220, 220, 0.959);
+    margin-bottom: 1rem;
+    margin-top: 0.3rem;
+  }
+
+  .moreVideo_uploader,
+  .moreVideo_views {
+    font-size: small;
+    font-weight: 600;
+    color: #747474;
+    margin-block: 0.2rem;
+  }
+  
+ .dot_1{
+    font-size: large;
+    padding-top: 3rem;
+ }
+ 
+ .moreVideo_options{
+  position: absolute;
+  top: -0.5rem;
+  right: -1rem;
+  color: gainsboro;
+ }
