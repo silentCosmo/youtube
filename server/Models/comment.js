@@ -6,4 +6,4 @@ const commentSchema = mongoose.Schema({
     commentedUser:String,
     commentedOn:{type:Date, default:Date.now}
 })
-export default mongoose.model("Comments", commentSchema)
+export default mongoose.model("comment", commentSchema)
