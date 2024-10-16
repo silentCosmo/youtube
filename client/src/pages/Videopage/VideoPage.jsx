@@ -46,7 +46,7 @@ function VideoPage() {
         <div className="container2_videoPage">
           <div className="video_display_screen_videoPage">
             <video
-              src={`http://localhost:5000/${vmd?.path}`}
+              src={`https://youtube-0xsa.onrender.com/${vmd?.path}`}
               className="video_ShowVideo_videoPage"
               controls
               controlsList="nodownload play"
