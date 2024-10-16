@@ -1,5 +1,5 @@
 import express from 'express'
-import auth from '../Middleware/auth.js'
+import auth from '../Middleware/Auth.js'
 import upload  from '../Helper/FileHelper.js'
 import { likeController } from '../Controllers/Like.js'
 import { viewsController } from '../Controllers/Views.js'
