@@ -9,7 +9,7 @@ function MoreVideoList({ video }) {
   return (
     <Link to={`/watch/${video._id}`} className="moreVideo_item">
       <div className="moreVideo_thumbnail">
-        <video src={`https://youtube-0xsa.onrender.com/${video.path}`} alt={video.title} />
+        <video src={`${video.path}`} alt={video.title} />
       </div>
       <div className="moreVideo_details">
         <p className="moreVideo_title">{video.title}</p>
