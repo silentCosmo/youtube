@@ -1,7 +1,7 @@
 import VideoFile from "../Models/VideoFile.js";
 import { format } from 'util';
 import admin from 'firebase-admin';
-import serviceAccountKey from "../etc/secrets/serviceAccountKey.json" assert { type: 'json' }
+import serviceAccountKey from "../serviceAccountKey.json" assert { type: 'json' }
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccountKey),
