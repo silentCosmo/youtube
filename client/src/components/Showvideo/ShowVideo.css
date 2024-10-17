@@ -1,7 +1,7 @@
 .video_ShowVideo{
     cursor: pointer;
     margin: 0.4rem;
-    margin-bottom: 0;
+    margin-bottom: 0.3rem;
     border-radius: 5px;
     width: 21rem;
     height: 12rem;
@@ -12,6 +12,7 @@
     display: flex;
     height: 4rem;
     margin: auto auto;
+    margin-bottom: 2rem;
 }
 .video_details{
     width: 80%;
