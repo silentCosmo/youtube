@@ -21,7 +21,7 @@ function ShowVideo({ vid }) {
   return (
     <>
       <Link to={`/watch/${vid._id}`}>
-        <video src={`https://youtube-0xsa.onrender.com/`+vid.path} className="video_ShowVideo" 
+        <video src={vid.path} className="video_ShowVideo" 
           ref={videoRef} muted
           onMouseEnter={handleMouseEnter} 
           onMouseLeave={handleMouseLeave} ></video>

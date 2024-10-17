@@ -5,6 +5,8 @@
 /.pnp
 .pnp.js
 /uploads
+serviceAccountKey.json
+.env
 
 # testing
 /coverage
