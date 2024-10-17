@@ -1,12 +1,10 @@
 import VideoFile from "../Models/VideoFile.js";
 import { format } from 'util';
 import admin from 'firebase-admin';
-
-
-const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY);
+import serviceAccountKey from "/etc/secrets/serviceAccountKey.json" assert { type: 'json' }
 
 admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
+    credential: admin.credential.cert(serviceAccountKey),
     storageBucket: 'order-mate-pos.appspot.com'  // Replace with your bucket name
 });
 
