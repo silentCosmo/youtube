@@ -3,6 +3,8 @@ import { format } from 'util';
 import admin from 'firebase-admin';
 import serviceAccountKey from "../serviceAccountKey.json" assert { type: 'json' }
 
+console.log(serviceAccountKey);
+
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccountKey),
     storageBucket: 'order-mate-pos.appspot.com'  // Replace with your bucket name
