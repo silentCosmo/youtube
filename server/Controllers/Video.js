@@ -1,4 +1,4 @@
-import VideoFile from "../Models/VideoFile.js";
+/* import VideoFile from "../Models/VideoFile.js";
 import { format } from 'util';
 import admin from 'firebase-admin';
 import serviceAccountKey from "../serviceAccountKey.json" assert { type: 'json' }
@@ -64,10 +64,10 @@ export const uploadVideo = async (req, res) => {
         console.error('Error during video upload:', error);
         res.status(500).json({ message: error.message });
     }
-};
+}; */
 
 
-/*import VideoFile from "../Models/VideoFile.js";
+import VideoFile from "../Models/VideoFile.js";
 export const uploadVideo = async(req,res)=>{
     if(req.file === undefined){
         res.status(404).json({message:"You can only upload a mp4 video file only"})
@@ -90,7 +90,8 @@ export const uploadVideo = async(req,res)=>{
             return
         }
     }
-}*/
+}
+
 export const getAllVideos = async(req,res)=>{
 
     try {

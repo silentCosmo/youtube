@@ -1,7 +1,8 @@
 import axios from 'axios'
 
 /* const API = axios.create({baseURL:'http://localhost:5000'}) */
-const API = axios.create({baseURL:'https://youtube-0xsa.onrender.com'})
+/* const API = axios.create({baseURL:'https://youtube-0xsa.onrender.com'}) */
+const API = axios.create({baseURL:'https://youtube.koyeb.app'})
 
 API.interceptors.request.use((req)=>{
     
