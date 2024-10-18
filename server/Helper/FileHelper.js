@@ -1,23 +1,4 @@
-import multer from "multer";
-
-// Set up memory storage for multer
-const storage = multer.memoryStorage();  // Store files in memory
-
-const fileFilter = (req, file, cb) => {
-    if (file.mimetype === "video/mp4") {
-        cb(null, true);
-    } else {
-        cb(null, false);  // Reject non-mp4 files
-    }
-};
-
-// Configure multer to use memory storage
-const upload = multer({ storage: storage, fileFilter: fileFilter });
-
-export default upload;
-
-
-/* "use strict";
+"use strict";
 import fs from 'fs'
 import multer from "multer"
 const storage = multer.diskStorage({
@@ -45,4 +26,26 @@ const fileFilter = (req,file,cb)=>{
 }
 
 const upload = multer({storage:storage,fileFilter:fileFilter})
+export default upload;
+
+
+
+
+
+/* import multer from "multer";
+
+// Set up memory storage for multer
+const storage = multer.memoryStorage();  // Store files in memory
+
+const fileFilter = (req, file, cb) => {
+    if (file.mimetype === "video/mp4") {
+        cb(null, true);
+    } else {
+        cb(null, false);  // Reject non-mp4 files
+    }
+};
+
+// Configure multer to use memory storage
+const upload = multer({ storage: storage, fileFilter: fileFilter });
+
 export default upload; */
