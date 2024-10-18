@@ -1,4 +1,4 @@
-"use strict";
+/* "use strict";
 import fs from 'fs'
 import multer from "multer"
 const storage = multer.diskStorage({
@@ -26,13 +26,13 @@ const fileFilter = (req,file,cb)=>{
 }
 
 const upload = multer({storage:storage,fileFilter:fileFilter})
-export default upload;
+export default upload; */
 
 
 
 
 
-/* import multer from "multer";
+import multer from "multer";
 
 // Set up memory storage for multer
 const storage = multer.memoryStorage();  // Store files in memory
@@ -48,4 +48,4 @@ const fileFilter = (req, file, cb) => {
 // Configure multer to use memory storage
 const upload = multer({ storage: storage, fileFilter: fileFilter });
 
-export default upload; */
+export default upload;
