@@ -19,7 +19,6 @@ function App() {
   const [editCreateChannelBtn, setEditCreateChannelBtn] = useState(false);
   const [videoUploadPage, setVideoUploadPage] = useState(false);
   const isLoggedIn = useSelector((state)=>state.currentUserReducer)
-  console.log(isLoggedIn?'yes':'no');
   
   const dispatch = useDispatch()
   useEffect(()=>{

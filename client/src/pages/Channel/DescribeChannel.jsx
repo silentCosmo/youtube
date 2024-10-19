@@ -14,11 +14,11 @@ function DescribeChannel({ cid, setVideoUploadPage, setEditCreateChannelBtn }) {
   return (
     <div className="container3_chanel">
       <div className="chanel_logo_chanel">
-        <b>{currentChannel?.name.charAt(0).toUpperCase()}</b>
+        <b>{currentChannel?.name?currentChannel?.name.charAt(0).toUpperCase():'X'}</b>
       </div>
       <div className="description_chanel">
-        <b>{currentChannel?.name}</b>
-        <p>{currentChannel?.desc}</p>
+        <b>{currentChannel?.name?currentChannel?.name:"Oops..!"}</b>
+        <p>{currentChannel?.desc?currentChannel?.desc:"Don't play with the url, you are in the wrong place!"}</p>
       </div>
       {currentUser?.result._id === currentChannel?._id && (
         <>

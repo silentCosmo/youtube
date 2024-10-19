@@ -9,6 +9,7 @@ import LikedVideo from './pages/Likedvideo/LikedVideo'
 import WatchHistory from './pages/Whatchhistory/WatchHistory'
 import WhatchLater from './pages/Watchlater/WhatchLater'
 import YourVideo from './pages/Yourvideo/YourVideo'
+import NotFound from './NotFound'
 
 function AllRoutes({setEditCreateChannelBtn,setVideoUploadPage, isLoggedIn}) {
   
@@ -25,6 +26,7 @@ function AllRoutes({setEditCreateChannelBtn,setVideoUploadPage, isLoggedIn}) {
       <Route path='/channel/:cid' element={<Channel setEditCreateChannelBtn={setEditCreateChannelBtn} setVideoUploadPage={setVideoUploadPage} isLoggedIn={isLoggedIn} />} />
       <Route path='/feed/subscriptions' element={<Home/>} />
       <Route path='/search/:searchquery' element={<Search/>} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   )
 }

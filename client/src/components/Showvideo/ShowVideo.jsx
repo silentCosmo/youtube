@@ -67,10 +67,6 @@ function ShowVideo({ vid, opt}) {
         onConfirm={confirmDelete}
         onCancel={closeModal}
         message="Do you really want to delete this video? This action cannot be undone."
-        preview={<video src={vid.path} className="video_ShowVideo" 
-        ref={videoRef} muted
-        onMouseEnter={handleMouseEnter} 
-        onMouseLeave={handleMouseLeave} ></video>}
       />
     </>
   );
