@@ -53,3 +53,23 @@ video {
   background-color: rgba(250,235,215,0.555);
   margin: auto 0.5rem;
 }
+
+.notify_signin_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh; /* Full height to center it vertically */  
+}
+
+.notify_signin_channel {
+  cursor: none;
+    color: #da6060;
+    background-color: rgb(36,36,36);
+    border: 1px solid;
+    margin: 0;
+    padding: 0.5rem;
+    border-radius: 50px;
+    align-items: center;
+    display: flex;
+    font-size: 1.2rem;
+}

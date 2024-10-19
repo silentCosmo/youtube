@@ -5,6 +5,7 @@ import { deleteComment, editComment } from "../../redux/action/comment";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { MdOutlineEdit } from "react-icons/md";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import ConfirmationModal from "../Showvideo/ConfirmationModal";
 
 function DisplayComment({
   cId,
@@ -17,6 +18,7 @@ function DisplayComment({
   const [cmtId, setCmtId] = useState("");
   const [cmtBody, setCmtBody] = useState("");
   const [cmtMenu,setCmtMenu] = useState(false)
+  const [isModalOpen, setModalOpen] = useState(false);
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.currentUserReducer);
 
@@ -38,12 +40,19 @@ function DisplayComment({
     setEdit(false);
   };
 
-  const handleDelete = (id) => {
-    const confirmDel = window.confirm("Delete your comment permanently?")
+  const handleDelete = () => {
+    /* const confirmDel = window.confirm("Delete your comment permanently?")
     if(confirmDel){
-      dispatch(deleteComment(id))
-    }
+    } */
+    dispatch(deleteComment(cId))
     setCmtMenu(false)
+  };
+
+  const openModal = () => setModalOpen(true);
+  const closeModal = () => setModalOpen(false);
+  const confirmDelete = () => {
+    handleDelete();
+    closeModal();
   };
 
   return (
@@ -95,7 +104,7 @@ function DisplayComment({
         { cmtMenu?  
         <p className="EditDel_DisplayComment">
           <span onClick={() => handleEdit(cId, commentBody)}><MdOutlineEdit/>&nbsp; Edit</span>
-          <span onClick={() => handleDelete(cId)}><RiDeleteBin6Line/>&nbsp; Delete</span>
+          <span onClick={() => openModal(cId)}><RiDeleteBin6Line/>&nbsp; Delete</span>
         </p>:""
         }
         {
@@ -103,6 +112,12 @@ function DisplayComment({
         }
         </>
       )}
+      <ConfirmationModal
+        isOpen={isModalOpen}
+        onConfirm={confirmDelete}
+        onCancel={closeModal}
+        message="Delete your comment permanently?"
+      />
     </div>
   );
 }

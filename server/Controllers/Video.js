@@ -71,6 +71,44 @@ export const uploadVideo = async (req, res) => {
     }
 };
 
+export const deleteVideo = async (req, res) => {
+    const videoId = req.params.id; // Assuming you're passing the video ID via request params
+
+    try {
+        // Find video metadata from MongoDB
+        const video = await VideoFile.findById(videoId);
+
+        if (!video) {
+            return res.status(404).json({ message: "Video not found" });
+        }
+
+        // Extract the video file path from Firebase Storage URL
+        const videoFilePath = video.path.replace(`https://storage.googleapis.com/${bucket.name}/`, '');
+
+        // Delete the file from Firebase Storage
+        const file = bucket.file(videoFilePath);
+        await file.delete();
+
+        // Remove video metadata from MongoDB
+        await VideoFile.findByIdAndDelete(videoId);
+
+        res.status(200).json({ message: "Video deleted successfully" });
+    } catch (error) {
+        console.error('Error during video deletion:', error);
+        res.status(500).json({ message: error.message });
+    }
+};
+
+export const getAllVideos = async(req,res)=>{
+
+    try {
+        const files = await VideoFile.find()
+        res.status(200).send(files)
+    } catch (error) {
+        res.status(404).json(error.message)
+        return
+    }
+} 
 
 /* import VideoFile from "../Models/VideoFile.js";
 export const uploadVideo = async(req,res)=>{
@@ -97,13 +135,3 @@ export const uploadVideo = async(req,res)=>{
     }
 } */
 
-export const getAllVideos = async(req,res)=>{
-
-    try {
-        const files = await VideoFile.find()
-        res.status(200).send(files)
-    } catch (error) {
-        res.status(404).json(error.message)
-        return
-    }
-} 

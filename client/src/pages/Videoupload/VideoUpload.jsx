@@ -84,7 +84,7 @@ function VideoUpload({ setVideoUploadPage }) {
         <div className="ibox_div_vidupload">
           <input
             type="text"
-            maxLength={30}
+            maxLength={62}
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Enter title for the video"

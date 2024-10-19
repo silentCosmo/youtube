@@ -10,7 +10,7 @@ import WatchHistory from './pages/Whatchhistory/WatchHistory'
 import WhatchLater from './pages/Watchlater/WhatchLater'
 import YourVideo from './pages/Yourvideo/YourVideo'
 
-function AllRoutes({setEditCreateChannelBtn,setVideoUploadPage}) {
+function AllRoutes({setEditCreateChannelBtn,setVideoUploadPage, isLoggedIn}) {
   
   return (
     <Routes>
@@ -22,7 +22,7 @@ function AllRoutes({setEditCreateChannelBtn,setVideoUploadPage}) {
       <Route path='/watchlater' element={<WhatchLater/>} />
       <Route path='/watch/:vid' element={<VideoPage/>} />
       <Route path='/feed/history' element={<WatchHistory/>} />
-      <Route path='/channel/:cid' element={<Channel setEditCreateChannelBtn={setEditCreateChannelBtn} setVideoUploadPage={setVideoUploadPage} />} />
+      <Route path='/channel/:cid' element={<Channel setEditCreateChannelBtn={setEditCreateChannelBtn} setVideoUploadPage={setVideoUploadPage} isLoggedIn={isLoggedIn} />} />
       <Route path='/feed/subscriptions' element={<Home/>} />
       <Route path='/search/:searchquery' element={<Search/>} />
     </Routes>

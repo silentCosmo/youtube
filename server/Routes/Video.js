@@ -4,7 +4,7 @@ import upload  from '../Helper/FileHelper.js'
 import { likeController } from '../Controllers/Like.js'
 import { viewsController } from '../Controllers/Views.js'
 import { historyController, getAllHistoryController, deleteHistory } from '../Controllers/History.js'
-import { uploadVideo, getAllVideos } from '../Controllers/Video.js'
+import { uploadVideo, getAllVideos, deleteVideo } from '../Controllers/Video.js'
 import { getWatchLaterController, removeWatchLater, watchLaterController } from '../Controllers/WatchLater.js'
 import { getLikedVideo, likedVideoController, removeLikedVideo } from '../Controllers/LikedVideo.js'
 
@@ -14,6 +14,7 @@ routes.post("/upload",auth,upload.single("file"),uploadVideo)
 routes.get("/getvideos",getAllVideos)
 routes.patch("/like/:id",auth,likeController)
 routes.patch("/views/:_id",viewsController)
+routes.delete('/delete/:id',deleteVideo);
 
 routes.post("/history/push",auth,historyController)
 routes.get("/history/get",getAllHistoryController)

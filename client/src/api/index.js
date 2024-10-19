@@ -20,6 +20,7 @@ export const uploadVideo = (fileData,fileOption)=> API.post("/video/upload",file
 export const getVideos = ()=> API.get("/video/getvideos")
 export const videoLikes = (id,like)=> API.patch(`/video/like/${id}`,{like})
 export const videoViews = (id)=> API.patch(`/video/views/${id}`)
+export const deleteVideo = (id)=> API.delete(`/video/delete/${id}`)
 
 export const postComment = (commentData)=>API.post('/comment/post',commentData)
 export const deleteComment = (id)=>API.delete(`/comment/delete/${id}`)

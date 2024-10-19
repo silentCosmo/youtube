@@ -1,7 +1,7 @@
 .container3_chanel{
     border-bottom: 3px solid rgba(25, 75, 41, 0.199);
     padding: 0.5rem;
-    color: whitesmoke;
+    color: rgba(220, 220, 220, 0.9);
     position: relative;
     margin-bottom: 2rem;
     
@@ -18,18 +18,29 @@
 }
 .chanel_logo_chanel{
     /* border: 10px solid rgba(49,7,219,0.66); */
-    border: 10px solid rgba(245, 245, 245, 0.87);
+    border: 10px solid rgba(23, 85, 72, 0.8);
     width: 5rem;
     height: 5rem;
     border-radius: 100%;
     display: flex;
     margin: 0 auto;
+    color: rgba(0, 255, 200,0.4);
     /* background-color: rgba(92,135,4,0.769); */
-    background-color: rgba(255, 0, 0, 0.637);
+    background-color: #2a2a2a; 
+  background-image: 
+  radial-gradient(circle, rgba(255, 255, 255, 0.4) 1px, transparent 1px), 
+  linear-gradient(45deg, rgba(255, 255, 255, 0.4) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0.4) 75%, transparent 75%, transparent), /* Brighter white diagonal stripes */
+  linear-gradient(135deg, rgba(0, 255, 200, 0.5) 10%, transparent 10%, transparent 40%, rgba(0, 255, 200, 0.5) 40%); 
+  background-size: 
+  100px 100px, 
+  100px 100px, 
+  50px 50px; 
+  background-blend-mode: overlay;
 }
 .chanel_logo_chanel b{
     margin: auto;
-    font-size: 3rem;
+    font-size: 4rem;
+    margin-top: -0.5rem;
 }
 .description_chanel{
     text-align: center;

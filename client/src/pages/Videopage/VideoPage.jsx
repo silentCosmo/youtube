@@ -18,10 +18,10 @@ function VideoPage() {
   const commentList = useSelector(state=>state.commentReducer)
   const morevids = useSelector(state=>state.videoReducer);
   
-  const randomMoreVids = morevids?.data?.filter(vi=> vi._id !== vid).sort(()=>Math.random()-0.5)
   
   const vmd = vids?.data?.filter((q) => q._id === vid)[0]; 
   const totalComments = commentList?.data?.filter((q) => vid === q?.vid).length
+  const randomMoreVids = morevids?.data?.filter(vi=> vi._id !== vid).sort(()=>Math.random()-0.5).slice(0,8+totalComments)
 
   const handleViews = ()=> {
     dispatch(viewVideo({id:vid}))

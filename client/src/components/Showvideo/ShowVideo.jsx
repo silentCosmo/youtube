@@ -1,10 +1,16 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import "./ShowVideo.css";
 import moment from "moment";
 import { Link } from "react-router-dom";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import ConfirmationModal from "./ConfirmationModal";
+import {useDispatch} from 'react-redux'
+import { deleteVideo } from "../../redux/action/video";
 
-function ShowVideo({ vid }) {
+function ShowVideo({ vid, opt}) {
+  const dispatch = useDispatch()
   const videoRef = useRef(null); 
+  const [isModalOpen, setModalOpen] = useState(false);
 
   const handleMouseEnter = () => {
     if (videoRef.current) {
@@ -18,6 +24,18 @@ function ShowVideo({ vid }) {
       videoRef.current.currentTime = 0; 
     }
   };
+
+  const handleDelete = async () => {
+    dispatch(deleteVideo(vid._id))
+  };
+
+  const openModal = () => setModalOpen(true);
+  const closeModal = () => setModalOpen(false);
+  const confirmDelete = () => {
+    handleDelete();
+    closeModal();
+  };
+
   return (
     <>
       <Link to={`/watch/${vid._id}`}>
@@ -39,8 +57,21 @@ function ShowVideo({ vid }) {
             {vid?.views ? vid.views : 0} views <div className="dot"></div>
             {moment(vid?.createdAt).fromNow()}
           </div>
+            { opt&&<p className="moreVideo_options_delete" onClick={()=>openModal()}>
+              <RiDeleteBin6Line />
+            </p>}
         </div>
       </div>
+      <ConfirmationModal
+        isOpen={isModalOpen}
+        onConfirm={confirmDelete}
+        onCancel={closeModal}
+        message="Do you really want to delete this video? This action cannot be undone."
+        preview={<video src={vid.path} className="video_ShowVideo" 
+        ref={videoRef} muted
+        onMouseEnter={handleMouseEnter} 
+        onMouseLeave={handleMouseLeave} ></video>}
+      />
     </>
   );
 }

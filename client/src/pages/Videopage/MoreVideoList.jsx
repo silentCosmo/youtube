@@ -12,7 +12,7 @@ function MoreVideoList({ video }) {
         <video src={`${video.path}`} alt={video.title} />
       </div>
       <div className="moreVideo_details">
-        <p className="moreVideo_title">{video.title}</p>
+        <p className="moreVideo_title">{video.title.length > 35 ? video.title.substring(0, 35) + "..." : video.title}</p>
         <div className="moreVideo_upload_views">
           <p className="moreVideo_uploader">{video.uploader}</p>
           <p className="moreVideo_views">

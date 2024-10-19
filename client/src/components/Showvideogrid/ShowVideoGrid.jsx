@@ -2,7 +2,7 @@ import React from 'react'
 import './ShowVideoGrid.css'
 import ShowVideo from '../Showvideo/ShowVideo'
 
-function ShowVideoGrid({vids}) {
+function ShowVideoGrid({vids, opt}) {
     //console.log(vids);
     
   return (
@@ -11,7 +11,7 @@ function ShowVideoGrid({vids}) {
             vids?.reverse().map(vi=>{
                 return(
                     <div key={vi._id} className="video_box_App">
-                        <ShowVideo vid={vi} />
+                        <ShowVideo vid={vi} opt={opt} />
                     </div>
                 )
             })

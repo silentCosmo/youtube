@@ -46,7 +46,7 @@
   border-bottom-left-radius: 0;
   transition-duration: 1s;
 }
-.comment_add_btn_fill_comments:hover{
+.comment_add_btn_fill_comments:hover {
   background-color: rgba(65, 131, 253, 0.603);
 }
 
@@ -91,9 +91,9 @@
   font-style: normal;
 }
 .comment_body {
-  color: rgba(230, 230, 230, 0.918);
+  color: rgba(230, 230, 230, 0.8);
   margin: 0;
-  margin-top: 0.5rem;
+  margin-top: 0.2rem;
 }
 .EditDel_DisplayComment {
   /* padding: 0.2rem;
@@ -151,4 +151,8 @@
   left: 0;
   right: 0;
   z-index: 50;
+}
+
+.modal-content{
+  width: 20rem !important;
 }

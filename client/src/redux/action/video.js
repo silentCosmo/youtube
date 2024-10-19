@@ -43,3 +43,12 @@ export const viewVideo = (viewData)=> async(dispatch)=>{
         
     }
 }
+
+export const deleteVideo = (id) => async (dispatch) => {
+    try {
+      await api.deleteVideo(id);
+      dispatch({ type: "DELETE_VIDEO", payload: id });
+    } catch (error) {
+      console.error("Error deleting video:", error);
+    }
+  };
