@@ -15,6 +15,7 @@
   .moreVideo_thumbnail video {
     width: 100%;
     height: auto;
+    max-height: 7rem;
     object-fit: cover;
     border-radius: 5px;
   }
