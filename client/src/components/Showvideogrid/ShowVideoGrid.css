@@ -4,3 +4,10 @@
     justify-content: flex-start;
     gap: 0rem;
 }
+@media screen and (max-width:768px) {
+    .Container_ShowVideoGrid{
+        justify-content: center;
+        display: block;
+        width: 99%;
+    }
+}

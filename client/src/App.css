@@ -10,8 +10,9 @@
   background-color: #2a2a2a; 
   background-image: 
   radial-gradient(circle, rgba(255, 255, 255, 0.4) 1px, transparent 1px), 
-  linear-gradient(45deg, rgba(255, 255, 255, 0.4) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0.4) 75%, transparent 75%, transparent), /* Brighter white diagonal stripes */
+  linear-gradient(45deg, rgba(255, 255, 255, 0.4) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0.4) 75%, transparent 75%, transparent), 
   linear-gradient(135deg, rgba(0, 255, 200, 0.5) 10%, transparent 10%, transparent 40%, rgba(0, 255, 200, 0.5) 40%); 
+
   background-size: 
   100px 100px, 
   100px 100px, 
@@ -58,7 +59,7 @@ video {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 90vh; /* Full height to center it vertically */  
+  height: 90vh; 
 }
 
 .notify_signin_channel {
@@ -72,4 +73,10 @@ video {
     align-items: center;
     display: flex;
     font-size: 1.2rem;
+}
+
+@media screen and (max-width:768px) {
+ .container2_Pages_App{
+  width: 100%;
+ }   
 }

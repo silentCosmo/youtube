@@ -58,13 +58,12 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    
 }
-.appBox{
-    border: 1px solid white;
-    margin: 0.1rem;
-    width: 2px;
-    height: 2px;
+    .appBox{
+        border: 1px solid white;
+        margin: 0.1rem;
+        width: 2px;
+        height: 2px;
 }
 .Auth_cont_Navbar{
     width: fit-content;
@@ -83,3 +82,13 @@
     align-items: center;
     display: flex;
 }
+
+@media screen and (max-width:768px) {
+    .apps_Box{display: none;}
+    .Container_Navbar{
+        padding-left: 0;
+    }
+    .vid_bell_Navbar{
+        display: none;
+    }
+    }

@@ -106,3 +106,9 @@
     opacity: 0.9;
   }
   
+  @media screen and (max-width:768px) {
+   .video_ShowVideo{
+    width: 100%;
+    margin: 0;
+   } 
+  }

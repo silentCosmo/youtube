@@ -29,6 +29,7 @@ function Auth({ user, setAuthBtn, setEditCreateChannelBtn }) {
           <div className="email_auth">{user?.result.email}</div>
         </p>
         <div className="btns_Auth">
+        <Link to={`/profile/${user?.result?._id}`} className="btn_Auth">Profile</Link>
             {
                 user?.result.name?(
                     <>

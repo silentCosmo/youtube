@@ -14,9 +14,9 @@ function SearchList({setSearchQuery,TitleArray,setSearchList}) {
     <>
     <div className="Container_SearchList">
         {
-            TitleArray.map((title,index)=>{
+            TitleArray?.map((title,index)=>{
                 return <p key={index} onClick={e=>handleClick(title)} className='titleItem'>
-                    <CiSearch/> {title}
+                    <CiSearch/> {title.slice(0,42)}
                 </p>
             })
         }

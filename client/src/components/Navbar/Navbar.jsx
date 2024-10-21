@@ -13,10 +13,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../redux/action/auth";
 import { setCurrentUser } from "../../redux/action/currentuser";
 import { jwtDecode } from 'jwt-decode'
+import { BiSearch } from "react-icons/bi";
 
 function Navbar({ toggleDrawer, setEditCreateChannelBtn, setVideoUploadPage }) {
   const [authBtn, setAuthBtn] = useState(false);
   const [user,setUser] = useState(null)
+  const [searchToggle,setSearchToggle] = useState(false)
   const [profile,setProfile] = useState([])
   const dispatch = useDispatch()
   
@@ -75,7 +77,6 @@ function Navbar({ toggleDrawer, setEditCreateChannelBtn, setVideoUploadPage }) {
     dispatch(setCurrentUser(JSON.parse(localStorage.getItem("Profile"))))
   },[currentUser?.token,dispatch])
   
-
   return (
     <>
       <div className="Container_Navbar">
@@ -90,8 +91,9 @@ function Navbar({ toggleDrawer, setEditCreateChannelBtn, setVideoUploadPage }) {
             <p className="logo_title_navbar">YourTube</p>
           </Link>
         </div>
-        <SearchBar />
+        <SearchBar searchToggle={searchToggle} setSearchToggle={setSearchToggle} />
         <div className="vid_bell_Navbar_Container">
+        <BiSearch className="lg:hidden mr-5 p-2 rounded-full active:scale-90" size={24} onClick={()=>setSearchToggle(true)} />
           <MdOutlineFileUpload size={22} className={"vid_bell_Navbar"} onClick={()=>setVideoUploadPage(true)} />
           <div className="apps_Box">
             <p className="appBox"></p>

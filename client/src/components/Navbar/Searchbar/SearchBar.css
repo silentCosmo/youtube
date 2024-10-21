@@ -57,3 +57,53 @@
       color: whitesmoke;
       margin: auto 0.7rem;
   }
+
+  @media screen and (max-width: 768px){ 
+    .sbc_hidden{
+      display: none;
+    }
+    .SearchBar_Container{
+      position: fixed;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      width: 100%;
+      justify-content: center;
+    } 
+    .SearchBar_Container2{
+      background-color: #0F0F0F;
+      width: 100%;
+      margin-top: 0.1rem;
+      padding-block: 0.4rem;
+      display: flex;
+      justify-content: center;
+    }
+    .search_div{
+      width: 100%;
+      padding-inline: 0.5rem;
+    }
+    .iBox_SearchBar{
+      width: 100%;
+    }
+    .Mic_SearchBar{
+      display: none;
+    }
+    .searchBar_close{
+      max-height: 1.5rem;
+      border-radius: 100%;
+      padding: 0.5rem;
+      margin-right: 0.4rem;
+      color: white;
+      background-color: #222222;
+      border: 1px solid rgba(128, 128, 128, 0.4);
+    }
+    .searchBar_close:hover{
+      background-color: rgb(71, 71, 71);
+    }
+    .searchIcon_SearchBar{
+      padding-bottom: 0.5rem;
+    }
+    .Container_SearchList{
+      width: 96% !important;
+    }
+  }

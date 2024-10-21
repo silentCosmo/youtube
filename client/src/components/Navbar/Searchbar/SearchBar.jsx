@@ -5,20 +5,22 @@ import { CiSearch } from "react-icons/ci";
 import SearchList from './SearchList';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { IoIosArrowRoundBack } from "react-icons/io";
 
-function SearchBar() {
+function SearchBar({searchToggle,setSearchToggle}) {
     const [searchQuery,setSearchQuery] = useState("")
     const [searchList,setSearchList] = useState(false)
     //const Ta = useSelector(s=>s.videoReducer).data
-    //console.log(Ta);
     
     const TitleArray = useSelector(state=>state.videoReducer)?.data?.filter(q=>q?.title?.toUpperCase().includes(searchQuery.toUpperCase())).map(m=>m?.title)
     //const TitleArray = ["video","marvel", "animation", "avengers", "iron man" ].filter(q=>q.toUpperCase().includes(searchQuery.toUpperCase()))
+  
   return (
     <>
-    <div className="SearchBar_Container">
+    <div className={`${searchToggle?"SearchBar_Container":"sbc_hidden"} `}>
         <div className="SearchBar_Container2">
             <div className="search_div">
+                <div className="searchBar_close lg:hidden" onClick={()=>setSearchToggle(false)} ><IoIosArrowRoundBack size={24} /></div>
                 <input type="text" className='iBox_SearchBar' placeholder='Search' onChange={e=>setSearchQuery(e.target.value)} value={searchQuery} onClick={e=>setSearchList(true)} />
                 <Link to={searchQuery&&`search/${searchQuery}`} onClick={()=>setSearchList(false)}><CiSearch size={22} className='searchIcon_SearchBar'/></Link>
                 <MdOutlineMic size={24} className='Mic_SearchBar'/>
@@ -28,6 +30,7 @@ function SearchBar() {
     </div>
     </>
   )
+  
 }
 
 export default SearchBar

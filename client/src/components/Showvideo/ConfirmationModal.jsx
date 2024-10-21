@@ -1,7 +1,7 @@
 import React from 'react';
 
 const ConfirmationModal = ({ isOpen, onConfirm, onCancel, message, preview }) => {
-  if (!isOpen) return null; // Do not render the modal if it's not open
+  if (!isOpen) return null;
 
   return (
     <div className="modal-overlay">
