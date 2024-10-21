@@ -87,8 +87,14 @@
     .apps_Box{display: none;}
     .Container_Navbar{
         padding-left: 0;
+        /* margin-bottom: 1rem; */
     }
     .vid_bell_Navbar{
         display: none;
+    }
+    .Auth_Btn{
+        padding: 0.3rem;
+        padding-block: 0.3rem;
+        font-size: small;
     }
     }

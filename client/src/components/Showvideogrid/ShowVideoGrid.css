@@ -6,8 +6,7 @@
 }
 @media screen and (max-width:768px) {
     .Container_ShowVideoGrid{
-        justify-content: center;
-        display: block;
+        justify-content: space-evenly;
         width: 99%;
     }
 }

@@ -109,6 +109,7 @@ function Home() {
             })
           }
         </div>
+        <div className="mt-6"></div>
         <ShowVideoGrid vids={vids} />
       </div>
     </div>

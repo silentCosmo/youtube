@@ -77,7 +77,6 @@
   margin-left: 0.5rem;
 }
 
-
 .usercommented {
   color: rgba(230, 230, 230, 0.767);
   margin: 0;
@@ -128,6 +127,7 @@
   color: gainsboro;
   background-color: #464646;
 }
+
 .comment_options{
   position: absolute;
   right: 1rem;
@@ -155,4 +155,43 @@
 
 .modal-content{
   width: 20rem !important;
+}
+.comments_VideoPage h3 u {
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+@media screen and (max-width:768px) {
+  .display_comment_container{
+    padding-inline: 0rem;
+  }
+  .usercommented{
+    font-size: smaller;
+  }
+  .comment_body{
+    font-size: smaller;
+  }
+  .comment_options{
+    right: -1rem;
+  }
+  .comments_sub_form_comments{
+    width: 100% !important;
+    margin-left: 0;
+  }
+  .comment_add_btn_comments{
+    width: 30% !important;
+  }
+  .comment_add_btn_fill_comments{
+    width: 30% !important;
+  }
+  .comments_VideoPage h3 u {
+    font-size: 1.05rem;
+    font-weight: 500;
+  }  
+  .com_md_count{display: none;}
+  .com_sm_count{display: contents;}
+}
+@media screen and (min-width:768px) {
+  .com_md_count{display: contents;}
+  .com_sm_count{display: none;}
 }

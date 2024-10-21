@@ -4,7 +4,9 @@
     position: sticky;
     display: flex;
     overflow-x: auto;
-    top: 0;
+    top: -0.1rem;
+    margin-top: -1.1rem;
+    z-index: 50;
     /* border-bottom: 2px solid rgb(128,128,128,0.27); */
 }
 .btn_nav_home{

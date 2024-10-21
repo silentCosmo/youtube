@@ -76,7 +76,7 @@ video {
 }
 
 @media screen and (max-width:768px) {
- .container2_Pages_App{
+  .container2_Pages_App{
   width: 100%;
  }   
 }

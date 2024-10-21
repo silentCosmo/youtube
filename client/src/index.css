@@ -17,11 +17,14 @@ code {
     monospace;
 }
 
-::-webkit-scrollbar{
-  width: 0.5rem;
-  height: 0.5rem;
-}
-::-webkit-scrollbar-thumb{
-  background-color: grey;
-  border-radius: 5rem;
+
+@media screen and (min-width:480px) {
+  ::-webkit-scrollbar{
+    width: 0.5rem;
+    height: 0.5rem;
+  }
+  ::-webkit-scrollbar-thumb{
+    background-color: grey;
+    border-radius: 5rem;
+  }
 }

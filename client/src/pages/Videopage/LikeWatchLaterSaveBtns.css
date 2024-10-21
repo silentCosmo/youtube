@@ -1,7 +1,7 @@
 .btns_cont_videoPage{
     display: flex;
     flex-grow: 5;
-    flex-direction: row-reverse;
+    flex-direction: row;
 }
 .btn_videoPage{
     margin:  auto 0;
@@ -57,3 +57,7 @@
     margin-inline: 0.3rem;
     font-size: small;
 }
+
+@media (max-width: 768px) {
+    
+  }
