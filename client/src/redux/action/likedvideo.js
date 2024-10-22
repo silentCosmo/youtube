@@ -16,7 +16,7 @@ export const getLikedVideo = () => async(dispatch)=>{
         
         dispatch({type:"FETCH_LIKEDVIDEO", payload:data})
     } catch (error) {
-        console.log(error);
+        //console.log(error);
     }
 }
 

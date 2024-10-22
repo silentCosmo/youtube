@@ -6,6 +6,7 @@
   }
   .SearchBar_Container2 {
     margin: auto;
+    margin-top: 0.1rem;
   }
   .search_div {
     display: flex;
@@ -15,7 +16,7 @@
   }
   .iBox_SearchBar {
     background-color: rgb(18, 18, 18);
-    width: 30rem;
+    width: 20rem;
     border: 1px solid rgba(128, 128, 128, 0.4);
     border-bottom-left-radius: 20px;
     border-top-left-radius: 20px;
@@ -56,6 +57,15 @@
   .Mic_SearchBar{
       color: whitesmoke;
       margin: auto 0.7rem;
+  }
+
+  @media screen and (min-width:1440px) {
+    .SearchBar_Container2{
+      margin-left: 10rem;
+    }
+    .iBox_SearchBar{
+      width: 32rem;
+    }
   }
 
   @media screen and (max-width: 768px){ 

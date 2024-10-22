@@ -10,3 +10,9 @@
         width: 99%;
     }
 }
+@media screen and (max-width:480px) {
+    .Container_ShowVideoGrid{
+        display: block;
+        width: 99%;
+    }
+}

@@ -9,11 +9,11 @@ import { viewVideo } from "../../redux/action/video";
 import { addHistory } from "../../redux/action/history";
 import MoreVideoList from "./MoreVideoList";
 import ShowVideo from "../../components/Showvideo/ShowVideo";
+import VideoPlayer from "./VideoPlayer";
 
 function VideoPage() {
   const { vid } = useParams();
   const dispatch = useDispatch();
-  
   const vids = useSelector((state)=>state.videoReducer)
   const currentUser = useSelector((state)=>state.currentUserReducer)
   const commentList = useSelector(state=>state.commentReducer)
@@ -46,12 +46,7 @@ function VideoPage() {
       <div className="container_videoPage">
         <div className="container2_videoPage">
           <div className="video_display_screen_videoPage ">
-            <video
-              src={`${vmd?.path}`}
-              className="video_ShowVideo_videoPage"
-              controls
-              controlsList="nodownload play"
-            ></video>
+            <VideoPlayer videoPath={vmd?.path}/>
             <div className="video_details_videoPage">
               <div className="video_btns_title_VideoPage_cont">
                 <p className="video_title_VideoPage">{vmd?.title}</p>

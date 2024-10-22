@@ -15,7 +15,7 @@ export const getWatchLater = () => async(dispatch)=>{
         const {data} = await api.getWatchlater()
         dispatch({type:"FETCH_WATCHLATER", payload:data})
     } catch (error) {
-        console.log(error);
+        //console.log(error);
     }
 }
 
