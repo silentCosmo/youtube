@@ -61,8 +61,12 @@ function VideoPage() {
       setCommentToggle(true);
     },
     onNextVideo: () => {
-      navigate("/hjsh");
+      const nextVideo = randomMoreVids[0]._id
+      navigate("/watch/"+nextVideo);
     },
+    onCloseWebsite: ()=>{
+      window.open("about:blank", "_self");
+    }
   };
 
   return (
