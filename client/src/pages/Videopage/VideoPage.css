@@ -116,6 +116,10 @@
   padding: 0 1rem;
   margin-top: 1.5rem;
 }
+.details_comment_more{
+  display: flex;
+  background-color: yellow;
+}
 
 @media (max-width: 768px) {
   .container2_videoPage{
@@ -131,8 +135,8 @@
     border: 0;
     border-radius: 0;
     width: 100%;
-    height: 35vw;
     border-radius: 10px;
+    /* height: 35vw; */
   }
   .chanel_details_cont_videoPage{
     flex-direction: column;
@@ -167,8 +171,14 @@
 .moreVideoBar_mobile{display: none;}
 @media screen and (min-width:480px) {
   .btns_cont_videoPage{justify-content: right;}
+  .comment_close{display: none;}
 }
 @media screen and (max-width: 480px) {
+  .container_videoPage{
+    position: fixed;
+    width: 100%;
+    top: calc(3.6rem + 56.25vw);
+  }
   .container2_videoPage{
     margin-inline: 0;
     margin: 0;
@@ -186,9 +196,10 @@
     width: 100vw;
     position: fixed;
     z-index: 50;
+    top: calc(3.6rem - 2px);
   }
   .video_details_videoPage{
-    margin-top: 56.25vw;
+    /* margin-top: 56.25vw; */
     padding: 0.5rem;
   }
   .video_title_VideoPage {
@@ -220,11 +231,19 @@
   .description_videoPage {
     padding: 0.5rem;
   }
-  .comments_VideoPage:hover{
-    padding-inline-start: 0;
-    background: inherit;
-    overflow-y: visible;
-    max-height: max-content;
+  .comments_visible_VideoPage{
+    padding-inline-start: 0 !important;
+    background: inherit !important;
+    overflow-y: visible !important;
+    max-height: max-content !important;
+    position: relative;
+    max-width: 99% !important;
+  }
+  .comment_close{
+    position: absolute;
+    right: 1rem;
+    padding: 1rem;
+    margin-top: 0.3rem;
   }
   .comments_VideoPage{
     padding-inline-start: 0;

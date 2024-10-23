@@ -1,0 +1,53 @@
+.video_player {
+  position: relative;
+  border-radius: 15px;
+  height: 100%;
+}
+.video {
+  object-fit: cover;
+  width: 100%;
+  aspect-ratio: 16/9;
+}
+.controls {
+  background-color: red;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  padding-block: 1rem;
+  justify-content: center;
+}
+
+@media screen and (min-width: 480px) {
+  .video {
+    height: 38.2vw;
+    border-radius: 15px;
+  }
+  .controls{
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .video_player {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    height: 56.25vw;
+    width: 100vw;
+    position: fixed;
+    z-index: 50;
+  }
+  .video {
+      border-radius: 0;/* 
+      object-fit: cover;
+    height: 100%; */
+    
+  }
+  .controls {
+    position: absolute;
+    bottom: 0;
+    z-index: 60;
+  }
+}
