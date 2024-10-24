@@ -1,29 +1,107 @@
+@import url("https://fonts.googleapis.com/css2?family=Onest:wght@100..900&family=Saira+Extra+Condensed:wght@100;200;300;400;500;600;700;800;900&display=swap");
 .video_player {
   position: relative;
   border-radius: 15px;
+  
   height: 100%;
 }
 .video {
   object-fit: cover;
   width: 100%;
   aspect-ratio: 16/9;
+  height: 100%;
 }
 .controls {
-  background-color: red;
+  background: rgb(0,0,0);
+  background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(20,0,6,0) 100%, rgba(0,0,0,0) 100%);
+
   position: absolute;
   bottom: 0;
   width: 100%;
   display: flex;
-  padding-block: 1rem;
+  padding-block: rem;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
+.seek_controls {
+  /* background: black; */
+  padding-block: 0.5rem;
+  display: flex;
   justify-content: center;
 }
-
+.video_seeker {
+  height: 4px;
+  width: 98%;
+  border-radius: 100px;
+  accent-color: red;
+}
+.button_controls {
+  /* background: rgb(29, 29, 29); */
+  padding-block: 0rem;
+  display: flex;
+  justify-content: space-between;
+  justify-items: center;
+}
+.button_controls > .left_controls {
+  margin-left: 0.5rem;
+  flex-direction: row;
+  display: flex;
+}
+.button_controls > .right_controls {
+  margin-right: 0.5rem;
+  flex-direction: row;
+  display: flex;
+}
+button {
+  background: transparent;
+  color: inherit;
+  border: none; /* 
+	padding: 0; */
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  -webkit-tap-highlight-color: transparent;
+  transition: all;
+  transition-duration: 500ms;
+  opacity: 95%;
+}
+button:active {
+  color: red;
+  transform: scale(0.5);
+}
+.mute_btn{
+  opacity: 60%;
+}
+.volume_controls {
+  display: flex;
+  justify-items: center;
+}
+.volume_bar {
+  width: 4rem;
+  height: 4px;
+  margin-block: 11px;
+  accent-color: rgba(212, 212, 212, 0);
+}
+.elapsed_time {
+  margin-left: 5px;
+  font-weight: 400;
+  /* letter-spacing: -1px;
+  font-family: "Onest", sans-serif; */
+  font-family: "Saira Extra Condensed", sans-serif;
+}
 @media screen and (min-width: 480px) {
   .video {
     height: 38.2vw;
     border-radius: 15px;
+
+    height: 100%;
   }
-  .controls{
+  .controls {
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+  }
+  .button_controls {
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
   }
@@ -40,11 +118,13 @@
     z-index: 50;
   }
   .video {
-      border-radius: 0;/* 
+    border-radius: 0; /* 
       object-fit: cover;
     height: 100%; */
-    
   }
+  /* .elapsed_time{
+    margin-block: 2px;
+  } */
   .controls {
     position: absolute;
     bottom: 0;
