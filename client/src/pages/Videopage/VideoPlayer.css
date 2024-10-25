@@ -4,6 +4,7 @@
   border-radius: 15px;
   
   height: 100%;
+  overflow: hidden;
 }
 .video {
   object-fit: cover;
@@ -11,18 +12,39 @@
   aspect-ratio: 16/9;
   height: 100%;
 }
+.loading_spinner{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+@keyframes spin{
+  0%{transform: rotate(0deg);}
+  100%{transform: rotate(360deg);}
+}
+.spinner{
+  animation: spin 650ms linear infinite;
+  color: red;
+}
 .controls {
   background: rgb(0,0,0);
   background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(20,0,6,0) 100%, rgba(0,0,0,0) 100%);
-
   position: absolute;
   bottom: 0;
   width: 100%;
   display: flex;
-  padding-block: rem;
+  padding-block: 1rem;
   justify-content: center;
   display: flex;
   flex-direction: column;
+
+  opacity: 0;
+  transform: translateY(2rem);
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+.controls.show{
+  opacity: 1;
+  transform: translateY(0);
 }
 .seek_controls {
   /* background: black; */
@@ -44,12 +66,12 @@
   justify-items: center;
 }
 .button_controls > .left_controls {
-  margin-left: 0.5rem;
+  margin-left: 1rem;
   flex-direction: row;
   display: flex;
 }
 .button_controls > .right_controls {
-  margin-right: 0.5rem;
+  margin-right: 1rem;
   flex-direction: row;
   display: flex;
 }
@@ -68,7 +90,7 @@ button {
 }
 button:active {
   color: red;
-  transform: scale(0.5);
+  transform: scale(0.7);
 }
 .mute_btn{
   opacity: 60%;
@@ -90,6 +112,96 @@ button:active {
   font-family: "Onest", sans-serif; */
   font-family: "Saira Extra Condensed", sans-serif;
 }
+.options_btn{
+  margin-right: 0.5rem;
+  transform: rotate(60deg);
+  transition: all 300ms ease;
+}
+.options_btn.show{
+  opacity: 1;
+  transform: rotate(0);
+}
+.options_btn:active{
+  transform: scale(1);
+  color: white;
+}
+
+.options_menu {
+  position: absolute;
+  bottom: 4.5rem;
+  right: 0.8rem;
+  background: rgba(0, 0, 0, 0.88);
+  border-radius: 8px;
+  padding: 0.5rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transform: translateX(18rem);
+  transition: opacity 300ms ease, transform 400ms ease;
+}
+.options_menu.show{
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.option_item {
+  display: flex;
+  flex-direction: column;
+  margin: 5px 0;
+}
+
+.option_label {
+  color: gainsboro;
+  margin-bottom: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-items: center;
+  gap: 1rem;
+  padding: 0.5rem;
+}
+
+.playback_rates {
+  display: flex;
+  gap: 0.5rem;
+}
+.rate_btn {
+  /* background: rgba(255, 255, 255, 0.1); */
+  background: rgba(255, 0, 0, 0.2);
+  /* outline: 1px solid rgba(255, 0, 0, 0.5) !important; */
+  outline-style: dashed !important;
+  color: gainsboro;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.item_btn:hover,.rate_btn:active {
+  background: rgba(255, 0, 0, 0.8);
+  /*background: rgba(255, 255, 255, 0.2);
+   color: red; */
+}
+
+.rate_btn.active {
+  background: rgba(255, 0, 0, 0.8);
+  color: gainsboro !important;
+  outline: none !important;
+}
+.item_btn{
+  color: gainsboro !important;
+  display: flex;
+  flex-direction: row;
+  justify-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.5rem;
+  border-radius: 5px;
+  gap: 1rem;
+}
+
+
 @media screen and (min-width: 480px) {
   .video {
     height: 38.2vw;
@@ -104,6 +216,9 @@ button:active {
   .button_controls {
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
+  }
+  .options_btn{
+    margin-right: 1rem;
   }
 }
 
@@ -130,4 +245,39 @@ button:active {
     bottom: 0;
     z-index: 60;
   }
+  .left_controls{
+    margin-left: 0.5rem !important;
+  }
+  .options_menu {
+    bottom: 4.4rem;
+    right: 0.5rem;
+    padding: 0.2rem;
+    padding-inline: 0.25rem;
+    border-radius: 5px;
+  }
+
+  .option_label {
+    gap: 0.6rem;
+    padding: 0.3rem;
+    padding-block: 0.1rem;
+    font-size: 0.8rem;
+    align-items: center !important;
+  }
+  
+  .item_btn {
+    padding: 0.2rem;
+    padding-block: 0.1rem;
+    margin-block: 0;
+    gap: 0.6rem;
+    font-size: 0.8rem;
+    align-items: center !important;
+  }
+  .playback_rates{
+    gap: 0.3rem;
+  }
+  .rate_btn {
+    padding: 3px 6px;
+    font-size: 0.8rem;
+  }
+  
 }

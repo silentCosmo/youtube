@@ -18,6 +18,7 @@ function VideoPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [commentToggle, setCommentToggle] = useState(false);
+  const [randomMoreVids,setRandomMoreVids] =useState([])
   const vids = useSelector((state) => state.videoReducer);
   const currentUser = useSelector((state) => state.currentUserReducer);
   const commentList = useSelector((state) => state.commentReducer);
@@ -25,10 +26,7 @@ function VideoPage() {
 
   const vmd = vids?.data?.filter((q) => q._id === vid)[0];
   const totalComments = commentList?.data?.filter((q) => vid === q?.vid).length;
-  const randomMoreVids = morevids?.data
-    ?.filter((vi) => vi._id !== vid)
-    .sort(() => Math.random() - 0.5)
-    .slice(0, 8 + totalComments);
+  
 
   const handleViews = () => {
     dispatch(viewVideo({ id: vid }));
@@ -53,6 +51,17 @@ function VideoPage() {
     });
     //eslint-disable-next-line
   }, [vid]);
+
+  useEffect(() => {
+    if (morevids?.data?.length > 0 && vid) {
+      const updatedRandomMoreVids = morevids?.data
+        ?.filter((vi) => vi._id !== vid)
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 8 + totalComments);
+
+      setRandomMoreVids(updatedRandomMoreVids);
+    }
+  }, [vid, morevids?.data]);
 
   const playerControls = {
     onShowComments: () => {

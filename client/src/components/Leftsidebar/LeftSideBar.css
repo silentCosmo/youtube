@@ -3,7 +3,7 @@
   width: 4.7rem;
   height: calc(100vh - 3.55rem);
   box-sizing: border-box;
-  overflow-y: auto;
+  overflow-y: hidden;
 }
 .icon_sidebar_div {
   cursor: pointer;
@@ -44,14 +44,14 @@
 }
 /** drawer sidebar*/
 .container_DrawerLeftSidebar {
-  margin-top: -1.1rem;
+  margin-top: -0.1rem;
   position: absolute;
   display: flex;
   width: 100vw;
-  z-index: 500;
+  z-index: 50;
 }
 .container2_DrawerLeftSidebar {
-  height: calc(100vh - 3.6rem);
+  height: calc(100vh - 3.4rem);
   overflow-y: auto;
   background-color: #0f0f0f;
   width: 15rem;

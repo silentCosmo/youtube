@@ -178,6 +178,7 @@
     position: fixed;
     width: 100%;
     top: calc(3.6rem + 56.25vw);
+    height: calc(100vh - 56.25vw - 5rem);
   }
   .container2_videoPage{
     margin-inline: 0;
