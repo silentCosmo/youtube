@@ -26,6 +26,23 @@
   animation: spin 650ms linear infinite;
   color: red;
 }
+.feedback{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.feedback.show{
+  opacity: 1;
+  transform: translate(-50%, -70%) scale(1.8);
+}
+
 .controls {
   background: rgb(0,0,0);
   background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(20,0,6,0) 100%, rgba(0,0,0,0) 100%);
@@ -41,9 +58,11 @@
   opacity: 0;
   transform: translateY(2rem);
   transition: opacity 300ms ease, transform 300ms ease;
+  pointer-events: none;
 }
 .controls.show{
   opacity: 1;
+  pointer-events: all;
   transform: translateY(0);
 }
 .seek_controls {
@@ -138,11 +157,13 @@ button:active {
   display: flex;
   flex-direction: column;
   opacity: 0;
-  transform: translateX(18rem);
+  transform: translateX(10rem);
   transition: opacity 300ms ease, transform 400ms ease;
+  pointer-events: none;
 }
 .options_menu.show{
   opacity: 1;
+  pointer-events: all;
   transform: translateX(0);
 }
 
@@ -279,5 +300,7 @@ button:active {
     padding: 3px 6px;
     font-size: 0.8rem;
   }
-  
+  .feedback{
+    font-size: 1.5rem;
+  }
 }

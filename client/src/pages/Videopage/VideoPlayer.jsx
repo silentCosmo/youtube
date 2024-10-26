@@ -1,7 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { fullscreenToggle } from "./Fullscreen";
-import { ImSpinner8 } from "react-icons/im";
 import "./VideoPlayer.css";
+import { ImSpinner8 } from "react-icons/im";
+import {
+  IoVolumeHighSharp,
+  IoVolumeLowSharp,
+  IoVolumeMediumSharp,
+} from "react-icons/io5";
+import { MdComment, MdForward10, MdReplay10 } from "react-icons/md";
 import {
   IoMdPause,
   IoMdPlay,
@@ -10,8 +16,14 @@ import {
   IoMdVolumeHigh,
   IoMdVolumeOff,
 } from "react-icons/io";
-import { BsFullscreen, BsFullscreenExit, BsPip, BsPipFill, BsSpeedometer } from "react-icons/bs";
-import { MdCast, MdCastConnected } from "react-icons/md";
+import {
+  BsFullscreen,
+  BsFullscreenExit,
+  BsPip,
+  BsPipFill,
+  BsSpeedometer,
+} from "react-icons/bs";
+//import { MdCast, MdCastConnected } from "react-icons/md";
 
 function VideoPlayer({ videoUrl, playerControls }) {
   const videoRef = useRef(null);
@@ -19,17 +31,17 @@ function VideoPlayer({ videoUrl, playerControls }) {
   const progressRef = useRef(null);
   const tapCountRef = useRef(0);
   const controlTimeoutRef = useRef(null);
-  const [pip,setPip] = useState(false)
-  const [cast,setCast] = useState(false)
+  const [pip, setPip] = useState(false);
   const [muted, setMuted] = useState(false);
   const [playing, setPlaying] = useState(false);
+  const [feedback, setFeedback] = useState(null);
   const [volume, setVolume] = useState(1);
   const [fullscreeen, setFullscreen] = useState(false);
-  const [showOptions, setShowOptions] = useState(true);
+  const [showOptions, setShowOptions] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [tapCount, setTapCount] = useState(0);
-  const [playbackRate,setPlaybackRate] = useState(1)
+  const [playbackRate, setPlaybackRate] = useState(1);
   const [loading, setLoading] = useState(true);
   const [showControl, setShowControl] = useState(false); //changed for style
 
@@ -38,7 +50,7 @@ function VideoPlayer({ videoUrl, playerControls }) {
     const handleTap = (event) => {
       const { clientX, target } = event;
       const middleStart = window.innerWidth / 3;
-      const middleEnd = (window.innerWidth / 3) *2; 
+      const middleEnd = (window.innerWidth / 3) * 2;
 
       //console.log(tapCountRef.current, target.tagName);
 
@@ -49,21 +61,17 @@ function VideoPlayer({ videoUrl, playerControls }) {
         tapTimeout && clearTimeout(tapTimeout);
         tapTimeout = setTimeout(() => {
           if (tapCountRef.current === 1) {
-            if(clientX>=middleStart&&clientX<=middleEnd){
-            if (playing) {
-              videoRef.current.pause();
-            } else {
-              videoRef.current.play();
+            if (clientX >= middleStart && clientX <= middleEnd) {
+              handlePlayPause();
             }
-          }
-            //setPlaying(!playing);
-            //setTapCount(0);
           } else if (tapCountRef.current === 2) {
             clearTimeout(tapTimeout);
 
             if (clientX > window.innerWidth / 2) {
+              showFeedback("forward");
               videoRef.current.currentTime += 10;
             } else {
+              showFeedback("backward");
               videoRef.current.currentTime -= 10;
             }
             videoRef.current.play();
@@ -71,6 +79,7 @@ function VideoPlayer({ videoUrl, playerControls }) {
           } else if (tapCountRef.current === 3) {
             clearTimeout(tapTimeout);
             if (clientX < middleStart) {
+              showFeedback("comments");
               playerControls.onShowComments();
             } else if (clientX > middleEnd) {
               playerControls.onCloseWebsite();
@@ -99,11 +108,21 @@ function VideoPlayer({ videoUrl, playerControls }) {
 
   useEffect(() => {
     const video = videoRef.current;
-    const handlePlay = () => setPlaying(true);
-    const handlePause = () => setPlaying(false);
+    const handlePlay = () => {
+      setPlaying(true);
+      showFeedback("play");
+    };
+    const handlePause = () => {
+      setPlaying(false);
+      showFeedback("pause");
+    };
     const handleWaiting = () => setLoading(true);
     const handlePlaying = () => setLoading(false);
-    const handleCanPlay = () => {setLoading(false);setDuration(video.duration)}
+    const handleCanPlay = () => {
+      setLoading(false);
+      setDuration(video.duration);
+      video.play();
+    };
 
     video.addEventListener("play", handlePlay);
     video.addEventListener("pause", handlePause);
@@ -121,15 +140,15 @@ function VideoPlayer({ videoUrl, playerControls }) {
 
   useEffect(() => {
     if (showControl) {
-      console.log(controlTimeoutRef);
+      if (controlTimeoutRef.current) {
+        clearTimeout(controlTimeoutRef.current);
+      }
 
-      controlTimeoutRef.current && clearTimeout(controlTimeoutRef)
-
-     if(playing){ controlTimeoutRef.current = setTimeout(() => {
-        setShowControl(false);
-      }, 5000);} //changed for style test
-      return()=>{
-        controlTimeoutRef.current && clearTimeout(controlTimeoutRef)
+      if (playing) {
+        controlTimeoutRef.current = setTimeout(() => {
+          setShowControl(false);
+          setShowOptions(false);
+        }, 5000);
       }
     }
   }, [showControl, playing]);
@@ -144,6 +163,24 @@ function VideoPlayer({ videoUrl, playerControls }) {
       video.removeEventListener("timeupdate", updateTime);
     };
   }, []);
+
+  useEffect(() => {
+    const handlePiPChange = () => {
+      if (!document.pictureInPictureElement) {
+        setPip(false);
+      }
+    };
+    document.addEventListener("leavepictureinpicture", handlePiPChange);
+
+    return () => {
+      document.removeEventListener("leavepictureinpicture", handlePiPChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    video && (video.playbackRate = playbackRate);
+    // eslint-disable-next-line
+  }, [videoUrl]);
 
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
@@ -162,18 +199,21 @@ function VideoPlayer({ videoUrl, playerControls }) {
   const handleMute = () => {
     if (muted) {
       video.volume = volume;
+      showFeedback(Math.floor(volume * 10));
     } else {
       video.volume = 0;
+      showFeedback("mute");
     }
     setMuted(!muted);
   };
   const handleVolumeChange = (e) => {
     const newVolume = e.target.value;
     video.volume = newVolume;
-    console.log(video.volume, controlTimeoutRef);
+    console.log(video.volume, controlTimeoutRef.current);
     clearTimeout(controlTimeoutRef.current);
     setVolume(newVolume);
     setMuted(newVolume === "0");
+    showFeedback(newVolume === "0" ? "mute" : Math.floor(newVolume * 10));
   };
   const handleFullscreen = () => {
     if (!fullscreeen) {
@@ -199,22 +239,29 @@ function VideoPlayer({ videoUrl, playerControls }) {
     videoRef.current.play();
     setPlaying(true);
   };
-  const handlePlaybackRateChange = (rate)=>{
-    setPlaybackRate(rate)
-    video.playbackRate = rate
-  }
-  const handlePip = async()=>{
-    if(document.pictureInPictureElement){
-      await document.exitPictureInPicture()
-      setPip(false)
-    }else{
-      await video.requestPictureInPicture()
-      setPip(true)
+  const handlePlaybackRateChange = (rate) => {
+    setPlaybackRate(rate);
+    video.playbackRate = rate;
+  };
+  const handlePip = async () => {
+    if (document.pictureInPictureElement) {
+      console.log(document.pictureInPictureElement);
+      await document.exitPictureInPicture();
+      setPip(false);
+    } else {
+      await video.requestPictureInPicture();
+      setPip(true);
     }
-  }
-  const handleCast = ()=>{
-    setCast(!cast)
-  }
+  };
+
+  const showFeedback = (type) => {
+    setFeedback(type);
+    const feedbackElement = document.querySelector(".feedback");
+    feedbackElement?.classList.add("show");
+    setTimeout(() => {
+      feedbackElement?.classList.remove("show");
+    }, 300);
+  };
 
   return (
     <div className="video_player">
@@ -224,7 +271,6 @@ function VideoPlayer({ videoUrl, playerControls }) {
         /* src={`http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4`} */
         className="video"
         controls={false}
-        autoPlay
         onTimeUpdate={handleProgress}
         onMouseOver={() => setShowControl(true)}
         onMouseMove={() => setShowControl(true)}
@@ -234,79 +280,86 @@ function VideoPlayer({ videoUrl, playerControls }) {
           <ImSpinner8 size={50} className="spinner" />
         </div>
       )}
-      
-        <div className={`controls ${showControl?"show":""}`}>
-          <div className="seek_controls">
-            <input
-              className="video_seeker"
-              type="range"
-              ref={progressRef}
-              defaultValue="0"
-              step="0.01"
-              onInput={handleProgressChange}
-            />
-          </div>
-          <div className="button_controls">
-            <div className="left_controls">
-              <button className="play_btn" onClick={() => handlePlayPause()}>
-                {!playing ? <IoMdPlay size={24} /> : <IoMdPause size={24} />}
-              </button>
-              <button
-                className="next_btn"
-                onClick={() => playerControls.onNextVideo()}
-              >
-                <IoMdSkipForward size={24} />
-              </button>
-              <div
-                className={`${
-                  muted ? "mute_btn volume_controls" : "volume_controls"
-                }`}
-              >
-                <button onClick={() => handleMute()}>
-                  {muted ? (
-                    <IoMdVolumeOff size={24} />
-                  ) : (
-                    <IoMdVolumeHigh size={24} />
-                  )}
-                </button>
-                <input
-                  className="volume_bar"
-                  type="range"
-                  step="0.01"
-                  min="0"
-                  max="1"
-                  value={muted ? 0 : volume}
-                  onInput={handleVolumeChange}
-                />
-              </div>
-              <label className="elapsed_time">
-                {formatTime(currentTime)} / {formatTime(duration)}
-              </label>
-            </div>
-            <div className="right_controls">
-              <button className={`options_btn ${showOptions?"show":""}`} onClick={()=>setShowOptions(!showOptions)}>
-                <IoMdSettings size={24} />
-              </button>
-              <button
-                className="fullscreen_btn"
-                onClick={() => handleFullscreen()}
-              >
-                {!fullscreeen ? (
-                  <BsFullscreen size={20} />
+
+      <div className={`controls ${showControl ? "show" : ""}`}>
+        <div className="seek_controls">
+          <input
+            className="video_seeker"
+            type="range"
+            ref={progressRef}
+            defaultValue="0"
+            step="0.01"
+            onInput={handleProgressChange}
+          />
+        </div>
+        <div className="button_controls">
+          <div className="left_controls">
+            <button className="play_btn" onClick={() => handlePlayPause()}>
+              {!playing ? <IoMdPlay size={24} /> : <IoMdPause size={24} />}
+            </button>
+            <button
+              className="next_btn"
+              onClick={() => playerControls.onNextVideo()}
+            >
+              <IoMdSkipForward size={24} />
+            </button>
+            <div
+              className={`${
+                muted ? "mute_btn volume_controls" : "volume_controls"
+              }`}
+            >
+              <button onClick={() => handleMute()}>
+                {muted ? (
+                  <IoMdVolumeOff size={24} />
                 ) : (
-                  <BsFullscreenExit size={20} />
+                  <IoMdVolumeHigh size={24} />
                 )}
               </button>
+              <input
+                className="volume_bar"
+                type="range"
+                step="0.01"
+                min="0"
+                max="1"
+                value={muted ? 0 : volume}
+                onInput={handleVolumeChange}
+              />
             </div>
-            <div className={`options_menu ${showOptions?"show":""}`}>
-                
+            <label className="elapsed_time">
+              {formatTime(currentTime)} / {formatTime(duration)}
+            </label>
+          </div>
+          <div className="right_controls">
+            <button
+              className={`options_btn ${showOptions ? "show" : ""}`}
+              onClick={() => setShowOptions(!showOptions)}
+            >
+              <IoMdSettings size={24} />
+            </button>
+            <button
+              className="fullscreen_btn"
+              onClick={() => handleFullscreen()}
+            >
+              {!fullscreeen ? (
+                <BsFullscreen size={20} />
+              ) : (
+                <BsFullscreenExit size={20} />
+              )}
+            </button>
+          </div>
+          <div className={`options_menu ${showOptions ? "show" : ""}`}>
             <div className="option_item">
-              <div className="option_label"> <BsSpeedometer size={24} /> Playback Speed</div>
+              <div className="option_label">
+                {" "}
+                <BsSpeedometer size={24} /> Playback Speed
+              </div>
               <div className="playback_rates">
                 {[0.5, 1, 1.5, 2].map((rate) => (
                   <button
                     key={rate}
-                    className={`rate_btn ${playbackRate === rate ? 'active' : ''}`}
+                    className={`rate_btn ${
+                      playbackRate === rate ? "active" : ""
+                    }`}
                     onClick={() => handlePlaybackRateChange(rate)}
                   >
                     {rate}x
@@ -316,27 +369,47 @@ function VideoPlayer({ videoUrl, playerControls }) {
             </div>
 
             <div className="option_item">
-              
               <button
-                className={`item_btn ${0<1 ? 'active' : ''}`}
+                className={`item_btn ${0 < 1 ? "active" : ""}`}
                 onClick={handlePip}
               >
-             {!pip? <><BsPip size={24}/> Picture-In-Picture</> : <><BsPipFill size={24}/> Exit PIP Mode </>}
+                {!pip ? (
+                  <>
+                    <BsPip size={24} /> Picture-In-Picture
+                  </>
+                ) : (
+                  <>
+                    <BsPipFill size={24} /> Exit PIP Mode{" "}
+                  </>
+                )}
               </button>
-            </div>
-            <div className="option_item">
-              <button
-                className="item_btn"
-                onClick={handleCast}
-              >
-               {!cast?<><MdCast size={24}/> Remote Playback</>:<><MdCastConnected size={24}/> Disconnect Cast</>}
-              </button>
-            </div>
-
             </div>
           </div>
         </div>
-      
+      </div>
+      <div className={`feedback `}>
+        {feedback === "play" && <IoMdPlay />}
+        {feedback === "pause" && <IoMdPause />}
+        {feedback === "forward" && <MdForward10 />}
+        {feedback === "backward" && <MdReplay10 />}
+        {feedback === "comments" && <MdComment />}
+        {feedback === "mute" && <IoMdVolumeOff />}
+        {feedback <= 3 && (
+          <>
+            <IoVolumeLowSharp /> {feedback}
+          </>
+        )}
+        {feedback > 3 && feedback < 7 && (
+          <>
+            <IoVolumeMediumSharp /> {feedback}
+          </>
+        )}
+        {feedback > 7 && feedback <= 10 && (
+          <>
+            <IoVolumeHighSharp /> {feedback}
+          </>
+        )}
+      </div>
     </div>
   );
 }
