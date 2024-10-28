@@ -1,20 +1,19 @@
 import jwt from "jsonwebtoken";
 import users from "../Models/Auth.js";
-import axios from "axios"
 
 export const login = async (req, res) => {
   const { email } = req.body;
-  const userIp = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
+  const ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
   
   try {
 
-    let city = "Unknown";
+    /* let city = "Unknown";
     try {
       const geoResponse = await axios.get(`https://ipapi.co/${userIp}/json`);
       city = geoResponse.data.city || "Unknown";
     } catch (geoError) {
       console.error("Geolocation API error:", geoError);
-    }
+    } */
 
 
     const existingUser = await users.findOne({ email });
@@ -22,7 +21,7 @@ export const login = async (req, res) => {
     
     if (!existingUser) {
       try {
-        const newUser = await users.create({ email, city });
+        const newUser = await users.create({ email, ip });
         const token = jwt.sign(
           {
             email: newUser.email,
@@ -41,8 +40,8 @@ export const login = async (req, res) => {
       }
     } else {
       
-      if (existingUser.city !== city) {
-        existingUser.city = city;
+      if (existingUser.ip !== ip) {
+        existingUser.ip = ip;
         await existingUser.save();
       }
       
