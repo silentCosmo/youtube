@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import users from "../Models/Auth.js";
+import axios from "axios"
 
 export const login = async (req, res) => {
   const { email } = req.body;
