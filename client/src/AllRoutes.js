@@ -18,7 +18,7 @@ function AllRoutes({setEditCreateChannelBtn,setVideoUploadPage, isLoggedIn}) {
     <Routes>
       <Route path='/' element={<Home/>} />
       <Route path='/liked' element={<LikedVideo/>} />
-      <Route path='/profile/:id' element={<Profile/>} />
+      <Route path='/profile/:id' element={isLoggedIn?<Profile/>:<NotFound/>} />
       <Route path='/shorts' element={<Home/>} />
       <Route path='/feed/you' element={<Library/>} />
       <Route path='/yourvideo' element={<YourVideo/>} />

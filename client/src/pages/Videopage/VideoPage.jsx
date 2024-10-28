@@ -10,6 +10,7 @@ import { addHistory } from "../../redux/action/history";
 import MoreVideoList from "./MoreVideoList";
 import ShowVideo from "../../components/Showvideo/ShowVideo";
 import VideoPlayer from "./VideoPlayer";
+import { updatePoints } from "../../redux/action/profile";
 
 function VideoPage() {
   const { vid } = useParams();
@@ -23,7 +24,6 @@ function VideoPage() {
   const currentUser = useSelector((state) => state.currentUserReducer);
   const commentList = useSelector((state) => state.commentReducer);
   const morevids = useSelector((state) => state.videoReducer);
-
   const vmd = vids?.data?.filter((q) => q._id === vid)[0];
   const totalComments = commentList?.data?.filter((q) => vid === q?.vid).length;
   
@@ -61,6 +61,7 @@ function VideoPage() {
 
       setRandomMoreVids(updatedRandomMoreVids);
     }
+    // eslint-disable-next-line
   }, [vid, morevids?.data]);
 
   const playerControls = {
@@ -75,6 +76,10 @@ function VideoPage() {
     },
     onCloseWebsite: ()=>{
       window.open("about:blank", "_self");
+    },
+    onPointUpdate: ()=>{
+      //console.log('done watching',currentUser?.result.id);
+      dispatch(updatePoints(currentUser?.result?._id))
     }
   };
 
@@ -89,8 +94,6 @@ function VideoPage() {
             <div className="video_ShowVideo_videoPage">
               <VideoPlayer
                 videoUrl={vmd?.path}
-                //onShowComments={onShowComments}
-                //onNextVideo={onNextVideo}
                 playerControls={playerControls}
               />
             </div>

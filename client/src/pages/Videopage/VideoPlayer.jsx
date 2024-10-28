@@ -43,7 +43,53 @@ function VideoPlayer({ videoUrl, playerControls }) {
   const [tapCount, setTapCount] = useState(0);
   const [playbackRate, setPlaybackRate] = useState(1);
   const [loading, setLoading] = useState(true);
-  const [showControl, setShowControl] = useState(false); //changed for style
+  const [showControl, setShowControl] = useState(false);
+
+  useEffect(() => {
+    let totalWatchTime = 0;
+    let lastWatchTime = 0;
+    let watchCompleted = false;
+    let watchSeconds = new Set();
+
+    const video = videoRef.current;
+    const handleTimeUpdate = () => {
+     
+      const currentTime = Math.floor(video.currentTime);
+      const timeDifference = currentTime - lastWatchTime;
+
+      if (timeDifference > 1) {
+        totalWatchTime -= timeDifference;
+        if (totalWatchTime < 0) totalWatchTime = 0;
+        console.log("Skipped forward:", timeDifference);
+      } else if (timeDifference < -1) {
+        //totalWatchTime -= Math.abs(timeDifference);
+        console.log("Skipped backward:", Math.abs(timeDifference));
+      } else if (timeDifference > 0) {
+        //totalWatchTime += timeDifference;
+        watchSeconds.add(currentTime);
+      }
+
+      lastWatchTime = currentTime;
+      validatePoint(watchSeconds.size);
+    };
+
+    const validatePoint = (watchedSeconds) => {
+
+      if (!watchCompleted && watchedSeconds >= Math.floor(video.duration)-1) {
+        watchCompleted = true;
+        displayPoint()
+        console.log("Point", Math.floor(video.duration));
+        showFeedback("poitupdate");
+      }
+    };
+
+    video.addEventListener("timeupdate", handleTimeUpdate);
+
+    return () => {
+      video.removeEventListener("timeupdate", handleTimeUpdate);
+    };
+    // eslint-disable-next-line
+  }, [videoUrl]);
 
   useEffect(() => {
     let tapTimeout;
@@ -114,6 +160,7 @@ function VideoPlayer({ videoUrl, playerControls }) {
     };
     const handlePause = () => {
       setPlaying(false);
+      setShowControl(true)
       showFeedback("pause");
     };
     const handleWaiting = () => setLoading(true);
@@ -121,7 +168,7 @@ function VideoPlayer({ videoUrl, playerControls }) {
     const handleCanPlay = () => {
       setLoading(false);
       setDuration(video.duration);
-      video.play();
+      //video.play();
     };
 
     video.addEventListener("play", handlePlay);
@@ -155,9 +202,11 @@ function VideoPlayer({ videoUrl, playerControls }) {
 
   useEffect(() => {
     const video = videoRef.current;
+
     const updateTime = () => {
       setCurrentTime(video.currentTime);
     };
+
     video.addEventListener("timeupdate", updateTime);
     return () => {
       video.removeEventListener("timeupdate", updateTime);
@@ -194,7 +243,7 @@ function VideoPlayer({ videoUrl, playerControls }) {
     } else {
       video.play();
     }
-    setPlaying(!playing);
+    //setPlaying(!playing);
   };
   const handleMute = () => {
     if (muted) {
@@ -236,8 +285,8 @@ function VideoPlayer({ videoUrl, playerControls }) {
     const duration = videoRef.current.duration;
     const newTime = (e.target.value / 100) * duration;
     videoRef.current.currentTime = newTime;
-    videoRef.current.play();
-    setPlaying(true);
+    //videoRef.current.pause();
+    //setPlaying(true);
   };
   const handlePlaybackRateChange = (rate) => {
     setPlaybackRate(rate);
@@ -262,6 +311,12 @@ function VideoPlayer({ videoUrl, playerControls }) {
       feedbackElement?.classList.remove("show");
     }, 300);
   };
+  const displayPoint=()=>{
+    playerControls.onPointUpdate()
+    const pointDisplay = document.querySelector('.point_display')
+    pointDisplay?.classList.add('animate_point')
+    setTimeout(()=>{pointDisplay?.classList.remove('animate_point')},4000)
+  }
 
   return (
     <div className="video_player">
@@ -269,6 +324,7 @@ function VideoPlayer({ videoUrl, playerControls }) {
         ref={videoRef}
         src={`${videoUrl}`}
         /* src={`http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4`} */
+        autoPlay
         className="video"
         controls={false}
         onTimeUpdate={handleProgress}
@@ -410,6 +466,7 @@ function VideoPlayer({ videoUrl, playerControls }) {
           </>
         )}
       </div>
+      <div className="point_display">+5 EP</div>
     </div>
   );
 }

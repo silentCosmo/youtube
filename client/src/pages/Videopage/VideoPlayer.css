@@ -28,7 +28,7 @@
 }
 .feedback{
   position: absolute;
-  top: 50%;
+  top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
   color: white;
@@ -42,6 +42,55 @@
   opacity: 1;
   transform: translate(-50%, -70%) scale(1.8);
 }
+
+.point_display {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  padding: 0.25rem 0.75rem;
+  width: fit-content;
+  background-color: rgba(255, 0, 0, 0.9);/* 
+  border: 2px solid rgba(255, 255, 255, 0.8); */
+  border-radius: 0.5rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  cursor: default;
+  pointer-events: none;
+  opacity: 0;
+}
+.animate_point{
+  animation: show-points 1s ease-in-out forwards;
+}
+
+@keyframes show-points {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  10% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+  25% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+  85% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+}
+
+
 
 .controls {
   background: rgb(0,0,0);
@@ -261,6 +310,9 @@ button:active {
   /* .elapsed_time{
     margin-block: 2px;
   } */
+  .point_display{
+    font-size: 1.5rem;
+  }
   .controls {
     position: absolute;
     bottom: 0;

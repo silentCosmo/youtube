@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Profile.css";
 import LeftSideBar from "../../components/Leftsidebar/LeftSideBar";
+import { useDispatch, useSelector } from "react-redux";
+import moment from "moment";
+import { getUserUpdates } from "../../redux/action/profile";
 
 function Profile() {
+  const dispatch = useDispatch()
+  const user = useSelector((state)=>state.currentUserReducer)?.result;
+  const userUpdates = useSelector((state)=>state.profileReducer)
+  
+  useEffect(()=>{
+    user && dispatch(getUserUpdates(user?._id))
+  },[user,dispatch])
+  
   return (
     <div className="container_Pages_App">
       <LeftSideBar />
@@ -10,13 +21,13 @@ function Profile() {
         <div className="bg-zinc-900 w-full max-w-full flex flex-col md:flex-row text-center md:text-left rounded-lg text-zinc-400 p-4 md:p-6 box-border">
           <div className="bg-slate-400 text-center justify-center flex mx-auto md:mx-0 p-2 mb-5 md:mb-0 rounded-full">
             <b className="bg-slate-600 w-12 h-12 p-2 rounded-full font-extrabold text-5xl text-slate-900">
-              S
+              {user?.email.slice(0,1).toUpperCase()||'X'}
             </b>
           </div>
 
           <div className="md:ml-5">
-            <p className="text-sm">emailsomebig@address.com</p>
-            <p className="text-sm">Joined on: 29 May 2030</p>
+            <p className="text-sm">{user?.email||'usertest@email.com'}</p>
+            <p className="text-sm">Joined on:  {moment(user?.joinedon).format('D MMM YYYY')}</p>
           </div>
         </div>
 
@@ -24,7 +35,7 @@ function Profile() {
           <div className="bg-zinc-900 text-center p-6 rounded-lg">
             <p className="text-lg font-semibold text-zinc-400">Engage Points</p>
             <p className="text-lg font-bold text-white text-opacity-90 py-1 px-3 bg-gradient-to-r from-purple-900 to-indigo-800 w-fit mx-auto rounded-2xl cursor-none">
-              150 EP
+              {userUpdates?.points||0} EP
             </p>
             <p className="text-sm text-zinc-500">Earned from watching videos</p>
           </div>

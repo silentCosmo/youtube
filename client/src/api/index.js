@@ -38,3 +38,6 @@ export const deleteLikedvideo = (vid,viewer)=> API.delete(`/video/remove/${vid}/
 export const addWatchlater = (watchlaterData)=> API.post("video/watchlater",watchlaterData)
 export const getWatchlater =()=> API.get("/video/watchlater/get")
 export const deleteWatchlater = (vid,viewer) => API.delete(`/video/watchlater/remove/${vid}/${viewer}`)
+
+export const updatePoint =(id)=> API.patch(`/user/points/update/${id}`)
+export const getUserDetails =(id)=> API.get(`/user/getuser/${id}`)

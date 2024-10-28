@@ -7,6 +7,7 @@ import commentReducer from './comment'
 import historyReducer from './history'
 import likedvideoReducer from './likedvideo'
 import watchlaterReducer from './watchlater'
+import profileReducer from './profile'
 
 export default combineReducers({
     authReducer,
@@ -16,5 +17,6 @@ export default combineReducers({
     commentReducer,
     historyReducer,
     likedvideoReducer,
-    watchlaterReducer
+    watchlaterReducer,
+    profileReducer
 })
