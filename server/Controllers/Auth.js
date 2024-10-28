@@ -3,15 +3,25 @@ import users from "../Models/Auth.js";
 
 export const login = async (req, res) => {
   const { email } = req.body;
-  //console.log(email);
+  const userIp = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
   
   try {
+
+    let city = "Unknown";
+    try {
+      const geoResponse = await axios.get(`https://ipapi.co/${userIp}/json`);
+      city = geoResponse.data.city || "Unknown";
+    } catch (geoError) {
+      console.error("Geolocation API error:", geoError);
+    }
+
+
     const existingUser = await users.findOne({ email });
     //console.log(existingUser);
     
     if (!existingUser) {
       try {
-        const newUser = await users.create({ email });
+        const newUser = await users.create({ email, city });
         const token = jwt.sign(
           {
             email: newUser.email,
@@ -29,7 +39,12 @@ export const login = async (req, res) => {
         return;
       }
     } else {
-        //console.log(existingUser.email);
+      
+      if (existingUser.city !== city) {
+        existingUser.city = city;
+        await existingUser.save();
+      }
+      
         const token = jwt.sign(
             {
               email: existingUser.email,

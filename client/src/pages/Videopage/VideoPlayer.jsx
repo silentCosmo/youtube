@@ -53,7 +53,6 @@ function VideoPlayer({ videoUrl, playerControls }) {
 
     const video = videoRef.current;
     const handleTimeUpdate = () => {
-     
       const currentTime = Math.floor(video.currentTime);
       const timeDifference = currentTime - lastWatchTime;
 
@@ -74,10 +73,9 @@ function VideoPlayer({ videoUrl, playerControls }) {
     };
 
     const validatePoint = (watchedSeconds) => {
-
-      if (!watchCompleted && watchedSeconds >= Math.floor(video.duration)-1) {
+      if (!watchCompleted && watchedSeconds >= Math.floor(video.duration) - 1) {
         watchCompleted = true;
-        displayPoint()
+        displayPoint();
         console.log("Point", Math.floor(video.duration));
         showFeedback("poitupdate");
       }
@@ -160,7 +158,7 @@ function VideoPlayer({ videoUrl, playerControls }) {
     };
     const handlePause = () => {
       setPlaying(false);
-      setShowControl(true)
+      setShowControl(true);
       showFeedback("pause");
     };
     const handleWaiting = () => setLoading(true);
@@ -311,12 +309,16 @@ function VideoPlayer({ videoUrl, playerControls }) {
       feedbackElement?.classList.remove("show");
     }, 300);
   };
-  const displayPoint=()=>{
-    playerControls.onPointUpdate()
-    const pointDisplay = document.querySelector('.point_display')
-    pointDisplay?.classList.add('animate_point')
-    setTimeout(()=>{pointDisplay?.classList.remove('animate_point')},4000)
-  }
+  const displayPoint = () => {
+    if (playerControls.isLoggedIn) {
+      playerControls.onPointUpdate();
+      const pointDisplay = document.querySelector(".point_display");
+      pointDisplay?.classList.add("animate_point");
+      setTimeout(() => {
+        pointDisplay?.classList.remove("animate_point");
+      }, 4000);
+    }
+  };
 
   return (
     <div className="video_player">

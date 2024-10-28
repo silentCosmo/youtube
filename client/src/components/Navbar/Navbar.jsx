@@ -12,71 +12,75 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../redux/action/auth";
 import { setCurrentUser } from "../../redux/action/currentuser";
-import { jwtDecode } from 'jwt-decode'
+import { jwtDecode } from "jwt-decode";
 import { BiSearch } from "react-icons/bi";
 
 function Navbar({ toggleDrawer, setEditCreateChannelBtn, setVideoUploadPage }) {
   const [authBtn, setAuthBtn] = useState(false);
-  const [user,setUser] = useState(null)
-  const [searchToggle,setSearchToggle] = useState(false)
-  const [profile,setProfile] = useState([])
-  const dispatch = useDispatch()
-  
-  
+  const [user, setUser] = useState(null);
+  const [searchToggle, setSearchToggle] = useState(false);
+  const [profile, setProfile] = useState([]);
+  const dispatch = useDispatch();
 
-  const currentUser = useSelector(state=>state.currentUserReducer);
-  
-  
+  const currentUser = useSelector((state) => state.currentUserReducer);
+
   /* const currentUser = {
     result: { email: "wandamaximoff@marvel.com", joinedon: "222-07-13423" },
   }; */
 
-  
-  const successSignIn = (userEmail)=>{
-    if(userEmail){
-      dispatch(login({email:userEmail}))
-    } 
-  }
+  const successSignIn = async (userEmail) => {
+    try {
+      const {data} = await axios.get("https://ipapi.co/json/")
+      const city = data.city
+      console.log(city);
+      if (userEmail) {
+        dispatch(login({ email: userEmail }));
+      }
+    } catch (error) {console.log('Error fetching city: ',error)}
+  };
 
   const signIn = useGoogleLogin({
-    onSuccess: tokenResponse => setUser(tokenResponse),
-    onError: (error) => console.log('Login Failed', error)
-  })
-  
+    onSuccess: (tokenResponse) => setUser(tokenResponse),
+    onError: (error) => console.log("Login Failed", error),
+  });
 
   useEffect(() => {
-    if(user){
-      axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,{
-        headers:{
-          Authorization:`Bearer ${user.access_token}`,
-          Accept:'application/json'
-        }
-      }).then((res)=>{
-        setProfile(res.data)
-        successSignIn(res.data.email)
-      }).catch((error)=>console.log(error)
-      )
+    if (user) {
+      axios
+        .get(
+          `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
+          {
+            headers: {
+              Authorization: `Bearer ${user.access_token}`,
+              Accept: "application/json",
+            },
+          }
+        )
+        .then((res) => {
+          setProfile(res.data);
+          successSignIn(res.data.email);
+        })
+        .catch((error) => console.log(error));
     }
-    
-  }, [user])
+  }, [user]);
 
-  const logOut = ()=>{
-    dispatch(setCurrentUser(null))
-    localStorage.clear()
-    googleLogout()
-  }
-  
-  useEffect(()=>{
+  const logOut = () => {
+    dispatch(setCurrentUser(null));
+    localStorage.clear();
+    googleLogout();
+  };
+
+  useEffect(() => {
     const token = currentUser?.token;
-    if(token){
-      const decodeToken = jwtDecode(token)
-      if(decodeToken.exp * 1000 < new Date().getTime()){
-        logOut()
+    if (token) {
+      const decodeToken = jwtDecode(token);
+      if (decodeToken.exp * 1000 < new Date().getTime()) {
+        logOut();
       }
     }
-    dispatch(setCurrentUser(JSON.parse(localStorage.getItem("Profile"))))
-  },[currentUser?.token,dispatch])
-  
+    dispatch(setCurrentUser(JSON.parse(localStorage.getItem("Profile"))));
+  }, [currentUser?.token, dispatch]);
+
   return (
     <>
       <div className="Container_Navbar">
@@ -91,10 +95,21 @@ function Navbar({ toggleDrawer, setEditCreateChannelBtn, setVideoUploadPage }) {
             <p className="logo_title_navbar">YourTube</p>
           </Link>
         </div>
-        <SearchBar searchToggle={searchToggle} setSearchToggle={setSearchToggle} />
+        <SearchBar
+          searchToggle={searchToggle}
+          setSearchToggle={setSearchToggle}
+        />
         <div className="vid_bell_Navbar_Container">
-        <BiSearch className="lg:hidden mr-5 p-2 rounded-full active:scale-90" size={24} onClick={()=>setSearchToggle(true)} />
-          <MdOutlineFileUpload size={22} className={"vid_bell_Navbar"} onClick={()=>setVideoUploadPage(true)} />
+          <BiSearch
+            className="lg:hidden mr-5 p-2 rounded-full active:scale-90"
+            size={24}
+            onClick={() => setSearchToggle(true)}
+          />
+          <MdOutlineFileUpload
+            size={22}
+            className={"vid_bell_Navbar"}
+            onClick={() => setVideoUploadPage(true)}
+          />
           <div className="apps_Box">
             <p className="appBox"></p>
             <p className="appBox"></p>
@@ -124,7 +139,7 @@ function Navbar({ toggleDrawer, setEditCreateChannelBtn, setVideoUploadPage }) {
                 </div>
               </>
             ) : (
-              <div className="Auth_Btn" onClick={()=>signIn()}>
+              <div className="Auth_Btn" onClick={() => signIn()}>
                 <PiUserCircle size={22} /> <b> &nbsp; Sign in</b>
               </div>
             )}

@@ -80,7 +80,8 @@ function VideoPage() {
     onPointUpdate: ()=>{
       //console.log('done watching',currentUser?.result.id);
       dispatch(updatePoints(currentUser?.result?._id))
-    }
+    },
+    isLoggedIn:currentUser?.result._id ? true : false
   };
 
   return (
