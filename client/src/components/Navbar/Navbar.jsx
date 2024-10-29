@@ -29,14 +29,14 @@ function Navbar({ toggleDrawer, setEditCreateChannelBtn, setVideoUploadPage }) {
   }; */
 
   const successSignIn = async (userEmail) => {
-    try {
-      const {data} = await axios.get("https://ipapi.co/json/")
+    /* try {
+      const {data} = await axios.get("https://ipapi.co/121.243.33.212/json/")
       const city = data.city
       console.log(city);
-      if (userEmail) {
-        dispatch(login({ email: userEmail }));
-      }
-    } catch (error) {console.log('Error fetching city: ',error)}
+    } catch (error) {console.log('Error fetching city: ',error)} */
+    if (userEmail) {
+      dispatch(login({ email: userEmail }));
+    }
   };
 
   const signIn = useGoogleLogin({
