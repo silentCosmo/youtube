@@ -5,13 +5,13 @@ import axios from "axios";
 export const login = async (req, res) => {
   const { email } = req.body;
   const ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
-
+  
   try {
     const existingUser = await users.findOne({ email });
 
     let city = "Unknown";
     let region = "Unknown";
-    if (existingUser.ip !== ip) {
+    if (existingUser?.ip !== ip) {
       try {
         const ipInfo = await axios.get(
           `https://ipinfo.io/${ip}?token=b4fcb4e9c26a5e`
@@ -22,6 +22,8 @@ export const login = async (req, res) => {
       } catch (error) {
         console.error("Geolocation error:", error);
       }
+    }else if(!existingUser){
+
     }
 
     //console.log(existingUser);
@@ -42,7 +44,9 @@ export const login = async (req, res) => {
 
         res.status(200).json({ result: newUser, token });
       } catch (error) {
-        res.status(500).json({ message: "something went wrong.." });
+        console.log(error);
+        
+        res.status(500).json({ message: "user creation failed.." });
         return;
       }
     } else {
