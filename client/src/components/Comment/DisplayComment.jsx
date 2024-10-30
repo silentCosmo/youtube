@@ -1,7 +1,7 @@
 import moment from "moment";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteComment, editComment } from "../../redux/action/comment";
+import { deleteComment, editComment, likeComment } from "../../redux/action/comment";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { MdOutlineEdit } from "react-icons/md";
 import { RiDeleteBin6Line } from "react-icons/ri";
@@ -14,16 +14,29 @@ function DisplayComment({
   userId,
   commentOn,
   userCommented,
+  userCity,
+  likes,
+  likedBy,
+  dislikedBy
 }) {
+  const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.currentUserReducer);
   const [edit, setEdit] = useState(false);
   const [cmtId, setCmtId] = useState("");
   const [cmtBody, setCmtBody] = useState("");
   const [cmtMenu, setCmtMenu] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
-  const [likeComment, setLikeComment] = useState(false);
-  const [dislikeComment, setDislikeComment] = useState(false);
-  const dispatch = useDispatch();
-  const currentUser = useSelector((state) => state.currentUserReducer);
+  const [like, setLike] = useState(false);
+  const [dislike, setDislike] = useState(false);
+
+  const ul = likedBy.includes(currentUser?.result._id)
+  console.log(ul);
+  
+  useEffect(()=>{
+    setLike(likedBy.includes(currentUser?.result._id))
+    setDislike(dislikedBy.includes(currentUser?.result._id))
+    // eslint-disable-next-line
+  },[currentUser])
 
   const handleEdit = (cId, cBody) => {
     setCmtMenu(false);
@@ -54,25 +67,30 @@ function DisplayComment({
     handleDelete();
     closeModal();
   };
-  const handleLike =()=>{
+  const handleLike =(lk)=>{
     if(currentUser){
-      if(likeComment){
-        setLikeComment(false)
+      if(like){
+        setLike(false)
+        lk>0&&console.log('1 like');
+        dispatch(likeComment({id:cId,like:lk>0&&lk-1,uid:currentUser?.result._id}))
       }else{
-        setLikeComment(true)
-        setDislikeComment(false)
+        setLike(true)
+        setDislike(false)
+        lk<1&&console.log('+1',lk);
+        dispatch(likeComment({id:cId,like:lk+1,uid:currentUser?.result._id}))
       }
     }else{
       alert('Please login to like the comment')
     }
   }
-  const handleDislike =()=>{
+  const handleDislike =(lk)=>{
     if(currentUser){
-      if(dislikeComment){
-        setDislikeComment(false)
+      if(dislike){
+        setDislike(false)
       }else{
-        setDislikeComment(true)
-        setLikeComment(false)
+        setDislike(true)
+        setLike(false)
+        dispatch(likeComment({id:cId,like:-1,uid:currentUser?.result._id}))
       }
     }else{
       alert('Please login to like the comment')
@@ -131,28 +149,28 @@ function DisplayComment({
               <span className="commenton">
                 commented {moment(commentOn).fromNow()}
               </span>
-              <span className="usercommented">&nbsp; <small>from</small> {currentUser?.result?.city? currentUser?.result?.city : 'cityname'}</span>
+              <span className="usercommented">&nbsp;  {userCity&&userCity!=='unknown' && <><small>from </small> {userCity}</> }</span>
             </p>
             <p className="comment_body">{commentBody}</p>
             <div className="comment_interactions">
               <div className="comment_like_dislike">
                 <div
                   className="comment_like_container"
-                  onClick={() => handleLike()}
+                  onClick={() => handleLike(likes)}
                 >
                   <div className="comment_like_btn">
-                  {likeComment ? (
+                  {like ? (
                     <BiSolidLike size={20} />
                   ) : (
                     <BiLike size={20} />
                   )}</div>
-                  <span className="comment_like_count">&nbsp;86</span>
+                  <span className="comment_like_count">&nbsp;{likes>0?likes:<>&nbsp;</>}</span>
                 </div>
                 <div
                   className="comment_dislike_btn"
-                  onClick={() => handleDislike()}
+                  onClick={() => handleDislike(likes)}
                 >
-                  {dislikeComment ? (
+                  {dislike ? (
                     <BiSolidDislike size={20} />
                   ) : (
                     <BiDislike size={20} />

@@ -50,3 +50,16 @@ export const getAllComments = ()=> async(dispatch)=>{
         
     }
 }
+
+export const likeComment = (likeData)=> async (dispatch)=>{
+    
+    try {
+        const {id,like,uid} = likeData;
+        
+        const {data} = await api.commentLikes(id,like,uid)
+        dispatch({type:'POST_LIKE_COMMENT',payload:data})
+        dispatch(getAllComments())
+    } catch (error) {
+        console.log(error);
+    }
+}

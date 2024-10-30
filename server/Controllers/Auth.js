@@ -9,21 +9,19 @@ export const login = async (req, res) => {
   try {
     const existingUser = await users.findOne({ email });
 
-    let city = "Unknown";
-    let region = "Unknown";
-    if (existingUser?.ip !== ip) {
+    let city = "unknown";
+    let region = "unknown";
+    if (existingUser?.ip !== ip && ip !== '::1') {
       try {
         const ipInfo = await axios.get(
           `https://ipinfo.io/${ip}?token=b4fcb4e9c26a5e`
         );
-        city = ipInfo.data.city || "Unknown";
-        region = ipInfo.data.region || "Unknown";
-        console.log(ip,city,region);
+        city = ipInfo.data.city || "unknown";
+        region = ipInfo.data.region || "unknown";
+        //console.log(ip,city,region);
       } catch (error) {
         console.error("Geolocation error:", error);
       }
-    }else if(!existingUser){
-
     }
 
     //console.log(existingUser);
@@ -44,8 +42,6 @@ export const login = async (req, res) => {
 
         res.status(200).json({ result: newUser, token });
       } catch (error) {
-        console.log(error);
-        
         res.status(500).json({ message: "user creation failed.." });
         return;
       }

@@ -27,6 +27,11 @@ function Comment({ videoId }) {
     },
   ]; */
   
+  const validateInput = (text)=>{
+    const regex = /^[a-zA-Z0-9\s.,!?'-]+$/
+    return regex.test(test)
+  }
+
   const handleOnSubmit = (e)=>{
     e.preventDefault();
     if(currentUser){
@@ -36,6 +41,7 @@ function Comment({ videoId }) {
           dispatch(postComment({
             vid:videoId,
             uid:currentUser?.result._id,
+            city:currentUser?.result?.city,
             commentBody:commentText,
             commentedUser:currentUser.result.name? currentUser.result.name : currentUser.result.email.split('@')[0]
           }))
@@ -72,7 +78,7 @@ function Comment({ videoId }) {
       </form>
       <div className="display_comment_container">
         {commentList?.data?.filter((q) => videoId === q?.vid).reverse().map((m)=>{
-            return(<DisplayComment key={m._id} cId={m._id} userId={m.uid} commentBody={m.commentBody} commentOn={m.commentedOn} userCommented={m.commentedUser} />)
+            return(<DisplayComment key={m._id} cId={m._id} userId={m.uid} commentBody={m.commentBody} commentOn={m.commentedOn} userCommented={m.commentedUser} userCity={m.city} likes={m.like?m.like:0} likedBy={m.likedBy} dislikedBy={m.dislikedBy} />)
         })}
       </div>
     </>

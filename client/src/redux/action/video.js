@@ -26,7 +26,7 @@ export const likeVideo = (likeData)=> async (dispatch)=>{
     try {
         const {id,like} = likeData;
         const {data} = await api.videoLikes(id,like)
-        dispatch({type:'POST_LIKE',payload:data})
+        dispatch({type:'POST_LIKE_VIDEO',payload:data})
         dispatch(getAllVideo())
     } catch (error) {
         console.log(error);

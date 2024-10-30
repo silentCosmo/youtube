@@ -26,6 +26,7 @@ export const postComment = (commentData)=>API.post('/comment/post',commentData)
 export const deleteComment = (id)=>API.delete(`/comment/delete/${id}`)
 export const editComment = (id,commentBody)=>API.patch(`/comment/edit/${id}`,{commentBody})
 export const getAllComment = ()=> API.get('/comment/get')
+export const commentLikes = (id,like,uid)=> API.patch(`/comment/like/${id}`,{like,uid})
 
 export const addHistory = (historyData)=> API.post("video/history/push",historyData)
 export const getHistory = ()=> API.get("video/history/get")
@@ -33,7 +34,7 @@ export const delHistory = (uId)=> API.delete(`video/history/delete/${uId}`)
 
 export const addLikedvideo = (likedvideoData)=> API.post("/video/liked",likedvideoData)
 export const getLikedvideo =()=> API.get("video/liked/get")
-export const deleteLikedvideo = (vid,viewer)=> API.delete(`/video/remove/${vid}/${viewer}`)
+export const deleteLikedvideo = (vid,viewer)=> API.delete(`/video/liked/remove/${vid}/${viewer}`)
 
 export const addWatchlater = (watchlaterData)=> API.post("video/watchlater",watchlaterData)
 export const getWatchlater =()=> API.get("/video/watchlater/get")

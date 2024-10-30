@@ -2,7 +2,7 @@ const videoReducer = (state={data:null},action)=>{
     switch (action.type) {
         case 'POST_VIDEO':
             return {...state}
-        case 'POST_LIKE':
+        case 'POST_LIKE_VIDEO':
             return {...state}
         case 'POST_VIEWS':
             return {...state}
