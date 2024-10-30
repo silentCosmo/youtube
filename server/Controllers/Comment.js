@@ -16,9 +16,12 @@ export const postComment = async (req, res) => {
 
 export const getComment = async (req, res) => {
   try {
-    const commentList = await comment.find();
+    const commentList = await comment.find().populate({path:"uid",select:"city name"})
+    
     res.status(200).send(commentList);
   } catch (error) {
+    console.log(error.message);
+    
     res.status(400).json(error.message);
     return;
   }
@@ -101,7 +104,10 @@ export const commentLikesController = async (req, res) => {
             commentData.dislikedBy.push(uid)
             await commentData.save()
 
-            if(commentData.dislikedBy.length>=2){
+            const uniqDislikes = commentData.dislikedBy.filter((user)=>user.toString() !== commentData.uid._id.toString())
+            //console.log(commentData.uid._id,'ud',uniqDislikes.length);
+            
+            if(uniqDislikes.length>=2){
                 await comment.findByIdAndDelete(_id)
                 return res.status(200).json({message:'comment was deleted'})
             }

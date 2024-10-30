@@ -8,16 +8,17 @@ export const login = async (req, res) => {
   
   try {
     const existingUser = await users.findOne({ email });
-
-    let city = "unknown";
-    let region = "unknown";
-    if (existingUser?.ip !== ip && ip !== '::1') {
+    
+    let city = ip === '::1' ? existingUser?.city :"unknown";
+    let region = ip === '::1' ? existingUser?.region : "unknown";
+    
+    if (existingUser?.ip !== ip) {
       try {
         const ipInfo = await axios.get(
           `https://ipinfo.io/${ip}?token=b4fcb4e9c26a5e`
         );
-        city = ipInfo.data.city || "unknown";
-        region = ipInfo.data.region || "unknown";
+        city = ipInfo.data.city || existingUser?.city || 'unknown';
+        region = ipInfo.data.region || existingUser?.city ||'unknown';
         //console.log(ip,city,region);
       } catch (error) {
         console.error("Geolocation error:", error);

@@ -55,6 +55,13 @@
   border-bottom: 2px solid rgb(64, 64, 64);
   background-color: rgba(240, 248, 255, 0.05);
 }
+.error_info{
+  color: rgba(255, 0, 0, 0.8);
+  font-size: medium;
+  margin-top: 0.3rem;
+  margin-bottom: -0.3rem;
+  margin-left: 4.5rem;
+}
 
 .display_comment_container {
   padding: 1rem;
@@ -222,6 +229,7 @@
   .com_md_count{display: none;}
   .com_sm_count{display: contents;}
   .comment_interactions{transform: scale(0.9);}
+  .error_info{margin-left: 3.5rem; font-size: small;}
 }
 @media screen and (min-width:768px) {
   .com_md_count{display: contents;}

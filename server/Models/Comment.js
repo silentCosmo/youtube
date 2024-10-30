@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const commentSchema = mongoose.Schema({
     vid:String,
-    uid:String,
+    uid:{type:mongoose.Schema.Types.ObjectId,ref:"User"},
     city:String,
     like:{type:Number,default:0},
     likedBy:[{type:mongoose.Schema.Types.ObjectId}],

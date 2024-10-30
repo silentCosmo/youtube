@@ -6,6 +6,7 @@ import { postComment } from "../../redux/action/comment";
 
 function Comment({ videoId }) {
   const [commentText, setCommentText] = useState("");
+  const [validInput,setValidInput] = useState(true)
   const dispatch = useDispatch()
   const currentUser = useSelector(state=>state.currentUserReducer);
   const commentList =useSelector(state=>state.commentReducer);
@@ -27,10 +28,7 @@ function Comment({ videoId }) {
     },
   ]; */
   
-  const validateInput = (text)=>{
-    const regex = /^[a-zA-Z0-9\s.,!?'-]+$/
-    return regex.test(test)
-  }
+  const regex = /^[a-zA-Z0-9\s.,!?'-]+$/
 
   const handleOnSubmit = (e)=>{
     e.preventDefault();
@@ -46,9 +44,20 @@ function Comment({ videoId }) {
             commentedUser:currentUser.result.name? currentUser.result.name : currentUser.result.email.split('@')[0]
           }))
             setCommentText("")
+            setValidInput(true)
         }
     }else{
         alert('Please login to comment!')
+    }
+  }
+
+  const handleInputChange =(e)=>{
+    const input = e.target.value
+    setCommentText(input)
+    if(input===""){
+      setValidInput(true)
+    }else{
+      setValidInput(regex.test(input))
     }
   }
 
@@ -64,21 +73,23 @@ function Comment({ videoId }) {
           </div>
         <input
           type="text"
-          onChange={(e) => setCommentText(e.target.value)}
           placeholder="Add a comment..."
-          value={commentText}
+          onChange={handleInputChange}
           className="comment_ibox"
-        />
+          value={commentText}
+          />
         <input
           type="submit"
           value="Comment"
+          disabled={!validInput}
           onClick={e=>handleOnSubmit(e)}
-          className={`${commentText.length===0?"comment_add_btn_comments":"comment_add_btn_fill_comments"}`}
+          className={`${commentText.length===0 || !validInput?"comment_add_btn_comments":"comment_add_btn_fill_comments"}`}
         />
       </form>
+      {!validInput&&<p className="error_info">Special characters are not allowed!</p>}
       <div className="display_comment_container">
         {commentList?.data?.filter((q) => videoId === q?.vid).reverse().map((m)=>{
-            return(<DisplayComment key={m._id} cId={m._id} userId={m.uid} commentBody={m.commentBody} commentOn={m.commentedOn} userCommented={m.commentedUser} userCity={m.city} likes={m.like?m.like:0} likedBy={m.likedBy} dislikedBy={m.dislikedBy} />)
+            return(<DisplayComment key={m._id} cId={m._id} userId={m.uid._id||m.uid} commentBody={m.commentBody} commentOn={m.commentedOn} userCommented={m.uid.name||m.commentedUser} userCity={m.uid.city||m.city} likes={m.like?m.like:0} likedBy={m.likedBy} dislikedBy={m.dislikedBy} />)
         })}
       </div>
     </>

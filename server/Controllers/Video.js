@@ -8,8 +8,6 @@ dotenv.config()
 
 const serviceAccount = JSON.parse(process.env.SERVICE_ACCOUNT_KEY)
 
-//console.log(serviceAccount);
-
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     storageBucket: 'order-mate-pos.appspot.com' 
@@ -23,10 +21,8 @@ export const uploadVideo = async (req, res) => {
     }
 
     try {
-        // Generate a unique filename
         const uniqueFileName = new Date().toISOString().replace(/:/g, "-") + "-" + req.file.originalname;
 
-        // Upload to Firebase Storage
         const blob = bucket.file(`videos/${uniqueFileName}`);
         const blobStream = blob.createWriteStream({
             metadata: {
@@ -40,17 +36,14 @@ export const uploadVideo = async (req, res) => {
         });
 
         blobStream.on('finish', async () => {
-            // Make the file public
             await blob.makePublic();
 
-            // Get the public URL of the uploaded video
             const publicUrl = format(`https://storage.googleapis.com/${bucket.name}/${blob.name}`);
 
-            // Save file metadata in MongoDB with Firebase Storage URL
             const file = new VideoFile({
                 title: req.body.title,
                 name: req.file.originalname,
-                path: publicUrl,  // Use Firebase URL instead of local path
+                path: publicUrl,
                 type: req.file.mimetype,
                 size: req.file.size,
                 channel: req.body.channel,
@@ -62,7 +55,6 @@ export const uploadVideo = async (req, res) => {
             res.status(200).json({ message: "File uploaded successfully", file });
         });
 
-        // End the blobStream and upload the video buffer
         blobStream.end(req.file.buffer);
 
     } catch (error) {
@@ -72,24 +64,21 @@ export const uploadVideo = async (req, res) => {
 };
 
 export const deleteVideo = async (req, res) => {
-    const videoId = req.params.id; // Assuming you're passing the video ID via request params
+    const videoId = req.params.id;
 
     try {
-        // Find video metadata from MongoDB
+        
         const video = await VideoFile.findById(videoId);
 
         if (!video) {
             return res.status(404).json({ message: "Video not found" });
         }
 
-        // Extract the video file path from Firebase Storage URL
         const videoFilePath = video.path.replace(`https://storage.googleapis.com/${bucket.name}/`, '');
 
-        // Delete the file from Firebase Storage
         const file = bucket.file(videoFilePath);
         await file.delete();
 
-        // Remove video metadata from MongoDB
         await VideoFile.findByIdAndDelete(videoId);
 
         res.status(200).json({ message: "Video deleted successfully" });

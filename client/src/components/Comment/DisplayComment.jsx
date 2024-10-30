@@ -28,13 +28,13 @@ function DisplayComment({
   const [isModalOpen, setModalOpen] = useState(false);
   const [like, setLike] = useState(false);
   const [dislike, setDislike] = useState(false);
-
-  const ul = likedBy.includes(currentUser?.result._id)
-  console.log(ul);
+  const [validInput, setValidInput] = useState(true);
+  const regex = /^[a-zA-Z0-9\s.,!?'-]+$/
   
+
   useEffect(()=>{
-    setLike(likedBy.includes(currentUser?.result._id))
-    setDislike(dislikedBy.includes(currentUser?.result._id))
+    setLike(likedBy?.includes(currentUser?.result._id))
+    setDislike(dislikedBy?.includes(currentUser?.result._id))
     // eslint-disable-next-line
   },[currentUser])
 
@@ -97,26 +97,27 @@ function DisplayComment({
     }
   }
 
-  //console.log(navigator.geolocation.getCurrentPosition);
- /*  if(navigator.geolocation){
-    navigator.geolocation.getCurrentPosition((position)=>{
-      const {latitude,longitude} = position.coords
-      console.log(position.coords);
-      
-    })
-  } */
+  const handleInputChange =(e)=>{
+    const input = e.target.value
+    setCmtBody(input)
+    if(input===""){
+      setValidInput(true)
+    }else{
+      setValidInput(regex.test(input))
+    }
+  }
 
   return (
     <div id="container_main_comment">
       {edit ? (
         <>
           <form
-            className="comments_sub_form_comments"
+            className="comments_sub_form_comments comment_edit_form"
             onSubmit={(e) => handleOnSubmit(e)}
           >
             <input
               type="text"
-              onChange={(e) => setCmtBody(e.target.value)}
+              onChange={handleInputChange}
               placeholder="Edit comment.."
               value={cmtBody}
               className="comment_ibox"
@@ -125,14 +126,16 @@ function DisplayComment({
               type="submit"
               value="Change"
               className="comment_add_btn_comments"
+              disabled={!validInput}
             />
             <input
               className="comment_add_btn_comments"
               value="Cancel"
               readOnly
-              onClick={() => setEdit(false)}
+              onClick={() => {setEdit(false); setValidInput(true)}}
             />
           </form>
+          {!validInput&&<p className="error_info">Special characters are not allowed!</p>}  
         </>
       ) : (
         <div className="comment_container">
@@ -182,7 +185,7 @@ function DisplayComment({
           </div>
         </div>
       )}
-      {currentUser?.result?._id === userId && (
+      {currentUser?.result?._id === userId && !edit&& (
         <>
           <p className="comment_options" onClick={() => setCmtMenu(!cmtMenu)}>
             <BsThreeDotsVertical />
