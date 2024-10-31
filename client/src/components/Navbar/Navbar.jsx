@@ -19,7 +19,7 @@ function Navbar({ toggleDrawer, setEditCreateChannelBtn, setVideoUploadPage }) {
   const [authBtn, setAuthBtn] = useState(false);
   const [user, setUser] = useState(null);
   const [searchToggle, setSearchToggle] = useState(false);
-  const [profile, setProfile] = useState([]);
+  //const [profile, setProfile] = useState([]);
   const dispatch = useDispatch();
 
   const currentUser = useSelector((state) => state.currentUserReducer);
@@ -57,11 +57,12 @@ function Navbar({ toggleDrawer, setEditCreateChannelBtn, setVideoUploadPage }) {
           }
         )
         .then((res) => {
-          setProfile(res.data);
+          //setProfile(res.data);
           successSignIn(res.data.email);
         })
         .catch((error) => console.log(error));
     }
+    // eslint-disable-next-line
   }, [user]);
 
   const logOut = () => {
@@ -79,6 +80,7 @@ function Navbar({ toggleDrawer, setEditCreateChannelBtn, setVideoUploadPage }) {
       }
     }
     dispatch(setCurrentUser(JSON.parse(localStorage.getItem("Profile"))));
+    // eslint-disable-next-line
   }, [currentUser?.token, dispatch]);
 
   return (

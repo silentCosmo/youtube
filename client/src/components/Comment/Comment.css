@@ -174,6 +174,7 @@
   margin-top: 0.5rem;
   color: silver;
   user-select: none;
+  width: 40vw;
 }
 .comment_like_dislike,.comment_like_container{
   display: flex;
@@ -193,10 +194,43 @@
 .comment_translation{
   margin-left: 1.5rem;
   cursor: pointer;
-  color: darkgray;
+  color: darkgray;/* 
+  background: orange;
+  position: relative; */
+  flex-direction: row;
+  display: flex;
+  position: relative;
+  width: 100%;
 }
-.comment_translation:active{
+.comment_translation_btn:active{
   color: gainsboro;
+}
+.comment_translation_languages::-webkit-scrollbar{
+  display: none;
+}
+.comment_translation_languages{
+  /*border-radius: 10px; 
+  position: absolute;
+  background-color: #242424;
+  background-color: rebeccapurple; */
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  width: 90%;
+  position: absolute;
+}
+.translate_language_btn{
+  background-color: #242424;
+  border-radius: 5px; 
+  padding-inline: 0.5rem;
+  margin-right: 0.4rem;
+}
+.translate_language_btn.cancel{
+  background: darkgray;
+  color: black;
+}
+.translate_language_btn:active{
+  background-color: rgba(36, 36, 36, 0.5);
 }
 
 @media screen and (max-width:768px) {
@@ -230,8 +264,16 @@
   .com_sm_count{display: contents;}
   .comment_interactions{transform: scale(0.9);}
   .error_info{margin-left: 3.5rem; font-size: small;}
+  .comment_translation_languages{
+    width: 100%;
+  }
 }
 @media screen and (min-width:768px) {
   .com_md_count{display: contents;}
   .com_sm_count{display: none;}
+}
+@media screen and (max-width:480px) {
+  .comment_interactions{
+    width: calc(100vw - 3rem);
+  }
 }

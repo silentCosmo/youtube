@@ -1,6 +1,5 @@
 import React from "react";
 import "./DescribeChannel.css";
-import { channel} from "../../assets/u_db";
 import { FaEdit, FaUpload } from "react-icons/fa";
 import { useSelector } from "react-redux";
 

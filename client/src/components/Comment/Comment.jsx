@@ -28,7 +28,7 @@ function Comment({ videoId }) {
     },
   ]; */
   
-  const regex = /^[a-zA-Z0-9\s.,!?'-]+$/
+  const regex = /^[\p{L}\p{M}\p{N}\s.,!?'-]+$/u;
 
   const handleOnSubmit = (e)=>{
     e.preventDefault();

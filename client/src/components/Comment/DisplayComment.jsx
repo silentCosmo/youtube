@@ -7,6 +7,7 @@ import { MdOutlineEdit } from "react-icons/md";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import ConfirmationModal from "../Showvideo/ConfirmationModal";
 import { BiDislike, BiLike, BiSolidDislike, BiSolidLike } from "react-icons/bi";
+import CommentTranslation from "./CommentTranslation";
 
 function DisplayComment({
   cId,
@@ -29,7 +30,9 @@ function DisplayComment({
   const [like, setLike] = useState(false);
   const [dislike, setDislike] = useState(false);
   const [validInput, setValidInput] = useState(true);
-  const regex = /^[a-zA-Z0-9\s.,!?'-]+$/
+  const [translateOptions,setTranslateOptions] = useState(false)
+  const [translatedBody,setTranslatedBody] = useState(false)
+  const regex = /^[\p{L}\p{M}\p{N}\s.,!?'-]+$/u;
   
 
   useEffect(()=>{
@@ -107,6 +110,8 @@ function DisplayComment({
     }
   }
 
+  const props = {setTranslateOptions,commentBody,setTranslatedBody}
+
   return (
     <div id="container_main_comment">
       {edit ? (
@@ -154,7 +159,7 @@ function DisplayComment({
               </span>
               <span className="usercommented">&nbsp;  {userCity&&userCity!=='unknown' && <><small>from </small> {userCity}</> }</span>
             </p>
-            <p className="comment_body">{commentBody}</p>
+            <p className="comment_body">{translatedBody||commentBody}</p>
             <div className="comment_interactions">
               <div className="comment_like_dislike">
                 <div
@@ -180,7 +185,10 @@ function DisplayComment({
                   )}
                 </div>
               </div>
-              <div className="comment_translation">Translate</div>
+              <div className="comment_translation">
+              
+                 { translateOptions ? <CommentTranslation props={props}/>:<div className="comment_translation_btn" onClick={()=>setTranslateOptions(!translateOptions)}> Translate</div>}
+                </div>
             </div>
           </div>
         </div>

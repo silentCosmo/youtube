@@ -42,7 +42,7 @@
   /* margin: 0.5rem 1rem; */
   font-weight: bold;
   color: #f1f1f1de;
-  width: calc(100vw - 6.5rem - 35vw);
+/*   width: calc(100vw - 6.5rem - 35vw); */
 }
 .views_videoPage {
   display: flex;
