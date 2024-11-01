@@ -12,7 +12,6 @@
     border: 1px solid rgb(26, 26, 26);
     padding: 1rem;
     width: 30vw;
-    height: 52vh;
     background-color: #282828;
     color: rgb(136, 133, 129);
     position: relative;
@@ -131,3 +130,12 @@
     left: 0;
     top: 2.7rem;
 }
+
+@media screen and (max-width:500px) {
+  .container2_VidUpload{
+    width: 85%;
+  }
+}
+  .progressbar{
+    width: 100%;
+  }

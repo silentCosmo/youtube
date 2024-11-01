@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./VideoUpload.css";
-import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
+//import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
+import ProgressBar from '@ramonak/react-progress-bar'
 import { useDispatch, useSelector } from "react-redux";
 import { uploadVideo } from "../../redux/action/video";
 
@@ -20,7 +21,7 @@ function VideoUpload({ setVideoUploadPage }) {
       setProgress(percentage);
       if (percentage === 100) {
         setTimeout(function () {}, 3000);
-        setVideoUploadPage(false);
+        //setVideoUploadPage(false);
       }
     },
   };
@@ -56,7 +57,6 @@ function VideoUpload({ setVideoUploadPage }) {
       fileData.append("channel", currentUser?.result?._id);
       fileData.append("uploader", currentUser?.result?.name);
 
-      // Log each key-value pair in FormData
       for (let pair of fileData.entries()) {
         console.log(`${pair[0]}: ${pair[1]}`);
       }
@@ -90,14 +90,13 @@ function VideoUpload({ setVideoUploadPage }) {
             placeholder="Enter title for the video"
             className="ibox_vidupload"
           />
-
-          {/* Drag-and-drop and click-to-browse area */}
+          <ProgressBar completed={progress} className="progressbar" bgColor="#4183FD" baseBgColor="#073763" transitionDuration="1s" />
           <div
             className={`drop_zone ${isDragging ? "dragging" : ""}`}
             onDragOver={handleDragOver}
             onDragLeave={() => setIsDragging(false)}
             onDrop={handleDrop}
-            onClick={handleClick} // Triggers file input click
+            onClick={handleClick}
           >
             {videoFile ? (
               <p>{videoFile.name}</p>
@@ -107,7 +106,7 @@ function VideoUpload({ setVideoUploadPage }) {
             <input
               type="file"
               id="fileInput"
-              style={{ display: "none" }} // Hides the default input
+              style={{ display: "none" }}
               onChange={(e) => handleSetVideoFile(e.target.files[0])}
             />
           </div>
@@ -117,21 +116,22 @@ function VideoUpload({ setVideoUploadPage }) {
           <input
             type="submit"
             onClick={() => uploadVideoFile()}
-            value={"Upload"}
+            value={progress===100? 'Upload Completed' : 'Upload'}
+            disabled={progress===100}
             className="ibox_vidupload btn_vidUpload"
           />
-{/*           <div className="loader ibox_div_vidupload">
+          {/* <div className="loader ibox_div_vidupload">
             <CircularProgressbar
               value={progress}
-              text={`${progress}`}
+              text={`${progress}%`}
               styles={buildStyles({
-                rotation: 0.25,
+                rotation: 0,
                 strokeLinecap: "butt",
                 textSize: "20px",
-                pathTransitionDuration: "0.5",
-                pathColor: `rgba(255,255,255,${progress / 100}`,
-                textColor: "#f88",
-                trailColor: "#adff2f",
+                pathTransitionDuration: "1",
+                pathColor: `#2986cc`,
+                textColor: "#3d85c6",
+                trailColor: "#073763",
                 backgroundColor: "#3e98c7",
               })}
             />

@@ -70,3 +70,19 @@
 border: 1px solid rgba(245, 245, 245, 0.493);
 color: white;
 }
+
+@media screen and (max-width:500px) {
+    .uploadbtn_chanel,.editbtn_chanel{
+        font-size: x-small;
+        font-weight: 100;
+    }
+    .chanel_logo_chanel{
+        transform: scale(0.8);
+    }
+    .description_chanel>b{
+        font-size: xx-large;
+    }
+    .description_chanel>p{
+        font-size: medium;
+    }
+}

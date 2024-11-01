@@ -26,11 +26,11 @@ function DescribeChannel({ cid, setVideoUploadPage, setEditCreateChannelBtn }) {
             onClick={() => setEditCreateChannelBtn(true)}
           >
             <FaEdit />
-            <b> Edit Chammel</b>
+            <span> Edit Channel</span>
           </p>
           <p className="uploadbtn_chanel" onClick={() => setVideoUploadPage(true)}>
             <FaUpload />
-            <b> Upload Video</b>
+            <span> Upload Video</span>
           </p>
         </>
       )}

@@ -21,14 +21,17 @@ function App() {
   const isLoggedIn = useSelector((state)=>state.currentUserReducer)
   
   const dispatch = useDispatch()
+  console.log(isLoggedIn);
+  
   useEffect(()=>{
     dispatch(fetchAllChannel())
     dispatch(getAllComments())
     dispatch(getAllHistory())
-    dispatch(getLikedVideo())
-    dispatch(getWatchLater())
     dispatch(getAllVideo())
-  },[dispatch])
+    isLoggedIn&&dispatch(getLikedVideo())
+    isLoggedIn&&dispatch(getWatchLater())
+    // eslint-disable-next-line
+  },[dispatch,isLoggedIn])
   const toggleDrawer = () => {
     if (toggleDrawerSidebar.display === "none") {
       setDrawerSidebar({ display: "flex" });

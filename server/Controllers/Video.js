@@ -77,7 +77,11 @@ export const deleteVideo = async (req, res) => {
         const videoFilePath = video.path.replace(`https://storage.googleapis.com/${bucket.name}/`, '');
 
         const file = bucket.file(videoFilePath);
-        await file.delete();
+        try {
+            await file.delete();
+        } catch (error) {
+            console.log('File not found, Deleting data from mongo');
+        }
 
         await VideoFile.findByIdAndDelete(videoId);
 

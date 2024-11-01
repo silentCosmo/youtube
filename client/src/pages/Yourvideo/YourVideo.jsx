@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux'
 function YourVideo() {
     const currentUser = useSelector(state=>state.currentUserReducer);
     
-    const yourVideoList = useSelector(state=>state.videoReducer)?.data?.filter(q=>q?.channel === currentUser.result._id)
+    const yourVideoList = useSelector(state=>state.videoReducer)?.data?.filter(q=>q?.channel === currentUser?.result._id)
     console.log(yourVideoList);
   return (
     <div className="container_Pages_App">
