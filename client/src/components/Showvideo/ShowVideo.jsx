@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./ShowVideo.css";
 import moment from "moment";
 import { Link } from "react-router-dom";
@@ -11,7 +11,7 @@ function ShowVideo({ vid, opt}) {
   const dispatch = useDispatch()
   const videoRef = useRef(null); 
   const [isModalOpen, setModalOpen] = useState(false);
-
+  useEffect(()=>{videoRef.current.currentTime = 10},[videoRef])
   const handleMouseEnter = () => {
     if (videoRef.current) {
       videoRef.current.play(); 
@@ -21,7 +21,7 @@ function ShowVideo({ vid, opt}) {
   const handleMouseLeave = () => {
     if (videoRef.current) {
       videoRef.current.pause(); 
-      videoRef.current.currentTime = 0; 
+      videoRef.current.currentTime = 10; 
     }
   };
 

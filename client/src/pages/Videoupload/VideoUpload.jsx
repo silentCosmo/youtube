@@ -90,7 +90,7 @@ function VideoUpload({ setVideoUploadPage }) {
             placeholder="Enter title for the video"
             className="ibox_vidupload"
           />
-          <ProgressBar completed={progress} className="progressbar" bgColor="#4183FD" baseBgColor="#073763" transitionDuration="1s" />
+          <ProgressBar completed={progress} className="progressbar" bgColor="#4183FD" baseBgColor="#073763" transitionDuration="0.6s" />
           <div
             className={`drop_zone ${isDragging ? "dragging" : ""}`}
             onDragOver={handleDragOver}

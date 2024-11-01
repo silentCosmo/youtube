@@ -1,5 +1,11 @@
+/* .container2_Pages_App{
+    height: unset;
+} */
 .profile_container{
     color: gainsboro;
     border: red 1px solid;
     margin-top: 1rem;
 }
+/* .plan_card{
+    opacity: 0.85;
+} */

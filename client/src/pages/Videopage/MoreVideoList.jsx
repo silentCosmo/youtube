@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import "./MoreVideoList.css";
 import moment from "moment";
 import { BsThreeDotsVertical } from "react-icons/bs";
 
 function MoreVideoList({ video }) {
-
+  const videoRef = useRef(null); 
+  useEffect(()=>{videoRef.current.currentTime = 10},[videoRef])
   return (
     <Link to={`/watch/${video._id}`} className="moreVideo_item">
       <div className="moreVideo_thumbnail">
-        <video src={`${video.path}`} alt={video.title} />
+        <video src={`${video.path}`} alt={video.title} ref={videoRef} />
       </div>
       <div className="moreVideo_details">
         <p className="moreVideo_title">{video.title.length > 35 ? video.title.substring(0, 35) + "..." : video.title}</p>
