@@ -3,7 +3,7 @@ import users from "../Models/Auth.js";
 import axios from "axios";
 
 export const login = async (req, res) => {
-  const { email } = req.body;
+  const { email, user } = req.body;
   const ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
   
   try {
@@ -29,7 +29,7 @@ export const login = async (req, res) => {
 
     if (!existingUser) {
       try {
-        const newUser = await users.create({ email, ip, city, region });
+        const newUser = await users.create({ email, user, ip, city, region });
         const token = jwt.sign(
           {
             email: newUser.email,
@@ -51,6 +51,10 @@ export const login = async (req, res) => {
         existingUser.ip = ip;
         existingUser.city = city;
         existingUser.region = region;
+        await existingUser.save();
+      }
+      if(!existingUser.user){
+        existingUser.user = user;
         await existingUser.save();
       }
 

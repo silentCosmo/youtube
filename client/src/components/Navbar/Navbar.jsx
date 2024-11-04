@@ -28,14 +28,14 @@ function Navbar({ toggleDrawer, setEditCreateChannelBtn, setVideoUploadPage }) {
     result: { email: "wandamaximoff@marvel.com", joinedon: "222-07-13423" },
   }; */
 
-  const successSignIn = async (userEmail) => {
+  const successSignIn = async (userEmail, userName) => {
     /* try {
       const {data} = await axios.get("https://ipapi.co/121.243.33.212/json/")
       const city = data.city
       console.log(city);
     } catch (error) {console.log('Error fetching city: ',error)} */
     if (userEmail) {
-      dispatch(login({ email: userEmail }));
+      dispatch(login({ email: userEmail, user: userName }));
     }
   };
 
@@ -58,7 +58,8 @@ function Navbar({ toggleDrawer, setEditCreateChannelBtn, setVideoUploadPage }) {
         )
         .then((res) => {
           //setProfile(res.data);
-          successSignIn(res.data.email);
+          
+          successSignIn(res.data.email, res.data.given_name);
         })
         .catch((error) => console.log(error));
     }
@@ -131,13 +132,13 @@ function Navbar({ toggleDrawer, setEditCreateChannelBtn, setVideoUploadPage }) {
                   className="Chanel_logo_App"
                   onClick={() => setAuthBtn(true)}
                 >
-                  <p className="fstChar_logo_App">
+                  <div className="fstChar_logo_App">
                     {currentUser?.result.name ? (
                       <>{currentUser?.result.name?.charAt(0).toUpperCase()}</>
                     ) : (
                       <>{currentUser?.result.email?.charAt(0).toUpperCase()}</>
                     )}
-                  </p>
+                  </div>
                 </div>
               </>
             ) : (

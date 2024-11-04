@@ -23,6 +23,10 @@ export const userDetailsControlller = async(req,res)=>{
     }
     try {
         const userData = await users.findById(_id)
+        console.log(userData);
+        if(userData?.payment!=='inactive'){
+            await userData.updateOne({payment:'inactive'})
+        }
         return res.status(200).send(userData)
     } catch (error) {
         return res.status(400).json({message:error.message})

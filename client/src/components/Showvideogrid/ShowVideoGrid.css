@@ -2,7 +2,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
-    gap: 0rem;
+    gap: 1rem;
 }
 @media screen and (max-width:768px) {
     .Container_ShowVideoGrid{

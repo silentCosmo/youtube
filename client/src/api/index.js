@@ -1,8 +1,9 @@
 import axios from 'axios'
 
+const API = axios.create({baseURL:process.env.REACT_APP_NODE_SERVER})
 /* const API = axios.create({baseURL:'http://localhost:5000'}) */
 /* const API = axios.create({baseURL:'https://youtube-0xsa.onrender.com'}) */
-const API = axios.create({baseURL:'https://youtube.koyeb.app'})
+/* const API = axios.create({baseURL:'https://youtube.koyeb.app'}) */
 
 API.interceptors.request.use((req)=>{
     
@@ -42,3 +43,6 @@ export const deleteWatchlater = (vid,viewer) => API.delete(`/video/watchlater/re
 
 export const updatePoint =(id)=> API.patch(`/user/points/update/${id}`)
 export const getUserDetails =(id)=> API.get(`/user/getuser/${id}`)
+
+export const initiatePayments =(paymentData)=> API.post("/payment/initiate",paymentData)
+export const verifyPayments =(txnID)=> API.get(`/payment/verify/${txnID}`)

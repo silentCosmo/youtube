@@ -1,6 +1,6 @@
 import React from "react";
 import "./Auth.css";
-import { BiLogOut } from "react-icons/bi";
+import { BiLogOut, BiTv, BiUserCircle } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import { googleLogout } from "@react-oauth/google";
 import { useDispatch } from "react-redux";
@@ -16,7 +16,7 @@ function Auth({ user, setAuthBtn, setEditCreateChannelBtn }) {
   return (
     <div className="Auth_container" onClick={() => setAuthBtn(false)}>
       <div className="Auth_container2">
-        <p className="User_Details">
+        <div className="User_Details">
           {/* <div className="chanel_logo_App">
             <p className="fstChar_logo_App">
               {user?.result.name ? (
@@ -27,14 +27,14 @@ function Auth({ user, setAuthBtn, setEditCreateChannelBtn }) {
             </p>
           </div> */}
           <div className="email_auth">{user?.result.email}</div>
-        </p>
+        </div>
         <div className="btns_Auth">
-        <Link to={`/profile/${user?.result?._id}`} className="btn_Auth">Profile</Link>
+        <Link to={`/profile/${user?.result?._id}`} className="btn_Auth">Profile <BiUserCircle size={24}/></Link>
             {
                 user?.result.name?(
                     <>
                     {
-                        <Link to={`/channel/${user?.result?._id}`} className="btn_Auth">Your Channel</Link>
+                        <Link to={`/channel/${user?.result?._id}`} className="btn_Auth">Your Channel <BiTv size={24}/></Link>
                     }
                     </>
                 ):
@@ -46,7 +46,7 @@ function Auth({ user, setAuthBtn, setEditCreateChannelBtn }) {
             }
             <div>
                 <div className="btn_Auth" onClick={()=>logOut()}>
-                    <BiLogOut/> Log Out
+                     <span>Log Out</span><BiLogOut size={24}/>
                 </div>
             </div>
         </div>

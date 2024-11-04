@@ -13,9 +13,9 @@ function ShowVideo({ vid, opt}) {
   const [isModalOpen, setModalOpen] = useState(false);
   useEffect(()=>{videoRef.current.currentTime = 10},[videoRef])
   const handleMouseEnter = () => {
-    if (videoRef.current) {
+    /* if (videoRef.current.duration) {
       videoRef.current.play(); 
-    }
+    } */
   };
 
   const handleMouseLeave = () => {

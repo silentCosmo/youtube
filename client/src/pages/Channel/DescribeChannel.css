@@ -73,11 +73,14 @@ color: white;
 
 @media screen and (max-width:500px) {
     .uploadbtn_chanel,.editbtn_chanel{
-        font-size: x-small;
+        font-size: 0.75rem;
         font-weight: 100;
     }
     .chanel_logo_chanel{
         transform: scale(0.8);
+    }
+    .chanel_logo_chanel > b{
+        margin-top: 1rem;
     }
     .description_chanel>b{
         font-size: xx-large;

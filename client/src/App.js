@@ -18,10 +18,9 @@ function App() {
   const [toggleDrawerSidebar, setDrawerSidebar] = useState({ display: "none" });
   const [editCreateChannelBtn, setEditCreateChannelBtn] = useState(false);
   const [videoUploadPage, setVideoUploadPage] = useState(false);
-  const isLoggedIn = useSelector((state)=>state.currentUserReducer)
+  const isLoggedIn = useSelector((state)=>state.currentUserReducer) || null
   
   const dispatch = useDispatch()
-  console.log(isLoggedIn);
   
   useEffect(()=>{
     dispatch(fetchAllChannel())
