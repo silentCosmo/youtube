@@ -59,7 +59,7 @@ function Navbar({ toggleDrawer, setEditCreateChannelBtn, setVideoUploadPage }) {
         .then((res) => {
           //setProfile(res.data);
           
-          successSignIn(res.data.email, res.data.given_name);
+          successSignIn(res.data.email, res.data.name);
         })
         .catch((error) => console.log(error));
     }

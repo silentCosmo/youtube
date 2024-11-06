@@ -79,9 +79,6 @@ color: white;
     .chanel_logo_chanel{
         transform: scale(0.8);
     }
-    .chanel_logo_chanel > b{
-        margin-top: 1rem;
-    }
     .description_chanel>b{
         font-size: xx-large;
     }
