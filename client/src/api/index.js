@@ -43,6 +43,7 @@ export const deleteWatchlater = (vid,viewer) => API.delete(`/video/watchlater/re
 
 export const updatePoint =(id)=> API.patch(`/user/points/update/${id}`)
 export const getUserDetails =(id)=> API.get(`/user/getuser/${id}`)
+export const updateWatchtime =(watchTime)=> API.patch(`/user/watchtime/update`,watchTime)
 
 export const initiatePayments =(paymentData)=> API.post("/payment/initiate",paymentData)
 export const verifyPayments =(txnID)=> API.get(`/payment/verify/${txnID}`)

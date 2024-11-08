@@ -66,6 +66,7 @@ function VideoPlayer({ videoUrl, playerControls }) {
       } else if (timeDifference > 0) {
         //totalWatchTime += timeDifference;
         watchSeconds.add(currentTime);
+        playerControls.onWatchTimeUpdate(watchSeconds.size)
       }
 
       lastWatchTime = currentTime;
@@ -153,13 +154,15 @@ function VideoPlayer({ videoUrl, playerControls }) {
   useEffect(() => {
     const video = videoRef.current;
     const handlePlay = () => {
-      setPlaying(true);
       showFeedback("play");
+      setPlaying(true);
+      playerControls.onPlay()
     };
     const handlePause = () => {
+      showFeedback("pause");
       setPlaying(false);
       setShowControl(true);
-      showFeedback("pause");
+      playerControls.onPause()
     };
     const handleWaiting = () => setLoading(true);
     const handlePlaying = () => setLoading(false);

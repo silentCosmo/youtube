@@ -43,6 +43,8 @@ export const login = async (req, res) => {
 
         res.status(200).json({ result: newUser, token });
       } catch (error) {
+        console.log('login: ',error);
+        
         res.status(500).json({ message: "user creation failed.." });
         return;
       }

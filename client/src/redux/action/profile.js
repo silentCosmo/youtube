@@ -16,7 +16,19 @@ export const getUserUpdates = (id)=> async(dispatch)=>{
         dispatch({type:"FETCH_USER_UPDATES",payload:data})
         
     } catch (error) {
-        console.log('newUD: ',error);
+        console.log('newUD: ', error);
+        
+    }
+}
+
+export const updateWatchTime = (watchTime)=> async(dispatch)=>{
+    console.log(watchTime);
+    
+    try {
+        const result = await api.updateWatchtime(watchTime)
+        dispatch({type:"UPDATE_WATCH_TIME",payload:result.data})
+    } catch (error) {
+        console.log('watch time error: ', error);
         
     }
 }

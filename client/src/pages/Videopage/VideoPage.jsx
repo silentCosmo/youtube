@@ -10,7 +10,7 @@ import { addHistory } from "../../redux/action/history";
 import MoreVideoList from "./MoreVideoList";
 import ShowVideo from "../../components/Showvideo/ShowVideo";
 import VideoPlayer from "./VideoPlayer";
-import { updatePoints } from "../../redux/action/profile";
+import { getUserUpdates, updatePoints, updateWatchTime } from "../../redux/action/profile";
 
 function VideoPage() {
   const { vid } = useParams();
@@ -20,14 +20,51 @@ function VideoPage() {
   const navigate = useNavigate();
   const [commentToggle, setCommentToggle] = useState(false);
   const [randomMoreVids,setRandomMoreVids] =useState([])
+  const [watchTimeUsed,setWatchTimeUsed] = useState(0)
+  const [isPlaying,setIsPlaying] = useState(false)
   const vids = useSelector((state) => state.videoReducer);
   const currentUser = useSelector((state) => state.currentUserReducer);
   const commentList = useSelector((state) => state.commentReducer);
   const morevids = useSelector((state) => state.videoReducer);
   const vmd = vids?.data?.filter((q) => q._id === vid)[0];
   const totalComments = commentList?.data?.filter((q) => vid === q?.vid).length;
+  const userPlan = useSelector((state)=>state.profileReducer)?.plan
+  const userId = currentUser?.result?._id
+  const userRef = useRef(0)
+  const watchTimeRef = useRef(0)
+  const intervalRef = useRef(0)
+  const watchTimeLeftRef = useRef(0)
   
+  useEffect(()=>{
+   currentUser&& dispatch(getUserUpdates(currentUser?.result?._id))
+    console.log(userPlan?.watchTime);
+    watchTimeLeftRef.current = userPlan?.watchTime
+  },[currentUser,userPlan?.watchTime])
 
+  useEffect(()=>{
+    userRef.current = userId
+    const update = ()=>{
+      console.log('out',watchTimeRef.current, watchTimeUsed,userId);
+      const watchTimeData = {
+        id:userId,
+        wt:watchTimeRef.current
+      }
+      watchTimeRef.current = 0
+      dispatch(updateWatchTime(watchTimeData))
+    }
+    if(isPlaying && userId){
+      intervalRef.current = setInterval(update,5000)
+
+    return ()=> clearInterval(intervalRef.current)
+  }
+  },[isPlaying,userId])
+
+  useEffect(()=>{
+    const watchTimeLeft= userPlan?.watchTime - watchTimeUsed
+    console.log('wu',watchTimeUsed);
+    
+  },[watchTimeUsed,userPlan?.watchTime])
+  
   const handleViews = () => {
     dispatch(viewVideo({ id: vid }));
   };
@@ -80,7 +117,18 @@ function VideoPage() {
     onPointUpdate: ()=>{
       //console.log('done watching',currentUser?.result.id);
       dispatch(updatePoints(currentUser?.result?._id))
+      clearInterval(intervalRef.current)
+      dispatch(updateWatchTime({id:userId,wt:watchTimeRef.current}))
+      watchTimeRef.current = 0
     },
+    onWatchTimeUpdate: (usedWatchtime)=>{
+      
+      watchTimeRef.current = watchTimeRef.current + 1
+      //watchTimeRef.current = watchTimeLeftRef.current - usedWatchtime
+      //setWatchTimeUsed(usedWatchtime)
+    },
+    onPlay:()=>setIsPlaying(true),
+    onPause:()=>{setIsPlaying(false);dispatch(updateWatchTime({id:userRef.current,wt:watchTimeRef.current}));watchTimeRef.current = 0},
     isLoggedIn:currentUser?.result._id ? true : false
   };
 

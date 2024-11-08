@@ -19,11 +19,11 @@ function Profile() {
 
   useEffect(() => {
     dispatch(getUserUpdates(user?._id));
-  }, [user]);
+  }, [user,dispatch]);
 
   useEffect(() => {
-    userUpdates?.plan && setUserPlan(userUpdates?.plan || "Free");
-    userUpdates?.plan&&setLoading(false)
+    userUpdates?.plan?.tier && setUserPlan(userUpdates?.plan?.tier || "Free");
+    userUpdates&&setLoading(false)
     if(userUpdates?.payment==='success'){
       toast.success("The payment was successsful",{theme:"dark"})
     }else if(userUpdates?.payment==='ongoing'){
@@ -31,26 +31,26 @@ function Profile() {
     }else if(userUpdates?.payment==='failed'){
       toast.error("The payment was failed",{theme:"dark"})
     }
-  }, [userUpdates?.plan]);
+  }, [userUpdates]);
 
   const plans = [
     {
       name: "Free",
-      duration: "5",
+      duration: 5,
       cost: 0,
       color: "bg-slate-600",
       text: "text-slate-500",
     },
     {
       name: "Bronze",
-      duration: "7",
+      duration: 7,
       cost: 10,
       color: "bg-amber-800",
       text: "text-amber-700",
     },
     {
       name: "Silver",
-      duration: "10",
+      duration: 10,
       cost: 50,
       color: "bg-gray-400",
       text: "text-gray-400",
@@ -64,12 +64,11 @@ function Profile() {
     },
   ];
 
-  const activePlan = plans.filter((p) => p.name === userPlan)[0];
+  
+  const activePlan = plans.filter((p) => p.name === userUpdates?.plan.tier )[0];
+  
   const otherPlans = plans.filter((p) => p.name !== userPlan);
-
-  const handlePlanChange = (plan) => {
-    setUserPlan(plan.name);
-  };
+  console.log('ap',activePlan, 'up', userPlan,'op',otherPlans);
 
   console.log();
 
@@ -82,6 +81,7 @@ function Profile() {
         amount: plan.cost,
         email: user.email,
         udf1: user?._id,
+        udf2: plan.duration=== "Unlimited"? -1 : plan.duration * 60,
         txnid: txnId,
         firstname: user?.user,
         phone: "1234567890",
@@ -166,7 +166,7 @@ function Profile() {
                 </div>
                 <p className="text-sm text-zinc-500">
                   You have {activePlan.cost === 0 && "only"}{" "}
-                  {activePlan.duration} watchminutes
+                  {userUpdates.plan!==-1?userUpdates.plan.watchTime/60: 'unlimited' } watchminutes
                 </p>
               </div>
             </div>

@@ -34,6 +34,7 @@ export const handlePaymentResult = async (req, res) => {
   const {
     txnid,
     udf1,
+    udf2,
     email,
     firstname,
     mihpayid,
@@ -61,7 +62,7 @@ export const handlePaymentResult = async (req, res) => {
     await users.findByIdAndUpdate(udf1, {
       $set: {
         payment: status === "success" ? "success" : "failed",
-        ...(status === "success" && { plan: productinfo }),
+        ...(status === "success" && { plan: {tier:productinfo,watchTime:udf2,startDate:Date.now()} }),
       },
     });
 
@@ -184,19 +185,5 @@ export const sendInvoiceMail = async (
     console.log("mail done: %s", info);
   } catch (error) {
     console.log("email send failed: ", error);
-  }
-};
-
-export const verifyPayment = async (req, res) => {
-  console.log(req);
-
-  try {
-    const { txnID } = req.params;
-    const response = await payuClient.verifyPayment(txnID);
-    console.log("res", response);
-    res.status(200).json({ response });
-  } catch (error) {
-    console.log("error", error);
-    res.status(500).json({ message: error });
   }
 };

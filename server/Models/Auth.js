@@ -9,7 +9,12 @@ const userscema = mongoose.Schema({
     region:{type:String},
     points:{type:Number},
     desc:{type:String},
-    plan:{type:String,default:'Free'},
+    plan:{
+        tier:{type:String,default:'Free'},
+        watchTime:{type:Number,default:300},
+        startDate:{type:Date,default:Date.now},
+        resetDate:{type:Date,default:null}
+    },
     payment:{type:String,default:'inactive'},
     joinedon:{type:Date,default:Date.now}
 })
