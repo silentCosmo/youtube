@@ -53,7 +53,7 @@ export const watchTimeController = async(req,res)=>{
        const userPlan = planUpdate.plan
        const reminingWatchTime = userPlan.watchTime - wt
        const currentDate = new Date()
-        console.log('ok',activePlan);
+        console.log('ok',userPlan);
 
         if(reminingWatchTime<=0){
             if(!userPlan.resetDate){

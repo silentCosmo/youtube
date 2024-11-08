@@ -7,6 +7,7 @@ import { getUserUpdates } from "../../redux/action/profile";
 import { initiatePayment } from "../../redux/action/payment";
 import {ToastContainer,toast} from 'react-toastify'
 import "react-toastify/dist/ReactToastify.css";
+import ProgressBar from "@ramonak/react-progress-bar";
 
 function Profile() {
   const dispatch = useDispatch();
@@ -40,6 +41,8 @@ function Profile() {
       cost: 0,
       color: "bg-slate-600",
       text: "text-slate-500",
+      colorHex: "#475569B3",
+      textHex: "#64748b1A",
     },
     {
       name: "Bronze",
@@ -47,6 +50,8 @@ function Profile() {
       cost: 10,
       color: "bg-amber-800",
       text: "text-amber-700",
+      colorHex: "#78350fB3",
+      textHex: "#b453092B",
     },
     {
       name: "Silver",
@@ -54,21 +59,26 @@ function Profile() {
       cost: 50,
       color: "bg-gray-400",
       text: "text-gray-400",
+      colorHex: "#9ca3af80",
+      textHex: "#9ca3af33",
     },
     {
       name: "Gold",
-      duration: "Unlimited",
+      duration: Infinity,
       cost: 100,
       color: "bg-yellow-500",
       text: "text-yellow-600",
+      colorHex: "#eab30899",
+      textHex: "#ca8a0433",
     },
   ];
 
   
-  const activePlan = plans.filter((p) => p.name === userUpdates?.plan.tier )[0];
+  const activePlan = plans.filter((p) => p.name === userUpdates?.plan?.tier )[0];
   
   const otherPlans = plans.filter((p) => p.name !== userPlan);
-  console.log('ap',activePlan, 'up', userPlan,'op',otherPlans);
+  const wtPercentage = (100-userUpdates?.plan.watchTime/60*userUpdates?.plan.watchTime/100).toFixed(0)
+  console.log('ap',activePlan, 'up', userPlan,'op',otherPlans,'uu',userUpdates);
 
   console.log();
 
@@ -81,7 +91,7 @@ function Profile() {
         amount: plan.cost,
         email: user.email,
         udf1: user?._id,
-        udf2: plan.duration=== "Unlimited"? -1 : plan.duration * 60,
+        udf2: plan.duration=== Infinity? -1 : plan.duration * 60,
         txnid: txnId,
         firstname: user?.user,
         phone: "1234567890",
@@ -166,8 +176,9 @@ function Profile() {
                 </div>
                 <p className="text-sm text-zinc-500">
                   You have {activePlan.cost === 0 && "only"}{" "}
-                  {userUpdates.plan!==-1?userUpdates.plan.watchTime/60: 'unlimited' } watchminutes
+                  {userUpdates.plan.watchTime!==-1?(userUpdates.plan.watchTime/60).toFixed(0): 'unlimited' } watchminutes {userUpdates?.plan?.tier!=='Gold'&&'left'}
                 </p>
+                <ProgressBar completed={userUpdates?.plan?.tier==='Gold'?Infinity:(userUpdates.plan.watchTime/60).toFixed(1)} customLabel={wtPercentage+' %'} labelAlignment="right" labelColor={'silver'} bgColor={activePlan.colorHex} baseBgColor={activePlan.textHex} maxCompleted={activePlan.duration}/>
               </div>
             </div>
 
@@ -185,7 +196,7 @@ function Profile() {
                       {plan.name} Plan
                     </h3>
                     <p className="text-sm text-zinc-400 mb-4">
-                      {plan.duration} watch minutes per day
+                      {plan.duration===Infinity?'Unlimited':plan.duration} watch minutes per day
                     </p>
                     <p className="text-lg font-bold mb-4">₹{plan.cost}</p>
 
