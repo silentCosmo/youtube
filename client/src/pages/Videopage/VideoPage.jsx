@@ -20,8 +20,9 @@ function VideoPage() {
   const navigate = useNavigate();
   const [commentToggle, setCommentToggle] = useState(false);
   const [randomMoreVids,setRandomMoreVids] =useState([])
-  const [watchTimeUsed,setWatchTimeUsed] = useState(0)
   const [isPlaying,setIsPlaying] = useState(false)
+  const [watchTimeExceeded,setWatchtimeExeeded] = useState(false)
+  const [proUser,setProUser] = useState(true)
   const vids = useSelector((state) => state.videoReducer);
   const currentUser = useSelector((state) => state.currentUserReducer);
   const commentList = useSelector((state) => state.commentReducer);
@@ -33,18 +34,41 @@ function VideoPage() {
   const userRef = useRef(0)
   const watchTimeRef = useRef(0)
   const intervalRef = useRef(0)
-  const watchTimeLeftRef = useRef(0)
+  const lastUsedwatchTimeRef = useRef(0)
   
   useEffect(()=>{
-   currentUser&& dispatch(getUserUpdates(currentUser?.result?._id))
-    console.log(userPlan?.watchTime);
-    watchTimeLeftRef.current = userPlan?.watchTime
+    if(userPlan?.watchTime === -1){
+      setProUser(userPlan?.watchTime === -1)
+    }else{
+      setProUser(false)
+    }
+  },[userPlan])
+  
+  useEffect(()=>{
+    
+  },[userPlan])
+
+  const syncWatchTime = ()=>{
+    if(userId && !proUser){
+      dispatch(updateWatchTime({id:userId,wt:watchTimeRef.current}))
+      watchTimeRef.current = 0
+    }
+  }
+  useEffect(()=>{
+    
+   //currentUser&& dispatch(getUserUpdates(currentUser?.result?._id))
+   //watchTimeLeftRef.current = userPlan?.watchTime
+   console.log(userPlan?.watchTime,currentUser?.result?._id);
+   if(userPlan?.watchTime===0){
+    setWatchtimeExeeded(true)
+  }
+    // eslint-disable-next-line
   },[currentUser,userPlan?.watchTime])
 
   useEffect(()=>{
     userRef.current = userId
     const update = ()=>{
-      console.log('out',watchTimeRef.current, watchTimeUsed,userId);
+      //console.log('out',watchTimeRef.current,userId);
       const watchTimeData = {
         id:userId,
         wt:watchTimeRef.current
@@ -52,18 +76,12 @@ function VideoPage() {
       watchTimeRef.current = 0
       dispatch(updateWatchTime(watchTimeData))
     }
-    if(isPlaying && userId){
+    if(isPlaying && userId && !proUser){
       intervalRef.current = setInterval(update,5000)
-
     return ()=> clearInterval(intervalRef.current)
   }
+  // eslint-disable-next-line
   },[isPlaying,userId])
-
-  useEffect(()=>{
-    const watchTimeLeft= userPlan?.watchTime - watchTimeUsed
-    console.log('wu',watchTimeUsed);
-    
-  },[watchTimeUsed,userPlan?.watchTime])
   
   const handleViews = () => {
     dispatch(viewVideo({ id: vid }));
@@ -118,17 +136,25 @@ function VideoPage() {
       //console.log('done watching',currentUser?.result.id);
       dispatch(updatePoints(currentUser?.result?._id))
       clearInterval(intervalRef.current)
-      dispatch(updateWatchTime({id:userId,wt:watchTimeRef.current}))
+      //!proUser && console.log(userPlan?.watchTime,'uh') //dispatch(updateWatchTime({id:userId,wt:watchTimeRef.current}))
+      userId && syncWatchTime()
       watchTimeRef.current = 0
     },
     onWatchTimeUpdate: (usedWatchtime)=>{
+
+      if(usedWatchtime !==lastUsedwatchTimeRef.current){
+        watchTimeRef.current = watchTimeRef.current + 1
+        lastUsedwatchTimeRef.current = usedWatchtime
+      }
       
-      watchTimeRef.current = watchTimeRef.current + 1
+      if(usedWatchtime>=5 &&!userId){
+        setWatchtimeExeeded(true)
+      }
       //watchTimeRef.current = watchTimeLeftRef.current - usedWatchtime
       //setWatchTimeUsed(usedWatchtime)
     },
     onPlay:()=>setIsPlaying(true),
-    onPause:()=>{setIsPlaying(false);dispatch(updateWatchTime({id:userRef.current,wt:watchTimeRef.current}));watchTimeRef.current = 0},
+    onPause:()=>{setIsPlaying(false); syncWatchTime() /* dispatch(updateWatchTime({id:userRef.current,wt:watchTimeRef.current})) */;},
     isLoggedIn:currentUser?.result._id ? true : false
   };
 
@@ -140,10 +166,12 @@ function VideoPage() {
             className="video_display_screen_videoPage"
             ref={defaultScrollRef}
           >
-            <div className="video_ShowVideo_videoPage">
+            <div className={`video_ShowVideo_videoPage ${watchTimeExceeded&&"cursor-not-allowed"}`}>
+              
               <VideoPlayer
                 videoUrl={vmd?.path}
                 playerControls={playerControls}
+                watchTimeExceeded={watchTimeExceeded}
               />
             </div>
             <div className="video_details_videoPage">

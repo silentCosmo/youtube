@@ -5,7 +5,7 @@ export const updatePoints = (id)=> async(dispatch)=>{
         await api.updatePoint(id)
         dispatch(getUserUpdates(id))
     } catch (error) {
-        console.log(error);
+        console.log(error.response);
     }
 }
 export const getUserUpdates = (id)=> async(dispatch)=>{
@@ -22,13 +22,16 @@ export const getUserUpdates = (id)=> async(dispatch)=>{
 }
 
 export const updateWatchTime = (watchTime)=> async(dispatch)=>{
-    console.log(watchTime);
-    
+    console.log(!watchTime.id);
+    if(watchTime.id){
     try {
         const result = await api.updateWatchtime(watchTime)
         dispatch({type:"UPDATE_WATCH_TIME",payload:result.data})
     } catch (error) {
         console.log('watch time error: ', error);
         
+    }
+    }else{
+        console.log('user not logged in');
     }
 }

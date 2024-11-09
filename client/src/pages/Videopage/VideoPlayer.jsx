@@ -23,9 +23,11 @@ import {
   BsPipFill,
   BsSpeedometer,
 } from "react-icons/bs";
+import { Flip, toast, ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 //import { MdCast, MdCastConnected } from "react-icons/md";
 
-function VideoPlayer({ videoUrl, playerControls }) {
+function VideoPlayer({ videoUrl, playerControls, watchTimeExceeded }) {
   const videoRef = useRef(null);
   const video = videoRef.current;
   const progressRef = useRef(null);
@@ -44,6 +46,17 @@ function VideoPlayer({ videoUrl, playerControls }) {
   const [playbackRate, setPlaybackRate] = useState(1);
   const [loading, setLoading] = useState(true);
   const [showControl, setShowControl] = useState(false);
+
+  useEffect(()=>{
+    if(watchTimeExceeded){
+      if(playerControls.isLoggedIn){
+        toast.error('Watch time limit exceeded wait for reset or upgrade to a higher plan',{theme:'dark',autoClose:false,transition:Flip,position:"bottom-center",closeButton:false})
+      }else{
+        toast.info('Please SignIn to continue watching',{theme:'dark',autoClose:false,transition:Flip,position:"bottom-center",closeButton:false})
+      }
+      videoRef.current.pause()
+    }
+  },[watchTimeExceeded,videoUrl])
 
   useEffect(() => {
     let totalWatchTime = 0;
@@ -78,7 +91,7 @@ function VideoPlayer({ videoUrl, playerControls }) {
         watchCompleted = true;
         displayPoint();
         console.log("Point", Math.floor(video.duration));
-        showFeedback("poitupdate");
+        //showFeedback("poitupdate");
       }
     };
 
@@ -313,28 +326,32 @@ function VideoPlayer({ videoUrl, playerControls }) {
     }, 300);
   };
   const displayPoint = () => {
+    toast.info('Your Engage Point is updated',{theme:'dark',autoClose:2000,transition:Flip,position:"top-center"}) 
     if (playerControls.isLoggedIn) {
       playerControls.onPointUpdate();
-      const pointDisplay = document.querySelector(".point_display");
+      /* const pointDisplay = document.querySelector(".point_display");
       pointDisplay?.classList.add("animate_point");
       setTimeout(() => {
         pointDisplay?.classList.remove("animate_point");
-      }, 4000);
+      }, 4000); */
     }
   };
 
   return (
-    <div className="video_player">
+    <div className="video_player" style={{...(watchTimeExceeded &&{pointerEvents:"none"})}}>
+      <ToastContainer className='!absolute' limit={1} />
       <video
         ref={videoRef}
         src={`${videoUrl}`}
         /* src={`http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4`} */
-        autoPlay
+        autoPlay={!watchTimeExceeded}
+        preload={watchTimeExceeded ? "metadata" : "auto"}
         className="video"
         controls={false}
         onTimeUpdate={handleProgress}
         onMouseOver={() => setShowControl(true)}
         onMouseMove={() => setShowControl(true)}
+        style={{filter:`${watchTimeExceeded && "blur(5px)"}`}}
       ></video>
       {loading && (
         <div className="loading_spinner">
@@ -342,7 +359,7 @@ function VideoPlayer({ videoUrl, playerControls }) {
         </div>
       )}
 
-      <div className={`controls ${showControl ? "show" : ""}`}>
+      <div className={`controls ${showControl ? "show" : ""}`} style={{...(watchTimeExceeded &&{pointerEvents:"none",filter:"blur(5px)"})}}>
         <div className="seek_controls">
           <input
             className="video_seeker"

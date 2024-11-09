@@ -13,12 +13,14 @@ import { getAllComments } from "./redux/action/comment";
 import { getAllHistory } from "./redux/action/history";
 import { getLikedVideo } from "./redux/action/likedvideo";
 import { getWatchLater } from "./redux/action/watchlater";
+import { getUserUpdates } from "./redux/action/profile";
 
 function App() {
   const [toggleDrawerSidebar, setDrawerSidebar] = useState({ display: "none" });
   const [editCreateChannelBtn, setEditCreateChannelBtn] = useState(false);
   const [videoUploadPage, setVideoUploadPage] = useState(false);
   const isLoggedIn = useSelector((state)=>state.currentUserReducer) || null
+  
   
   const dispatch = useDispatch()
   
@@ -29,6 +31,8 @@ function App() {
     dispatch(getAllVideo())
     isLoggedIn&&dispatch(getLikedVideo())
     isLoggedIn&&dispatch(getWatchLater())
+    isLoggedIn&&dispatch(getUserUpdates(isLoggedIn.result._id))
+    isLoggedIn&&console.log(isLoggedIn.result._id)
     // eslint-disable-next-line
   },[dispatch,isLoggedIn])
   const toggleDrawer = () => {

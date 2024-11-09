@@ -77,7 +77,7 @@ function Profile() {
   const activePlan = plans.filter((p) => p.name === userUpdates?.plan?.tier )[0];
   
   const otherPlans = plans.filter((p) => p.name !== userPlan);
-  const wtPercentage = (100-userUpdates?.plan.watchTime/60*userUpdates?.plan.watchTime/100).toFixed(0)
+  const wtPercentage = (userUpdates?.plan.watchTime/60*userUpdates?.plan.watchTime/100).toFixed(0)
   console.log('ap',activePlan, 'up', userPlan,'op',otherPlans,'uu',userUpdates);
 
   console.log();
